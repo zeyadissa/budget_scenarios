@@ -1,4 +1,4 @@
-CreateCostIndex <- function(pay_name,prod_name,deflator_name){
+CreateCostIndex <- function(pay_name,prod_name,deflator_name,custom_prod,custom_pay){
   
   #Read all the tables
   FINAL_all_pay <- data.table::fread('const/FINAL_all_pay') %>%
@@ -49,8 +49,28 @@ for (i in seq_along(cost_index$fyear)) {
   }
 }
 
+#custom
+for (i in seq_along(cost_index$fyear)) {
+  
+  if (i == 1) {
+    
+    # The first value should be 100
+    cost_index$VAL_custom_index[i] <- 100                    
+  }
+  
+  if (i > 1) {
+    
+    # Consequent values [i] depend on the lagged value [i-1]
+    cost_index$VAL_custom_index[i] <- (cost_index$VAL_custom_index[i-1] * (1+((custom_pay-cost_index$VAL_deflator[i])/100))*0.73) +
+      (cost_index$VAL_custom_index[i-1] * (1-0.73)) *
+      (1-(custom_prod/100))
+    
+  }
+}
+
 cost_index<- cost_index %>%
-  dplyr::select(fyear,VAL_deflator,VAL_index,VAL_prod,VAL_pay)
+  dplyr::select(fyear,VAL_deflator,VAL_index,VAL_prod,VAL_pay,VAL_custom_index)
 
 return(cost_index)
+
 }

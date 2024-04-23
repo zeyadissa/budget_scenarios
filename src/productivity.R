@@ -20,11 +20,11 @@ latest.prod.pg <- read.prod.page %>%
 latest.prod.xlsx <- paste("https://www.ons.gov.uk",latest.prod.pg, sep="")
 
 #Download file
-download((latest.prod.xlsx),
+downloader::download((latest.prod.xlsx),
          dest=("const/latest_productivity.xlsx"), mode="wb")
 
 #Read file into R
-latest_productivity <- read_excel("const/latest_productivity.xlsx", 
+latest_productivity <- readxl::read_excel("const/latest_productivity.xlsx", 
                                   sheet = "3b", skip = 3) %>%
   select(1,4) %>%
   filter(row_number()<which(`Year`=="2019/20")) %>%
@@ -36,7 +36,7 @@ latest_productivity <- read_excel("const/latest_productivity.xlsx",
 
 #Create values for projection
 
-project_productivity <- read_excel("const/latest_productivity.xlsx", 
+project_productivity <- readxl::read_excel("const/latest_productivity.xlsx", 
                                    sheet = "3b", skip = 3) %>%
   select(1,4) %>%
   filter(row_number()<which(`Year`=="2019/20")) %>%

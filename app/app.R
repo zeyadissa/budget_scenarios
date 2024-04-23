@@ -16,6 +16,9 @@ data <- data.table::fread('const/predicted_cwa_budget.csv') %>%
   filter(fyear < 2036)
 devtools::install_github('THF-evaluative-analytics/THFstyle')
 
+productivity_data <- data.table::fread('const/productivity_data.csv')
+pay_data <- data.table::fread('const/pay_data.csv')
+
 # UI ----------------------------------------------------------------------
 
 ui <- fluidPage(
@@ -43,20 +46,20 @@ ui <- fluidPage(
                  radioGroupButtons(
                    inputId = "type",
                    label = "Select Graph Type",
-                   choices = c('Budget','Budget Split','Activity'),
+                   choices = c('Budget','Budget Split'),
                    justified = TRUE
                  ),
                  hr(),
                  radioGroupButtons(
                    inputId = "pay_name",
-                   label = "Pay growth",
-                   choices = c('High','Central','Low'),
+                   label = "Pay growth above inflation",
+                   choices = c('High (+2%)','Central (0%)','Low (-1%)'),
                    justified = TRUE
                  ),
                  radioGroupButtons(
                    inputId = "prod_name",
                    label = "Productivity growth",
-                   choices = c('High','Central','Low'),
+                   choices = c('High (0.93%)','Central (0.58%)','Low (0.17%)'),
                    justified = TRUE
                  ),
                  radioGroupButtons(
@@ -65,9 +68,31 @@ ui <- fluidPage(
                    choices = c('Constant','Changing'),
                    justified = TRUE
                  ),
+                 numericInput(
+                   inputId = 'custom_prod',
+                   label = 'Custom productivity CAGR (%)',
+                   min = -20,
+                   value = 0.571,
+                   max = 20,
+                   step = 0.01
+                 ),
+                 numericInput(
+                   inputId = 'custom_pay',
+                   label = 'Custom pay growth (%)',
+                   min = -100,
+                   value = 0,
+                   max = 100,
+                   step = 0.01
+                 ),
                  materialSwitch(
                    inputId = "real_flag",
                    label = "Real terms?", 
+                   value = TRUE,
+                   status = "primary"
+                 ),
+                 materialSwitch(
+                   inputId = "custom",
+                   label = "Custom growth rates?", 
                    value = TRUE,
                    status = "primary"
                  ),
@@ -82,9 +107,9 @@ ui <- fluidPage(
 server <- function(input,output,session){
   
   pay_name <- reactive({
-    if(input$pay_name == 'High'){
+    if(input$pay_name == 'High (+2%)'){
       'max_nhs_pay'
-    } else if(input$pay_name == 'Low'){
+    } else if(input$pay_name == 'Low (-1%)'){
       'min_nhs_pay'
     } else {
       'central_nhs_pay'
@@ -92,9 +117,9 @@ server <- function(input,output,session){
   })
   
   prod_name <- reactive({
-    if(input$prod_name == 'High'){
+    if(input$prod_name == 'High (0.93%)'){
       'min_prod'
-    } else if(input$prod_name == 'Low'){
+    } else if(input$prod_name == 'Low (0.17%)'){
       'max_prod'
     } else {
       'central_prod'
@@ -110,9 +135,20 @@ server <- function(input,output,session){
   })
   
   cost_index <- reactive({
+    if(input$custom == T){
     data <- CreateCostIndex(pay_name = pay_name(),
                     prod_name = prod_name(),
-                    deflator_name = deflator_name())
+                    deflator_name = deflator_name(),
+                    custom_prod = input$custom_prod,
+                    custom_pay = input$custom_pay) %>%
+      mutate(VAL_index = VAL_custom_index)}
+    else {
+      data <- CreateCostIndex(pay_name = pay_name(),
+                              prod_name = prod_name(),
+                              deflator_name = deflator_name(),
+                              custom_prod = input$custom_prod,
+                              custom_pay = input$custom_pay)
+    }
     return(data)
   })
   
@@ -122,15 +158,9 @@ server <- function(input,output,session){
              predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
       pivot_longer(cols=c(starts_with('predicted_budget')),names_to='budget_type',values_to='budget_value')})
   
-  graph_activity_data <- reactive({data %>%
-      left_join(cost_index(),by=c('fyear')) %>%
-      mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
-             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
-      pivot_longer(cols=c(starts_with('predicted_activity')),names_to='activity_type',values_to='activity_value')})
-  
   budget_data_low <- reactive({
     data %>%
-      left_join(CreateCostIndex('min_nhs_pay','max_prod','deflator'),by=c('fyear')) %>%
+      left_join(CreateCostIndex('min_nhs_pay','max_prod','deflator',custom_prod = input$custom_prod,custom_pay = input$custom_pay),by=c('fyear')) %>%
       mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
              predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
       group_by(fyear) %>%
@@ -139,7 +169,7 @@ server <- function(input,output,session){
   
   budget_data_high <- reactive({
     data %>%
-      left_join(CreateCostIndex('max_nhs_pay','min_prod','deflator'),by=c('fyear')) %>%
+      left_join(CreateCostIndex('max_nhs_pay','min_prod','deflator',custom_prod = input$custom_prod,custom_pay = input$custom_pay),by=c('fyear')) %>%
       mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
              predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
       group_by(fyear) %>%
@@ -164,7 +194,7 @@ server <- function(input,output,session){
   
   output$maingraph <- plotly::renderPlotly(
     {
-      if(input$type == 'Budget'){
+      if(input$type == 'Budget Split'){
       plotly::ggplotly(ggplot(data=(graph_budget_data() %>% filter(budget_type == budget_select())))+
         geom_col(aes(x=fyear,y=budget_value/1e9,fill=type)) +
         THFstyle::scale_fill_THF()+
@@ -173,7 +203,7 @@ server <- function(input,output,session){
         ylab('Budget (£bn)') +
         labs(fill='POD') + 
         theme(legend.position="bottom"))
-      } else if(input$type == 'Budget Split'){
+      } else if(input$type == 'Budget'){
         plotly::ggplotly(ggplot()+
                            #chosen pick
                            geom_line(data=graph_budget_data() %>% 
@@ -205,3 +235,4 @@ server <- function(input,output,session){
 }
   
 shinyApp(ui=ui,server=server)
+
