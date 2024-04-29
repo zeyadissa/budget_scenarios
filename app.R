@@ -18,7 +18,23 @@ devtools::install_github('THF-evaluative-analytics/THFstyle')
 pop1 <- data.table::fread('const/pop.csv')
 pop2 <- pop1 %>%
   mutate(pop = 100*pop/(pop1 %>% filter(date==2023))$pop)
-  
+
+supplementary <- read.csv('const/data2.csv') %>%
+  pivot_longer(cols=!fyear,names_to='metric',values_to='values')
+
+supplementary2 <- supplementary %>%
+  left_join(.,supplementary %>% filter(fyear=='2018-19') %>% select(!fyear) %>% rename('base'=values),by=c('metric')) %>%
+  mutate(index = (100*values) / base ) %>%
+  select(fyear,metric,index,values)
+
+other_data <- read.csv('const/data1.csv') %>%
+  mutate(pred_cross=cross_2018_age_sex_pred,
+         pred_cross_all = cross_2018_all_vars_pred,
+         panel_log=panel_all_vars_log_pred,
+         panel_pred = panel_all_vars_pred) %>%
+  select(outcome,fyear,pred_cross,pred_cross_all,panel_pred,panel_log) %>%
+  pivot_longer(cols=!c(outcome,fyear),names_to='type',values_to='values')
+
 # UI ----------------------------------------------------------------------
 
 ui <- fluidPage(
@@ -106,7 +122,34 @@ ui <- fluidPage(
                  downloadButton("downloadData",
                                 "Download",
                                 style = "width:100%;")),
-               mainPanel(plotly::plotlyOutput('maingraph'),style='border: 0px')))))
+               mainPanel(plotly::plotlyOutput('maingraph'),style='border: 0px'))),
+    tabPanel('Model Outputs',
+             fluid = T,
+             icon=icon('map'),
+             sidebarLayout(
+               sidebarPanel(
+                 titlePanel(h4(strong('MODEL OUTPUTS'),icon('map',class='about-icon fa-pull-left'))),
+                 em('Explore various model outputs'),
+                 hr(),
+                 pickerInput(
+                   inputId = "metric_filter",
+                   label = "Select metrics of interest", 
+                   choices = unique(other_data$outcome),
+                   selected = ('apc_spell_cost_elective'),
+                   multiple = TRUE
+                 ),
+                 pickerInput(
+                   inputId = "metric_type",
+                   label = "Select output type", 
+                   choices = unique(other_data$type),
+                   multiple = F
+                 ),
+                 hr(),
+                 downloadButton("downloadData",
+                                "Download",
+                                style = "width:100%;")),
+               mainPanel(plotly::plotlyOutput('other_graph'),style='border: 0px')))
+    ))
     
 # SERVER ------------------------------------------------------------------
 
@@ -210,6 +253,18 @@ server <- function(input,output,session){
     }
   })
   
+  output$other_graph <- plotly::renderPlotly({
+    plotly::ggplotly(
+      ggplot(data=other_data %>% 
+               filter(outcome %in% input$metric_filter & type == input$metric_type))+
+        geom_line(aes(x=fyear,y=values,col=outcome)) +
+        THFstyle::scale_colour_THF() +
+        theme_bw(base_size=12)+
+        xlab('')+
+        ylab('Index (2018/19) = 100')
+      )
+  })
+    
   output$maingraph <- plotly::renderPlotly(
     {
       if(input$type == 'Budget Split'){
@@ -268,13 +323,16 @@ server <- function(input,output,session){
                          ,'%'), 
             showarrow = F))
       } else {
-        plotly::ggplotly(ggplot(data=pop2)+
+        plotly::ggplotly(ggplot(data=supplementary2 %>%
+                                  mutate(fyear = as.numeric(substr(fyear,1,4))))+
                            #chosen pick
-                           geom_line(aes(x=date,y=pop)) +
-                           THFstyle::scale_fill_THF()+
+                           geom_line(aes(x=fyear,y=index,values=values,col=metric)) +
+                           THFstyle::scale_colour_THF()+
                            theme_bw(base_size = 12) +
                            xlab('') +
-                           ylab('Factor (2019/20 = 100)'))
+                           ylab('Factor (2018/19) = 100)'),
+                         tooltip = c("fyear", "values")
+        )
       }
     }
   )
