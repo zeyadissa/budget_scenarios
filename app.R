@@ -12,8 +12,40 @@ source('src/cost_index.R')
 
 #These are the controls for the zoom: they are needed to set the boundary to UK
 THEME <- 'simplex'
+
+other_data <- read.csv('const/data1.csv') %>%
+  mutate(pred_cross=cross_2018_age_sex_pred,
+         pred_cross_all = cross_2018_all_vars_pred,
+         panel_log=panel_all_vars_log_pred,
+         panel_pred = panel_all_vars_pred) %>%
+  select(outcome,fyear,pred_cross,pred_cross_all,panel_pred,panel_log) %>%
+  pivot_longer(cols=!c(outcome,fyear),names_to='type',values_to='values')
+
+other_data2 <- other_data %>% 
+  pivot_wider(names_from=type,values_from=values)%>%
+  rename('type' = outcome) %>%
+  mutate(panel_log = panel_log *100) %>%
+  select(type,fyear,panel_log) %>%
+  mutate(flag = case_when(
+    grepl(pattern='cost',x=type)==T~'log_budget',
+    T ~'log_activity'
+  )) %>%
+  mutate(type = case_when(
+    grepl(pattern='elective',x=type)==T ~ 'apc_spell_count_elective',
+    grepl(pattern='emergency',x=type)==T ~ 'apc_emergency',
+    grepl(pattern='total_gp',x=type)==T ~ 'gp_appointments',
+    grepl(pattern='op_',x=type)==T ~ 'outpatient_attended_appointments',
+    grepl(pattern='ae_',x=type)==T ~ 'ae_attendances')) %>%
+  drop_na() %>%
+  as.data.frame()%>%
+  tidyr::pivot_wider(names_from=flag,values_from=panel_log)
+
 data <- data.table::fread('const/predicted_cwa_budget.csv') %>%
-  filter(fyear < 2036)
+  filter(fyear < 2036) %>%
+  left_join(.,other_data2,by=c('fyear','type')) %>%
+  mutate(predicted_activity_log = as.numeric(baseline_activity * log_activity)/100,
+         predicted_budget_log = as.numeric(baseline_budget*log_budget)/100)
+
 devtools::install_github('THF-evaluative-analytics/THFstyle')
 pop1 <- data.table::fread('const/pop.csv')
 pop2 <- pop1 %>%
@@ -26,14 +58,6 @@ supplementary2 <- supplementary %>%
   left_join(.,supplementary %>% filter(fyear=='2018-19') %>% select(!fyear) %>% rename('base'=values),by=c('metric')) %>%
   mutate(index = (100*values) / base ) %>%
   select(fyear,metric,index,values)
-
-other_data <- read.csv('const/data1.csv') %>%
-  mutate(pred_cross=cross_2018_age_sex_pred,
-         pred_cross_all = cross_2018_all_vars_pred,
-         panel_log=panel_all_vars_log_pred,
-         panel_pred = panel_all_vars_pred) %>%
-  select(outcome,fyear,pred_cross,pred_cross_all,panel_pred,panel_log) %>%
-  pivot_longer(cols=!c(outcome,fyear),names_to='type',values_to='values')
 
 # UI ----------------------------------------------------------------------
 
@@ -81,7 +105,7 @@ ui <- fluidPage(
                  radioGroupButtons(
                    inputId = "growth_name",
                    label = "Activity growth type",
-                   choices = c('Changing','Constant'),
+                   choices = c('Changing (linear)','Constant','Changing (log)'),
                    justified = TRUE
                  ),
                  numericInput(
@@ -207,7 +231,8 @@ server <- function(input,output,session){
         dplyr::left_join(.,pop1,by=c('fyear'='date')) %>%
         mutate(pop = case_when(is.na(pop)==T~68,T~pop)) %>%
         mutate(predicted_budget_constant = predicted_budget_constant/(pop),
-               predicted_budget_changing=predicted_budget_changing/(pop))
+               predicted_budget_changing=predicted_budget_changing/(pop),
+               predicted_budget_log = predicted_budget_log/pop)
     } else {
       data
     }
@@ -216,40 +241,49 @@ server <- function(input,output,session){
   graph_budget_data <- reactive({data2() %>%
       left_join(cost_index(),by=c('fyear')) %>%
       mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
-             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
+             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing,
+             predicted_budget_log = (VAL_index/100)*predicted_budget_log) %>%
       pivot_longer(cols=c(starts_with('predicted_budget')),names_to='budget_type',values_to='budget_value')})
   
   budget_data_low <- reactive({
     data2() %>%
       left_join(CreateCostIndex('min_nhs_pay','max_prod','deflator',custom_prod = input$custom_prod,custom_pay = input$custom_pay),by=c('fyear')) %>%
       mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
-             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
+             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing,
+             predicted_budget_log = (VAL_index/100)*predicted_budget_log) %>%
       group_by(fyear) %>%
       summarise(predicted_budget_constant = sum(predicted_budget_constant,na.rm=T),
-                predicted_budget_changing = sum(predicted_budget_changing,na.rm=T))})
+                predicted_budget_changing = sum(predicted_budget_changing,na.rm=T),
+                predicted_budget_log = sum(predicted_budget_log,na.rm=T))})
   
   budget_data_high <- reactive({
     data2() %>%
       left_join(CreateCostIndex('max_nhs_pay','min_prod','deflator',custom_prod = input$custom_prod,custom_pay = input$custom_pay),by=c('fyear')) %>%
       mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
-             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
+             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing,
+             predicted_budget_log = (VAL_index/100)*predicted_budget_log) %>%
       group_by(fyear) %>%
       summarise(predicted_budget_constant = sum(predicted_budget_constant,na.rm=T),
-                predicted_budget_changing = sum(predicted_budget_changing,na.rm=T))})
-  
+                predicted_budget_changing = sum(predicted_budget_changing,na.rm=T),
+                predicted_budget_log = sum(predicted_budget_log,na.rm=T))})
+
   budget_select <- reactive({
     if(input$growth_name == 'Constant'){
       return('predicted_budget_constant')
-    } else {
+    } else if(input$growth_name == 'Changing (linear)'){
       return('predicted_budget_changing')
+    } else {
+      return('predicted_budget_log')
     }
   })
   
   activity_select <- reactive({
     if(input$growth_name == 'Constant'){
       return('predicted_activity_constant')
-    } else {
+    } else if(input$growth_name == 'Changing (linear)'){
       return('predicted_activity_changing')
+    } else {
+      return('predicted_activity_log')
     }
   })
   
@@ -323,10 +357,17 @@ server <- function(input,output,session){
                          ,'%'), 
             showarrow = F))
       } else {
-        plotly::ggplotly(ggplot(data=supplementary2 %>%
-                                  mutate(fyear = as.numeric(substr(fyear,1,4))))+
+        plotly::ggplotly(ggplot()+
                            #chosen pick
-                           geom_line(aes(x=fyear,y=index,values=values,col=metric)) +
+                           geom_line(data=supplementary2 %>%
+                                       filter(fyear <= 2035) %>%
+                                       mutate(fyear = as.numeric(substr(fyear,1,4))),
+                                     aes(x=fyear,y=index,values=values,col=metric)) +
+                           geom_line(data=graph_budget_data() %>% 
+                                       group_by(fyear,budget_type) %>% 
+                                       summarise(budget_value=sum(budget_value)) %>% 
+                                       filter(budget_type==budget_select()),
+                                     aes(x=fyear,y=budget_value/1e9),col='#2a7979',linetype=2)+
                            THFstyle::scale_colour_THF()+
                            theme_bw(base_size = 12) +
                            xlab('') +
