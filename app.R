@@ -15,10 +15,10 @@ THEME <- 'simplex'
 data <- data.table::fread('const/predicted_cwa_budget.csv') %>%
   filter(fyear < 2036)
 devtools::install_github('THF-evaluative-analytics/THFstyle')
-
-productivity_data <- data.table::fread('const/productivity_data.csv')
-pay_data <- data.table::fread('const/pay_data.csv')
-
+pop1 <- data.table::fread('const/pop.csv')
+pop2 <- pop1 %>%
+  mutate(pop = 100*pop/(pop1 %>% filter(date==2023))$pop)
+  
 # UI ----------------------------------------------------------------------
 
 ui <- fluidPage(
@@ -46,7 +46,7 @@ ui <- fluidPage(
                  radioGroupButtons(
                    inputId = "type",
                    label = "Select Graph Type",
-                   choices = c('Budget','Budget Split'),
+                   choices = c('Budget','Budget Split','Supplementary'),
                    justified = TRUE
                  ),
                  hr(),
@@ -65,7 +65,7 @@ ui <- fluidPage(
                  radioGroupButtons(
                    inputId = "growth_name",
                    label = "Activity growth type",
-                   choices = c('Constant','Changing'),
+                   choices = c('Changing','Constant'),
                    justified = TRUE
                  ),
                  numericInput(
@@ -93,7 +93,13 @@ ui <- fluidPage(
                  materialSwitch(
                    inputId = "custom",
                    label = "Custom growth rates?", 
-                   value = TRUE,
+                   value = F,
+                   status = "primary"
+                 ),
+                 materialSwitch(
+                   inputId = "per_capita",
+                   label = "Make per capita?", 
+                   value = F,
                    status = "primary"
                  ),
                  hr(),
@@ -118,9 +124,9 @@ server <- function(input,output,session){
   
   prod_name <- reactive({
     if(input$prod_name == 'High (0.93%)'){
-      'min_prod'
-    } else if(input$prod_name == 'Low (0.17%)'){
       'max_prod'
+    } else if(input$prod_name == 'Low (0.17%)'){
+      'min_prod'
     } else {
       'central_prod'
     }
@@ -136,30 +142,42 @@ server <- function(input,output,session){
   
   cost_index <- reactive({
     if(input$custom == T){
-    data <- CreateCostIndex(pay_name = pay_name(),
+      cost_index <- CreateCostIndex(pay_name = pay_name(),
                     prod_name = prod_name(),
                     deflator_name = deflator_name(),
                     custom_prod = input$custom_prod,
                     custom_pay = input$custom_pay) %>%
       mutate(VAL_index = VAL_custom_index)}
     else {
-      data <- CreateCostIndex(pay_name = pay_name(),
+      cost_index <- CreateCostIndex(pay_name = pay_name(),
                               prod_name = prod_name(),
                               deflator_name = deflator_name(),
                               custom_prod = input$custom_prod,
                               custom_pay = input$custom_pay)
     }
-    return(data)
+    return(cost_index)
   })
   
-  graph_budget_data <- reactive({data %>%
+  data2 <- reactive({
+    if(input$per_capita == T){
+      data %>%
+        dplyr::left_join(.,pop1,by=c('fyear'='date')) %>%
+        mutate(pop = case_when(is.na(pop)==T~68,T~pop)) %>%
+        mutate(predicted_budget_constant = predicted_budget_constant/(pop),
+               predicted_budget_changing=predicted_budget_changing/(pop))
+    } else {
+      data
+    }
+  })
+  
+  graph_budget_data <- reactive({data2() %>%
       left_join(cost_index(),by=c('fyear')) %>%
       mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
              predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
       pivot_longer(cols=c(starts_with('predicted_budget')),names_to='budget_type',values_to='budget_value')})
   
   budget_data_low <- reactive({
-    data %>%
+    data2() %>%
       left_join(CreateCostIndex('min_nhs_pay','max_prod','deflator',custom_prod = input$custom_prod,custom_pay = input$custom_pay),by=c('fyear')) %>%
       mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
              predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
@@ -168,7 +186,7 @@ server <- function(input,output,session){
                 predicted_budget_changing = sum(predicted_budget_changing,na.rm=T))})
   
   budget_data_high <- reactive({
-    data %>%
+    data2() %>%
       left_join(CreateCostIndex('max_nhs_pay','min_prod','deflator',custom_prod = input$custom_prod,custom_pay = input$custom_pay),by=c('fyear')) %>%
       mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
              predicted_budget_changing = (VAL_index/100)*predicted_budget_changing) %>%
@@ -203,6 +221,7 @@ server <- function(input,output,session){
         ylab('Budget (£bn)') +
         labs(fill='POD') + 
         theme(legend.position="bottom"))
+
       } else if(input$type == 'Budget'){
         plotly::ggplotly(ggplot()+
                            #chosen pick
@@ -218,17 +237,44 @@ server <- function(input,output,session){
                            xlab('') +
                            ylab('Budget (£bn)') +
                            labs(fill='POD') + 
-                           theme(legend.position="bottom"))
+                           theme(legend.position="bottom")) %>%
+          plotly::layout(annotations = list(
+            x=2020, 
+            y=125,
+            text = paste('Average growth rate:',
+                         round(100*(
+                           (
+                           (graph_budget_data() %>% 
+                           group_by(fyear,budget_type) %>% 
+                           summarise(budget_value=sum(budget_value)) %>% 
+                           filter(budget_type==budget_select())%>%
+                           filter(fyear == 2035))$budget_value - 
+                            
+                             (graph_budget_data() %>% 
+                               group_by(fyear,budget_type) %>% 
+                               summarise(budget_value=sum(budget_value)) %>% 
+                               filter(budget_type==budget_select())%>%
+                               filter(fyear == 2018))$budget_value
+                           
+                           )/
+                            (
+                              ((graph_budget_data() %>% 
+                               group_by(fyear,budget_type) %>% 
+                               summarise(budget_value=sum(budget_value)) %>% 
+                               filter(budget_type==budget_select())%>%
+                               filter(fyear == 2018))$budget_value)
+                              *
+                                17)),1)
+                         ,'%'), 
+            showarrow = F))
       } else {
-        plotly::ggplotly(ggplot()+
+        plotly::ggplotly(ggplot(data=pop2)+
                            #chosen pick
-                           geom_col(data=graph_activity_data() %>% filter(activity_type == activity_select()),aes(x=fyear,y=activity_value/1e6,fill=type)) +
+                           geom_line(aes(x=date,y=pop)) +
                            THFstyle::scale_fill_THF()+
                            theme_bw(base_size = 12) +
                            xlab('') +
-                           ylab('Cost-weighted activity (mn)') +
-                           labs(fill='POD') + 
-                           theme(legend.position="bottom"))
+                           ylab('Factor (2019/20 = 100)'))
       }
     }
   )
