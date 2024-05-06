@@ -6,58 +6,62 @@ library(fontawesome)
 library(tidyverse)
 library(devtools)
 
-source('src/cost_index.R')
+CreateIndex <- function(a,prod,pay,deflator){
+  1 + a*(pay-deflator) - (1-a)*(prod-1)
+}
+
+FINAL_deflator <- read.csv('const/FINAL_deflator.csv')
+  
+data_final <- read.csv('const/FINAL_DATA.csv') %>%
+  select(!c(deflator,X)) %>%
+  left_join(.,FINAL_deflator %>% select(!c(deflator,X)) %>% mutate(fyear=as.integer(fyear)),by=c('fyear')) %>%
+  rename(deflator = 'index_deflator')
+
+pop_final <- read.csv('const/FINAL_POP.csv')
+
+#shock function
+CreateShock <- function(df,shock_type,shock_range,val_prod,inten){
+  
+  if(shock_type == 'Permanent'){
+    
+    df2<-df %>% dplyr::mutate(
+      prod = case_when(
+        fyear >= min(shock_range) & fyear <= max(shock_range) ~ ((100 + val_prod)*inten)/10000,
+        T ~ (100 + val_prod)/100))
+    
+    return(df2)
+    
+  } else if(shock_type == 'U-Shaped'){
+    
+    intensity_sta <- ((100 + val_prod) * inten)/100
+    intensity_inter <- (100)/intensity_sta
+    intensity_final <- intensity_inter^(1/(max(shock_range) - min(shock_range)))
+    intensity_final <- ifelse(intensity_final == 1, (100 + val_prod)/100,intensity_final)
+
+    df2 <- df %>% dplyr::mutate(
+      prod = case_when(
+        fyear == min(shock_range)  ~ ((100 + val_prod)*inten)/10000,
+        fyear > min(shock_range) & fyear <= max(shock_range) ~ intensity_final,
+        T ~ (100 + val_prod)/100))
+    
+    return(df2)
+  }
+  return(df2)
+  
+}
 
 # Global Variables --------------------------------------------------------
 
 #These are the controls for the zoom: they are needed to set the boundary to UK
 THEME <- 'simplex'
-
-other_data <- read.csv('const/data1.csv') %>%
-  mutate(pred_cross=cross_2018_age_sex_pred,
-         pred_cross_all = cross_2018_all_vars_pred,
-         panel_log=panel_all_vars_log_pred,
-         panel_pred = panel_all_vars_pred) %>%
-  select(outcome,fyear,pred_cross,pred_cross_all,panel_pred,panel_log) %>%
-  pivot_longer(cols=!c(outcome,fyear),names_to='type',values_to='values')
-
-other_data2 <- other_data %>% 
-  pivot_wider(names_from=type,values_from=values)%>%
-  rename('type' = outcome) %>%
-  mutate(panel_log = panel_log *100) %>%
-  select(type,fyear,panel_log) %>%
-  mutate(flag = case_when(
-    grepl(pattern='cost',x=type)==T~'log_budget',
-    T ~'log_activity'
-  )) %>%
-  mutate(type = case_when(
-    grepl(pattern='elective',x=type)==T ~ 'apc_spell_count_elective',
-    grepl(pattern='emergency',x=type)==T ~ 'apc_emergency',
-    grepl(pattern='total_gp',x=type)==T ~ 'gp_appointments',
-    grepl(pattern='op_',x=type)==T ~ 'outpatient_attended_appointments',
-    grepl(pattern='ae_',x=type)==T ~ 'ae_attendances')) %>%
-  drop_na() %>%
-  as.data.frame()%>%
-  tidyr::pivot_wider(names_from=flag,values_from=panel_log)
-
-data <- data.table::fread('const/predicted_cwa_budget.csv') %>%
-  filter(fyear < 2036) %>%
-  left_join(.,other_data2,by=c('fyear','type')) %>%
-  mutate(predicted_activity_log = as.numeric(baseline_activity * log_activity)/100,
-         predicted_budget_log = as.numeric(baseline_budget*log_budget)/100)
-
-devtools::install_github('THF-evaluative-analytics/THFstyle')
-pop1 <- data.table::fread('const/pop.csv')
-pop2 <- pop1 %>%
-  mutate(pop = 100*pop/(pop1 %>% filter(date==2023))$pop)
-
-supplementary <- read.csv('const/data2.csv') %>%
-  pivot_longer(cols=!fyear,names_to='metric',values_to='values')
-
-supplementary2 <- supplementary %>%
-  left_join(.,supplementary %>% filter(fyear=='2018-19') %>% select(!fyear) %>% rename('base'=values),by=c('metric')) %>%
-  mutate(index = (100*values) / base ) %>%
-  select(fyear,metric,index,values)
+min_date <- 2018
+max_date <- 2035
+types <- c('elective','ae','op','gp','emergency')
+models <- c('log','constant','linear')
+measures <- c('cost','activity')
+val_a <- 0.73
+activity_growth_type <- c('Changing','Constant','Log')
+shock_types <- c('Permanent','U-Shaped')
 
 # UI ----------------------------------------------------------------------
 
@@ -84,56 +88,31 @@ ui <- fluidPage(
                  em('Create and vary budgetary scenarios through productivity and wage levers'),
                  hr(),
                  radioGroupButtons(
-                   inputId = "type",
-                   label = "Select Graph Type",
-                   choices = c('Budget','Budget Split','Supplementary'),
-                   justified = TRUE
-                 ),
-                 hr(),
-                 radioGroupButtons(
-                   inputId = "pay_name",
-                   label = "Pay growth above inflation",
-                   choices = c('High (+2%)','Central (0%)','Low (-1%)'),
-                   justified = TRUE
-                 ),
-                 radioGroupButtons(
-                   inputId = "prod_name",
-                   label = "Productivity growth",
-                   choices = c('High (0.93%)','Central (0.58%)','Low (0.17%)'),
-                   justified = TRUE
-                 ),
-                 radioGroupButtons(
                    inputId = "growth_name",
                    label = "Activity growth type",
-                   choices = c('Changing (linear)','Constant','Changing (log)'),
+                   choices = activity_growth_type,
                    justified = TRUE
                  ),
                  numericInput(
-                   inputId = 'custom_prod',
+                   inputId = 'prod',
                    label = 'Custom productivity CAGR (%)',
-                   min = -20,
-                   value = 0.571,
-                   max = 20,
-                   step = 0.01
+                   min = -100,
+                   value = 1,
+                   max = 100,
+                   step = 1
                  ),
                  numericInput(
-                   inputId = 'custom_pay',
+                   inputId = 'pay',
                    label = 'Custom pay growth (%)',
                    min = -100,
-                   value = 0,
+                   value = 2.5,
                    max = 100,
-                   step = 0.01
+                   step = 1
                  ),
                  materialSwitch(
                    inputId = "real_flag",
                    label = "Real terms?", 
                    value = TRUE,
-                   status = "primary"
-                 ),
-                 materialSwitch(
-                   inputId = "custom",
-                   label = "Custom growth rates?", 
-                   value = F,
                    status = "primary"
                  ),
                  materialSwitch(
@@ -143,240 +122,208 @@ ui <- fluidPage(
                    status = "primary"
                  ),
                  hr(),
+                 materialSwitch(
+                   inputId = "shock",
+                   label = "Create shock?", 
+                   value = F,
+                   status = "primary"
+                 ),
+                 radioGroupButtons(
+                   inputId = "shock_type",
+                   label = "Select shock type",
+                   choices = shock_types,
+                   justified = TRUE
+                 ),
+                 numericInput(
+                   inputId = 'intensity',
+                   label = 'Shock intensity',
+                   min = -100,
+                   value = 0,
+                   max = 100,
+                   step = 1
+                 ),
+                 sliderTextInput(
+                   inputId = "range",
+                   label = "Choose shock range", 
+                   choices = min_date:max_date,
+                   selected = c(2019,2021)
+                 ),
+                 hr(),
                  downloadButton("downloadData",
                                 "Download",
                                 style = "width:100%;")),
-               mainPanel(plotly::plotlyOutput('maingraph'),style='border: 0px'))),
-    tabPanel('Model Outputs',
-             fluid = T,
-             icon=icon('map'),
-             sidebarLayout(
-               sidebarPanel(
-                 titlePanel(h4(strong('MODEL OUTPUTS'),icon('map',class='about-icon fa-pull-left'))),
-                 em('Explore various model outputs'),
-                 hr(),
-                 pickerInput(
-                   inputId = "metric_filter",
-                   label = "Select metrics of interest", 
-                   choices = unique(other_data$outcome),
-                   selected = ('apc_spell_cost_elective'),
-                   multiple = TRUE
-                 ),
-                 pickerInput(
-                   inputId = "metric_type",
-                   label = "Select output type", 
-                   choices = unique(other_data$type),
-                   multiple = F
-                 ),
-                 hr(),
-                 downloadButton("downloadData",
-                                "Download",
-                                style = "width:100%;")),
-               mainPanel(plotly::plotlyOutput('other_graph'),style='border: 0px')))
+               mainPanel(
+                 fluidRow(
+                   column(12, plotly::plotlyOutput('maingraph')),
+                   column(12, plotly::plotlyOutput('subgraph')),
+                   column(12, textOutput('growth_rate'))),
+                 style='border: 0px')
+               ))
     ))
     
 # SERVER ------------------------------------------------------------------
 
 server <- function(input,output,session){
   
-  pay_name <- reactive({
-    if(input$pay_name == 'High (+2%)'){
-      'max_nhs_pay'
-    } else if(input$pay_name == 'Low (-1%)'){
-      'min_nhs_pay'
+  deflator_adj <- reactive({
+    if(input$real_flag == F){
+      deflator <- 0
     } else {
-      'central_nhs_pay'
+      deflator <- 1
     }
   })
   
-  prod_name <- reactive({
-    if(input$prod_name == 'High (0.93%)'){
-      'max_prod'
-    } else if(input$prod_name == 'Low (0.17%)'){
-      'min_prod'
-    } else {
-      'central_prod'
-    }
+  model_select <- reactive({
+    tolower(input$growth_name)
   })
   
-  deflator_name <- reactive({
-    if(input$real_flag == T){
-      'deflator'
-    } else {
-      'non_deflator'
-    }
+  pop_adj <- reactive({
+    if(input$per_capita == F){
+      pop_final %>%
+        mutate(values = 1) %>%
+        select(!c(metric,X))
+    } else
+      pop_final %>%
+      select(!c(metric,X)) %>%
+      mutate(values = values / 1000000)
   })
   
-  cost_index <- reactive({
-    if(input$custom == T){
-      cost_index <- CreateCostIndex(pay_name = pay_name(),
-                    prod_name = prod_name(),
-                    deflator_name = deflator_name(),
-                    custom_prod = input$custom_prod,
-                    custom_pay = input$custom_pay) %>%
-      mutate(VAL_index = VAL_custom_index)}
-    else {
-      cost_index <- CreateCostIndex(pay_name = pay_name(),
-                              prod_name = prod_name(),
-                              deflator_name = deflator_name(),
-                              custom_prod = input$custom_prod,
-                              custom_pay = input$custom_pay)
-    }
-    return(cost_index)
-  })
-  
-  data2 <- reactive({
-    if(input$per_capita == T){
-      data %>%
-        dplyr::left_join(.,pop1,by=c('fyear'='date')) %>%
-        mutate(pop = case_when(is.na(pop)==T~68,T~pop)) %>%
-        mutate(predicted_budget_constant = predicted_budget_constant/(pop),
-               predicted_budget_changing=predicted_budget_changing/(pop),
-               predicted_budget_log = predicted_budget_log/pop)
-    } else {
-      data
-    }
-  })
-  
-  graph_budget_data <- reactive({data2() %>%
-      left_join(cost_index(),by=c('fyear')) %>%
-      mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
-             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing,
-             predicted_budget_log = (VAL_index/100)*predicted_budget_log) %>%
-      pivot_longer(cols=c(starts_with('predicted_budget')),names_to='budget_type',values_to='budget_value')})
-  
-  budget_data_low <- reactive({
-    data2() %>%
-      left_join(CreateCostIndex('min_nhs_pay','max_prod','deflator',custom_prod = input$custom_prod,custom_pay = input$custom_pay),by=c('fyear')) %>%
-      mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
-             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing,
-             predicted_budget_log = (VAL_index/100)*predicted_budget_log) %>%
-      group_by(fyear) %>%
-      summarise(predicted_budget_constant = sum(predicted_budget_constant,na.rm=T),
-                predicted_budget_changing = sum(predicted_budget_changing,na.rm=T),
-                predicted_budget_log = sum(predicted_budget_log,na.rm=T))})
-  
-  budget_data_high <- reactive({
-    data2() %>%
-      left_join(CreateCostIndex('max_nhs_pay','min_prod','deflator',custom_prod = input$custom_prod,custom_pay = input$custom_pay),by=c('fyear')) %>%
-      mutate(predicted_budget_constant = (VAL_index/100)*predicted_budget_constant,
-             predicted_budget_changing = (VAL_index/100)*predicted_budget_changing,
-             predicted_budget_log = (VAL_index/100)*predicted_budget_log) %>%
-      group_by(fyear) %>%
-      summarise(predicted_budget_constant = sum(predicted_budget_constant,na.rm=T),
-                predicted_budget_changing = sum(predicted_budget_changing,na.rm=T),
-                predicted_budget_log = sum(predicted_budget_log,na.rm=T))})
+  data_index <- reactive({
 
-  budget_select <- reactive({
-    if(input$growth_name == 'Constant'){
-      return('predicted_budget_constant')
-    } else if(input$growth_name == 'Changing (linear)'){
-      return('predicted_budget_changing')
-    } else {
-      return('predicted_budget_log')
-    }
+      data_final %>%
+      CreateShock(.,
+                  shock_type=input$shock_type,
+                  shock_range = input$range,
+                  val_prod = input$prod,
+                  inten = intensity_adj()) %>%
+        group_by(type,measure,models) %>%
+        mutate(pay = (100 + input$pay)/100,
+               val_deflator = deflator ^ deflator_adj(),
+               val_prod = cumprod(prod),
+               val_pay = cumprod(pay)
+        ) %>%
+        rowwise()%>%
+        mutate(index = CreateIndex(a = val_a,prod=val_prod,pay=val_pay,deflator=val_deflator),
+               final_value = baseline * (modelled_growth)*index)%>%
+        group_by(fyear,measure,models) %>%
+        filter(measure == 'cost' & models == model_select()) %>%
+        ungroup()%>%
+        select(fyear,val_prod,val_pay,val_deflator,index) %>%
+        unique() %>%
+        pivot_longer(cols=!c(fyear),names_to='names',values_to='values')
+
   })
   
-  activity_select <- reactive({
-    if(input$growth_name == 'Constant'){
-      return('predicted_activity_constant')
-    } else if(input$growth_name == 'Changing (linear)'){
-      return('predicted_activity_changing')
-    } else {
-      return('predicted_activity_log')
-    }
+  data_baseline <- reactive({
+    data_final %>%
+      group_by(type,measure,models) %>%
+      mutate(prod = (100 + input$prod)/100,
+             pay = (100 + input$pay)/100,
+             val_deflator = deflator ^ deflator_adj(),
+             val_prod = cumprod(prod),
+             val_pay = cumprod(pay)
+      ) %>%
+      rowwise()%>%
+      mutate(index = CreateIndex(a = val_a,prod=val_prod,pay=val_pay,deflator=val_deflator),
+             final_value = baseline * (modelled_growth)*index)%>%
+      group_by(fyear,measure,models) %>%
+      summarise(final_value_base = sum(final_value,na.rm=T))%>%
+      filter(measure == 'cost' & models == model_select())  %>%
+      left_join(.,pop_adj(),by='fyear') %>%
+      mutate(final_value_base=final_value_base / values)
   })
   
-  output$other_graph <- plotly::renderPlotly({
-    plotly::ggplotly(
-      ggplot(data=other_data %>% 
-               filter(outcome %in% input$metric_filter & type == input$metric_type))+
-        geom_line(aes(x=fyear,y=values,col=outcome)) +
-        THFstyle::scale_colour_THF() +
-        theme_bw(base_size=12)+
-        xlab('')+
-        ylab('Index (2018/19) = 100')
-      )
+  intensity_adj <- reactive({
+    if(input$shock == F){
+      intensity <- 100
+    } else {
+      intensity <- (100 + input$intensity)
+    }
+    return(intensity)
   })
+  
+  data_model <- reactive({
+    data_final %>%
+      CreateShock(.,
+                  shock_type = input$shock_type,
+                  shock_range = input$range,
+                  val_prod = input$prod,
+                  inten = intensity_adj()) %>%
+        group_by(type,measure,models)  %>%
+        mutate(pay = (100 + input$pay)/100,
+               val_deflator = deflator ^ deflator_adj(),
+               val_prod = cumprod(prod),
+               val_pay = cumprod(pay)
+        ) %>%
+        rowwise()%>%
+        mutate(index = CreateIndex(a = val_a,prod=val_prod,pay=val_pay,deflator=val_deflator),
+               final_value = baseline * (modelled_growth)*index) %>%
+        group_by(fyear,measure,models) %>%
+        summarise(final_value = sum(final_value,na.rm=T))%>%
+        filter(measure == 'cost' & models == model_select())%>%
+        left_join(.,pop_adj(),by='fyear') %>%
+        mutate(final_value=final_value / values)
+    })
     
-  output$maingraph <- plotly::renderPlotly(
-    {
-      if(input$type == 'Budget Split'){
-      plotly::ggplotly(ggplot(data=(graph_budget_data() %>% filter(budget_type == budget_select())))+
-        geom_col(aes(x=fyear,y=budget_value/1e9,fill=type)) +
-        THFstyle::scale_fill_THF()+
+  data_ribbon <- reactive({
+    
+    data_baseline() %>% select(fyear,measure,models,final_value_base) %>%
+      left_join(.,data_model() %>% select(fyear,measure,models,final_value),by=c('fyear','measure','models'))
+    
+  })
+  
+  growth <- reactive({
+    round(100*(((data_model() %>% 
+       ungroup() %>% 
+       select(fyear,final_value) %>% 
+       filter(fyear == max(fyear)))[1,2] -
+      (data_model() %>% 
+         ungroup() %>% 
+         select(fyear,final_value) %>% 
+         filter(fyear == min(fyear)))[1,2])/
+      (length(unique(data_model()$fyear))*(data_model() %>% 
+         ungroup() %>% 
+         select(fyear,final_value) %>% 
+         filter(fyear == min(fyear)))[1,2])),2)
+    
+  })
+  
+  output$growth_rate <- renderText({
+      paste0('   *Average annualised growth rate is: ', 
+            growth(),
+            '%')
+  })
+  
+  #graphs and outputs
+  output$maingraph <- plotly::renderPlotly({
+      plotly::ggplotly(ggplot()+
+                         geom_line(data = data_baseline(),aes(x=fyear,y=final_value_base/1e11),linetype = 2,col='#dd0031',alpha=1) +
+                         geom_line(data=data_model(),aes(x=fyear,y=final_value/1e11),col='#dd0031') +
+                         geom_ribbon(data=data_ribbon(),aes(x=fyear,ymin=final_value_base/1e11,ymax=final_value/1e11),fill='#dd0031',alpha=0.1)+
+                         THFstyle::scale_colour_THF()+
+                         theme_bw(base_size = 12) +
+                         xlab('') +
+                         ylab('Budget (£bn)') +
+                         labs(fill='POD') + 
+                         theme(legend.position="bottom")
+                       )
+      })
+  
+  output$subgraph <- plotly::renderPlotly({
+    plotly::ggplotly(
+      ggplot2::ggplot()+
+        geom_line(data = data_index(),aes(x=fyear,y=values,col=names)) +
+        geom_point(data = data_index(),aes(x=fyear,y=values,col=names)) +
+        THFstyle::scale_colour_THF()+
         theme_bw(base_size = 12) +
         xlab('') +
-        ylab('Budget (£bn)') +
-        labs(fill='POD') + 
-        theme(legend.position="bottom"))
+        ylab('Index (2017 = 100)') +
+        labs(col='Measure') + 
+        theme(legend.position="bottom")
 
-      } else if(input$type == 'Budget'){
-        plotly::ggplotly(ggplot()+
-                           #chosen pick
-                           geom_line(data=graph_budget_data() %>% 
-                                       group_by(fyear,budget_type) %>% 
-                                       summarise(budget_value=sum(budget_value)) %>% 
-                                       filter(budget_type==budget_select()),
-                                     aes(x=fyear,y=budget_value/1e9),col='#2a7979') +
-                           geom_line(data=budget_data_high(),aes(x=fyear,y=predicted_budget_changing/1e9),linetype=2,col='#dd0031') +
-                           geom_line(data=budget_data_low(),aes(x=fyear,y=predicted_budget_changing/1e9),linetype=2,col='#dd0031') +
-                           THFstyle::scale_colour_THF()+
-                           theme_bw(base_size = 12) +
-                           xlab('') +
-                           ylab('Budget (£bn)') +
-                           labs(fill='POD') + 
-                           theme(legend.position="bottom")) %>%
-          plotly::layout(annotations = list(
-            x=2020, 
-            y=125,
-            text = paste('Average growth rate:',
-                         round(100*(
-                           (
-                           (graph_budget_data() %>% 
-                           group_by(fyear,budget_type) %>% 
-                           summarise(budget_value=sum(budget_value)) %>% 
-                           filter(budget_type==budget_select())%>%
-                           filter(fyear == 2035))$budget_value - 
-                            
-                             (graph_budget_data() %>% 
-                               group_by(fyear,budget_type) %>% 
-                               summarise(budget_value=sum(budget_value)) %>% 
-                               filter(budget_type==budget_select())%>%
-                               filter(fyear == 2018))$budget_value
-                           
-                           )/
-                            (
-                              ((graph_budget_data() %>% 
-                               group_by(fyear,budget_type) %>% 
-                               summarise(budget_value=sum(budget_value)) %>% 
-                               filter(budget_type==budget_select())%>%
-                               filter(fyear == 2018))$budget_value)
-                              *
-                                17)),1)
-                         ,'%'), 
-            showarrow = F))
-      } else {
-        plotly::ggplotly(ggplot()+
-                           #chosen pick
-                           geom_line(data=supplementary2 %>%
-                                       filter(fyear <= 2035) %>%
-                                       mutate(fyear = as.numeric(substr(fyear,1,4))),
-                                     aes(x=fyear,y=index,values=values,col=metric)) +
-                           geom_line(data=graph_budget_data() %>% 
-                                       group_by(fyear,budget_type) %>% 
-                                       summarise(budget_value=sum(budget_value)) %>% 
-                                       filter(budget_type==budget_select()),
-                                     aes(x=fyear,y=budget_value/1e9),col='#2a7979',linetype=2)+
-                           THFstyle::scale_colour_THF()+
-                           theme_bw(base_size = 12) +
-                           xlab('') +
-                           ylab('Factor (2018/19) = 100)'),
-                         tooltip = c("fyear", "values")
-        )
-      }
-    }
-  )
+    )
+  })
+  
 }
   
 shinyApp(ui=ui,server=server)

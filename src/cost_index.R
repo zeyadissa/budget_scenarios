@@ -61,7 +61,8 @@ for (i in seq_along(cost_index$fyear)) {
   if (i > 1) {
     
     # Consequent values [i] depend on the lagged value [i-1]
-    cost_index$VAL_custom_index[i] <- (cost_index$VAL_custom_index[i-1] * (1+((custom_pay-cost_index$VAL_deflator[i])/100))*0.73) +
+    cost_index$VAL_custom_index[i] <- 
+      (cost_index$VAL_custom_index[i-1] * (1+((custom_pay-cost_index$VAL_deflator[i])/100))*0.73) +
       (cost_index$VAL_custom_index[i-1] * (1-0.73)) *
       (1-(custom_prod/100))
     

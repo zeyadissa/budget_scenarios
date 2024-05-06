@@ -110,9 +110,11 @@ deflator$deflator_index_base <- deflator$deflator/deflator$deflator[deflator$`Fi
 # keep first 4 characters of FY
 FINAL_deflator <- deflator %>%
             rename(fyear = `Financial year`) %>%
-            rename(deflator_index = deflator, deflator=`per cent change on previous year`) %>%
+            rename(deflator_index = deflator, 
+                   deflator=`per cent change on previous year`) %>%
             mutate(fyear=substr(fyear,1,4)) %>%
-            select(fyear,deflator)
-
+            select(fyear,deflator) %>%
+  filter(fyear >= 2018) %>%
+  mutate(index_deflator = cumprod((100+deflator)/100))
 
 
