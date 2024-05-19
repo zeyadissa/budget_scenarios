@@ -2,9 +2,8 @@ library(tidyverse)
 library(shinythemes)
 library(shiny)
 library(shinyWidgets)
-library(fontawesome)
-library(tidyverse)
 library(devtools)
+
 devtools::install_github('THF-evaluative-analytics/THFstyle')
 
 #deflator data
