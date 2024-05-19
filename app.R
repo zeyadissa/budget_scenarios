@@ -5,18 +5,32 @@ library(shinyWidgets)
 library(fontawesome)
 library(tidyverse)
 library(devtools)
+devtools::install_github('THF-evaluative-analytics/THFstyle')
 
 #deflator data
-FINAL_deflator <- read.csv('const/FINAL_deflator.csv')
-  
+FINAL_deflator <- read.csv('const/FINAL_deflator.csv') %>%
+  select(!X)
+
+waterfall_baseline <- read.csv('const/waterfall_baseline.csv') %>%
+  select(!X) %>%
+  rename(baseline_value = 'final_value')
+
+splits <- read.csv('const/splits.csv') %>%
+  select(!X)
+
 #activity growth data
-data_final <- read.csv('const/FINAL_DATA.csv') %>%
-  select(!c(deflator,X)) %>%
+data_final <- read.csv('const/test_data.csv') %>%
+  select(!c(X)) %>%
+  filter(type != 'iapt') %>%
+  left_join(.,splits,by='type') %>%
   left_join(.,FINAL_deflator %>% 
-              select(!c(X)) %>% 
               rename(real_deflator = 'deflator') %>%
               mutate(fyear=as.integer(fyear)),by=c('fyear')) %>%
   rename(deflator = 'index_deflator')
+
+test <- data_final %>%
+  select(type,models) %>% 
+  unique()
 
 #population data
 pop_final <- read.csv('const/FINAL_POP.csv')
@@ -60,8 +74,8 @@ CreateShock <- function(df,shock_type,shock_range,val_prod,inten){
   
 }
 
-CreateIndex <- function(a,prod,pay,deflator){
-  1 + ((a*((pay-1))) - ((1-a)*(deflator-1)))/(prod)
+CreateIndex <- function(w,d,prod,pay,drug,deflator){
+  1 + ((w*(((pay+deflator)-2))) - ((d)*(deflator-1)) + ((1-w-d)*(drug-1)))/(prod)
 }
 
 # Global Variables --------------------------------------------------------
@@ -70,13 +84,17 @@ CreateIndex <- function(a,prod,pay,deflator){
 THEME <- 'simplex'
 min_date <- 2018
 max_date <- 2035
-types <- c('elective','ae','op','gp','emergency')
-models <- c('log','constant','linear')
 measures <- c('cost','activity')
-val_a <- 0.73
 activity_growth_type <- c('Constant','Log','Changing')
 shock_types <- c('Permanent','U-Shaped')
-scenarios <- c('Scenario A','Scenario B','Scenario C')
+water_type <- unique(test$type)
+#this is the dumbest thing i've ever done but it works.
+#note to self: this is ideally where purrr::walk should be used.
+for(i in test$type){
+  assign(x=paste0(i,'_activity_growth_type'),
+         value=(test %>% filter(type==i))$models)
+         }
+    
 
 # UI ----------------------------------------------------------------------
 
@@ -101,25 +119,27 @@ ui <- fluidPage(
                sidebarPanel(
                  titlePanel(h4(strong('BUDGET SCENARIOS'),icon('house',class='about-icon fa-pull-left'))),
                  hr(),
-                 radioGroupButtons(
-                   inputId = "scenario",
-                   label = "Select Scenario Type",
-                   choices = scenarios,
-                   justified = TRUE
-                 ),
                  numericInput(
                    inputId = 'prod',
                    label = 'Custom productivity CAGR (%)',
                    min = -100,
-                   value = 0.82,
+                   value = 0.58,
                    max = 100,
                    step = 1
                  ),
                  numericInput(
                    inputId = 'pay',
-                   label = 'Custom pay growth (%)',
+                   label = 'Custom above-inflation pay growth (%)',
                    min = -100,
-                   value = 2.5,
+                   value = 0,
+                   max = 100,
+                   step = 1
+                 ),
+                 numericInput(
+                   inputId = 'drug',
+                   label = 'Custom drug growth (%)',
+                   min = -100,
+                   value = 0.5,
                    max = 100,
                    step = 1
                  ),
@@ -157,64 +177,101 @@ ui <- fluidPage(
                    selected = c(2020,2021)
                  ),
                  hr(),
-                 materialSwitch(
-                   inputId = "activity_flag",
-                   label = "Split by activity?", 
-                   value = F,
-                   status = "primary"
-                 ),
+                 selectInput(
+                   inputId = "water_type",
+                   label = "Select POD for waterfall",
+                   choices = water_type),
+                 
+                 selectInput(
+                   inputId = "water_year",
+                   label = "Select financial year for waterfall chart",
+                   choices = 2018:2035,
+                   selected = 2035),
                  hr(),
-                 downloadButton("downloadData",
-                                "Download",
-                                style = "width:100%;")),
+                 actionButton("run",
+                              "Generate Scenario",
+                              style = "width:100%;"),
+                 width = 3),
                mainPanel(
                  fluidRow(
-                   column(12, 
-                          dropdown(
+                   dropdown(
                             tags$h4('Activity Inputs'),
                             circle = T,
                             style = 'unite',
+                            label = 'Model assumptions per POD',
                             status = 'danger',
                             icon = icon('hospital'),
                             width = '300px',
                             #item 1
-                            radioGroupButtons(
+                            selectInput(
                               inputId = "ae_growth",
                               label = "A&E",
-                              choices = activity_growth_type,
-                              justified = TRUE
+                              choices = ae_activity_growth_type
                             ),
-                            radioGroupButtons(
+                            selectInput(
                               inputId = "elective_growth",
                               label = "Elective",
-                              choices = activity_growth_type,
-                              justified = TRUE
+                              choices = elective_activity_growth_type
                             ),
-                            radioGroupButtons(
+                            selectInput(
                               inputId = "op_growth",
                               label = "Outpatients",
-                              choices = activity_growth_type,
-                              justified = TRUE
+                              choices = op_activity_growth_type
                             ),
-                            radioGroupButtons(
+                            selectInput(
                               inputId = "emergency_growth",
                               label = "Emergency",
-                              choices = activity_growth_type,
-                              justified = TRUE
+                              choices = emergency_activity_growth_type
                             ),
-                            radioGroupButtons(
+                            selectInput(
                               inputId = "gp_growth",
                               label = "General Practice",
-                              choices = activity_growth_type,
-                              justified = TRUE
-                            )
-                          ),
-                          plotly::plotlyOutput('maingraph')),
-                   column(12, plotly::plotlyOutput('subgraph')),
-                   column(12, textOutput('growth_rate'))),
-                 style='border: 0px')
-               ))
-    ))
+                              choices = gp_activity_growth_type
+                            ),
+                            selectInput(
+                              inputId = "prescribing_growth",
+                              label = "Prescribing",
+                              choices = prescribing_activity_growth_type
+                            ),
+                            selectInput(
+                              inputId = "specialised_growth",
+                              label = "Specialised Services",
+                              choices = specialised_activity_growth_type
+                            ),
+                            selectInput(
+                              inputId = "mh_growth",
+                              label = "Mental Health",
+                              choices = mh_activity_growth_type
+                            ),
+                            selectInput(
+                              inputId = "maternity_growth",
+                              label = "Maternity",
+                              choices = maternity_activity_growth_type
+                            ),
+                            selectInput(
+                              inputId = "community_growth",
+                              label = "Community",
+                              choices = community_activity_growth_type
+                            )),
+                   br(),
+                   tabsetPanel(
+                     tabPanel('Time-series',
+                              icon=icon('house'),
+                              fluidRow(
+                                br(),
+                                column(12,plotly::plotlyOutput('maingraph')),
+                                column(12, plotly::plotlyOutput('subgraph')),
+                                column(12, textOutput('growth_rate')))),
+                     tabPanel('Waterfall',
+                              icon=icon('water'),
+                              fluidRow(
+                                br(),
+                                column(12,plotOutput('waterfall_graph')),
+                                column(12,plotOutput('waterfall_graph2'))))
+                          )),
+                 style='border: 0px',
+                 width = 9))
+               )))
                
 # SERVER ------------------------------------------------------------------
 
@@ -249,59 +306,37 @@ server <- function(input,output,session){
                   val_prod = input$prod,
                   inten = intensity_adj()) %>%
       group_by(type,measure,models)%>%
-       mutate(pay = (100 + input$pay)/100,
-               val_deflator = deflator ^ deflator_adj(),
-               val_prod = cumprod(prod),
-               val_pay = cumprod(pay)) %>%
-      rowwise()%>%
-      mutate(index = CreateIndex(a = val_a,
-                                   prod=val_prod,
-                                   pay=val_pay,
-                                   deflator=val_deflator)) %>%
-      filter(measure == 'cost') %>%
-        #true filter
-      filter(
-          type == 'ae' & models == tolower(input$ae_growth) |
-          type == 'emergency' & models == tolower(input$emergency_growth) |
-          type == 'op' & models == tolower(input$op_growth) |
-          type == 'gp' & models == tolower(input$gp_growth) |
-          type == 'elective' & models == tolower(input$elective_growth)) %>%
-      ungroup()%>%
-      select(fyear,val_prod,val_pay,val_deflator,index) %>%
-      left_join(.,supplement %>% filter(fyear %in% data_final$fyear),by=c('fyear')) %>%
-      pivot_longer(cols=!c(fyear),names_to='names',values_to='values') %>%
-      unique()
-  })
-  
-  #data for budget activity
-  data_baseline_activity <- reactive({
-    data_final %>%
-      group_by(models,measure,type) %>%
-      mutate(prod = (100 + input$prod)/100,
-             pay = (100 + input$pay)/100,
+      mutate(pay = (100 + input$pay)/100,
+             drug = (100 + input$drug)/100,
+             val_drug = cumprod(drug),
              val_deflator = deflator ^ deflator_adj(),
              val_prod = cumprod(prod),
-             val_pay = cumprod(pay)
-      ) %>%
+             val_pay = cumprod(pay)) %>%
       rowwise()%>%
-      mutate(index = CreateIndex(a = val_a,
+      mutate(index = CreateIndex(w = w,
+                                 d = d,
                                  prod=val_prod,
                                  pay=val_pay,
-                                 deflator=val_deflator),
-             final_value = baseline * (modelled_growth)*index)%>%
-      filter(measure == 'cost') %>%
+                                 drug = val_drug,
+                                 deflator=val_deflator)) %>%
+      filter(measure == 'cwa') %>%
       #true filter
       filter(
         type == 'ae' & models == tolower(input$ae_growth) |
+          type == 'elective' & models == tolower(input$elective_growth) |
           type == 'emergency' & models == tolower(input$emergency_growth) |
+          type == 'prescribing' & models == tolower(input$prescribing_growth) |
           type == 'op' & models == tolower(input$op_growth) |
           type == 'gp' & models == tolower(input$gp_growth) |
-          type == 'elective' & models == tolower(input$elective_growth)
-      ) %>%
-      group_by(fyear,type) %>%
-      summarise(final_value_base = sum(final_value,na.rm=T))%>%
-      left_join(.,pop_adj(),by='fyear') %>%
-      mutate(final_value_base=final_value_base / values)
+          type == 'community' & models == tolower(input$community_growth) |
+          type == 'specialised' & models == tolower(input$specialised_growth) |
+          type == 'mh' & models == tolower(input$mh_growth) |
+          type == 'maternity' & models == tolower(input$maternity_growth)) %>%
+      ungroup()%>%
+      select(fyear,val_prod,val_drug,val_pay,val_deflator) %>%
+      left_join(.,supplement %>% filter(fyear %in% data_final$fyear),by=c('fyear')) %>%
+      pivot_longer(cols=!c(fyear),names_to='names',values_to='values') %>%
+      unique()
   })
   
   #data for baseline
@@ -310,25 +345,32 @@ server <- function(input,output,session){
       group_by(models,measure,type) %>%
       mutate(prod = (100 + input$prod)/100,
              pay = (100 + input$pay)/100,
+             drug = (100 + input$drug)/100,
+             val_drug = cumprod(drug),
              val_deflator = deflator ^ deflator_adj(),
              val_prod = cumprod(prod),
              val_pay = cumprod(pay)
       ) %>%
       rowwise()%>%
-      mutate(index = CreateIndex(a = val_a,
+      mutate(index = CreateIndex(w = w,
+                                 d = d,
+                                 drug = val_drug,
                                  prod=val_prod,
                                  pay=val_pay,
                                  deflator=val_deflator),
              final_value = baseline * (modelled_growth)*index) %>%
-      filter(measure == 'cost') %>%
-      #true filter
+      filter(measure == 'cwa') %>%
       filter(
         type == 'ae' & models == tolower(input$ae_growth) |
+          type == 'elective' & models == tolower(input$elective_growth) |
           type == 'emergency' & models == tolower(input$emergency_growth) |
+          type == 'prescribing' & models == tolower(input$prescribing_growth) |
           type == 'op' & models == tolower(input$op_growth) |
           type == 'gp' & models == tolower(input$gp_growth) |
-          type == 'elective' & models == tolower(input$elective_growth)
-      ) %>%
+          type == 'community' & models == tolower(input$community_growth) |
+          type == 'specialised' & models == tolower(input$specialised_growth) |
+          type == 'mh' & models == tolower(input$mh_growth) |
+          type == 'maternity' & models == tolower(input$maternity_growth)) %>%
       group_by(fyear) %>%
       summarise(final_value_base = sum(final_value,na.rm=T))%>%
       left_join(.,pop_adj(),by='fyear') %>%
@@ -349,30 +391,38 @@ server <- function(input,output,session){
                   val_prod = input$prod,
                   inten = intensity_adj()) %>%
       group_by(models,measure,type) %>%
-        mutate(pay = (100 + input$pay)/100,
-               val_deflator = deflator ^ deflator_adj(),
-               val_prod = cumprod(prod),
-               val_pay = cumprod(pay)
-        ) %>%
-        rowwise()%>%
-        mutate(index = CreateIndex(a = val_a,
-                                   prod=val_prod,
-                                   pay=val_pay,
-                                   deflator=val_deflator),
-               final_value = baseline * (modelled_growth)*index) %>%
-      filter(measure == 'cost') %>%
+      mutate(pay = (100 + input$pay)/100,
+             drug = (100 + input$drug)/100,
+             val_drug = cumprod(drug),
+             val_deflator = deflator ^ deflator_adj(),
+             val_prod = cumprod(prod),
+             val_pay = cumprod(pay)
+      ) %>%
+      rowwise()%>%
+      mutate(index = CreateIndex(w = w,
+                                 d = d,
+                                 drug = val_drug,
+                                 prod=val_prod,
+                                 pay=val_pay,
+                                 deflator=val_deflator),
+             final_value = baseline * (modelled_growth)*index) %>%
+      filter(measure == 'cwa') %>%
       #true filter
       filter(
         type == 'ae' & models == tolower(input$ae_growth) |
+          type == 'elective' & models == tolower(input$elective_growth) |
           type == 'emergency' & models == tolower(input$emergency_growth) |
+          type == 'prescribing' & models == tolower(input$prescribing_growth) |
           type == 'op' & models == tolower(input$op_growth) |
           type == 'gp' & models == tolower(input$gp_growth) |
-          type == 'elective' & models == tolower(input$elective_growth)
-      ) %>%
+          type == 'community' & models == tolower(input$community_growth) |
+          type == 'specialised' & models == tolower(input$specialised_growth) |
+          type == 'mh' & models == tolower(input$mh_growth) |
+          type == 'maternity' & models == tolower(input$maternity_growth)) %>%
       group_by(fyear) %>%
-        summarise(final_value = sum(final_value,na.rm=T))%>%
-        left_join(.,pop_adj(),by='fyear') %>%
-        mutate(final_value=final_value / values)
+      summarise(final_value = sum(final_value,na.rm=T))%>%
+      left_join(.,pop_adj(),by='fyear') %>%
+      mutate(final_value=final_value / values)
     
     data_model2 <-  data_model1 %>%
       mutate(baseline_budget = (data_model1 %>% filter(fyear==2018))$final_value,
@@ -380,8 +430,8 @@ server <- function(input,output,session){
     
     return(data_model2)
     
-    })
-    
+  })
+  
   #area in model variation from baseline
   data_ribbon <- reactive({
     
@@ -389,56 +439,46 @@ server <- function(input,output,session){
       left_join(.,data_model() %>% select(fyear,final_value),by=c('fyear'))
     
   })
-
+  
   growth <- reactive({
     round(100*(((data_model() %>% 
-       ungroup() %>% 
-       select(fyear,final_value) %>% 
-       filter(fyear == max(fyear)))[1,2] -
-      (data_model() %>% 
-         ungroup() %>% 
-         select(fyear,final_value) %>% 
-         filter(fyear == min(fyear)))[1,2])/
-      (length(unique(data_model()$fyear))*(data_model() %>% 
-         ungroup() %>% 
-         select(fyear,final_value) %>% 
-         filter(fyear == min(fyear)))[1,2])),2)
+                   ungroup() %>% 
+                   select(fyear,final_value) %>% 
+                   filter(fyear == max(fyear)))[1,2] -
+                  (data_model() %>% 
+                     ungroup() %>% 
+                     select(fyear,final_value) %>% 
+                     filter(fyear == min(fyear)))[1,2])/
+                 (length(unique(data_model()$fyear))*(data_model() %>% 
+                                                        ungroup() %>% 
+                                                        select(fyear,final_value) %>% 
+                                                        filter(fyear == min(fyear)))[1,2])),2)
     
   })
   
   output$growth_rate <- renderText({
-      paste0('   *Average annualised growth rate is: ', 
-            growth(),
-            '%')
-  })
+    paste0('   *Average annualised growth rate is: ', 
+           growth(),
+           '%')
+  }) %>%
+    bindEvent(input$run)
   
   #graphs and outputs
   output$maingraph <- plotly::renderPlotly({
+    plotly::ggplotly(ggplot()+
+                       ggtitle("Shock adjusted budget prediction relative to baseline") +
+                       geom_line(data = data_baseline(),aes(x=fyear,y=final_value_base/1e9),linetype = 2,col='#dd0031',alpha=1) +
+                       geom_line(data=data_model(),aes(x=fyear,y=final_value/1e9),col='#dd0031') +
+                       geom_ribbon(data=data_ribbon(),aes(x=fyear,ymin=final_value_base/1e9,ymax=final_value/1e9),fill='#dd0031',alpha=0.1)+
+                       THFstyle::scale_colour_THF()+
+                       theme_bw(base_size = 10) +
+                       xlab('') +
+                       ylab('Budget (£bn)') +
+                       labs(fill='POD') + 
+                       theme(legend.position="bottom"))
     
-    if(input$activity_flag == F){
-      plotly::ggplotly(ggplot()+
-                         ggtitle("Shock adjusted budget prediction relative to baseline") +
-                         geom_line(data = data_baseline(),aes(x=fyear,y=final_value_base/1e11),linetype = 2,col='#dd0031',alpha=1) +
-                         geom_line(data=data_model(),aes(x=fyear,y=final_value/1e11),col='#dd0031') +
-                         geom_ribbon(data=data_ribbon(),aes(x=fyear,ymin=final_value_base/1e11,ymax=final_value/1e11),fill='#dd0031',alpha=0.1)+
-                         THFstyle::scale_colour_THF()+
-                         theme_bw(base_size = 10) +
-                         xlab('') +
-                         ylab('Budget (£bn)') +
-                         labs(fill='POD') + 
-                         theme(legend.position="bottom")
-      ) } else {
-        plotly::ggplotly(ggplot()+
-                           ggtitle("Budget prediction by activity split") + 
-                           geom_col(data = data_baseline_activity(),aes(x=fyear,y=final_value_base/1e11,fill=type)) +
-                           THFstyle::scale_fill_THF()+
-                           theme_bw(base_size = 10) +
-                           xlab('') +
-                           ylab('Budget (£bn)') +
-                           labs(fill='POD') + 
-                           theme(legend.position="bottom"))
-                       }
-      })
+  }) %>%
+    bindEvent(input$run)
   
   output$subgraph <- plotly::renderPlotly({
     plotly::ggplotly(
@@ -454,8 +494,94 @@ server <- function(input,output,session){
         ylab('Index (2017 = 100)') +
         labs(col='Measure') + 
         theme(legend.position="bottom")
-
+      
     )
+  }) %>%
+    bindEvent(input$run)
+  
+  #data for model
+  data_waterfall <- reactive({
+    data_final %>%
+      CreateShock(.,
+                  shock_type = input$shock_type,
+                  shock_range = input$range,
+                  val_prod = input$prod,
+                  inten = intensity_adj()) %>%
+      group_by(models,measure,type) %>%
+      mutate(pay = (100 + input$pay)/100,
+             drug = (100 + input$drug)/100,
+             val_drug = cumprod(drug),
+             val_deflator = deflator ^ deflator_adj(),
+             val_prod = cumprod(prod),
+             val_pay = cumprod(pay)
+      ) %>%
+      rowwise()%>%
+      mutate(index = CreateIndex(w = w,
+                                 d = d,
+                                 drug = val_drug,
+                                 prod=val_prod,
+                                 pay=val_pay,
+                                 deflator=val_deflator),
+             final_value = baseline * (modelled_growth)*index) %>%
+      filter(measure == 'cwa') %>%
+      #true filter
+      group_by(fyear,models,type) %>%
+      summarise(final_value = sum(final_value,na.rm=T))%>%
+      ungroup() %>%
+      left_join(.,waterfall_baseline,by=c('type','fyear')) %>%
+      mutate(final_value_base = round((final_value - baseline_value)/1e9),2) %>%
+      ungroup()%>%
+      select(type,models,fyear,final_value,final_value_base)
+  })
+  
+  base_waterfall <- reactive({
+    data_waterfall() %>%
+      filter(fyear == input$water_year) %>%
+      filter(type == input$water_type) %>%
+      mutate(final_value = round(final_value / 1e9,2) ) %>%
+      select(models,final_value)
+  })
+  
+  output$waterfall_graph <- renderPlot({
+    waterfalls::waterfall(base_waterfall(),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
+      theme_bw(base_size = 16) +
+      xlab('') + 
+      ylab('') +
+      THFstyle::scale_fill_THF()+
+      ggtitle('Growth within POD dissagregated by model type')+
+      theme(text=element_text(size=16))
+    
+      
+  })
+  
+  type_waterfall <- reactive({
+    data_waterfall() %>%
+      filter(fyear == input$water_year) %>%
+      filter(
+        type == 'ae' & models == tolower(input$ae_growth) |
+          type == 'elective' & models == tolower(input$elective_growth) |
+          type == 'emergency' & models == tolower(input$emergency_growth) |
+          type == 'prescribing' & models == tolower(input$prescribing_growth) |
+          type == 'op' & models == tolower(input$op_growth) |
+          type == 'gp' & models == tolower(input$gp_growth) |
+          type == 'community' & models == tolower(input$community_growth) |
+          type == 'specialised' & models == tolower(input$specialised_growth) |
+          type == 'mh' & models == tolower(input$mh_growth) |
+          type == 'maternity' & models == tolower(input$maternity_growth)) %>%
+      #NOTE TO SELF: THIS MAY BE MUCKING THINGS UP. CHECK
+      tidyr::drop_na ()%>%
+      select(type,final_value_base)
+  })
+  
+  output$waterfall_graph2 <- renderPlot({
+    waterfalls::waterfall(type_waterfall(),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
+      theme_bw(base_size = 16) +
+      xlab('') + 
+      ylab('') +
+      THFstyle::scale_fill_THF() +
+      ggtitle('Change in budget relative to baseline scenario') +
+      theme(text=element_text(size=16))
+    
   })
   
 }
