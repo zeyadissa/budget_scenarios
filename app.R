@@ -1,6 +1,5 @@
-library(tidyverse)
+library(dplyr)
 library(shinythemes)
-library(shiny)
 library(shinyWidgets)
 library(devtools)
 
@@ -282,7 +281,8 @@ server <- function(input,output,session){
     } else {
       deflator <- 1
     }
-  })
+  })%>%
+    bindEvent(input$run)
   
   pop_adj <- reactive({
     if(input$per_capita == F){
@@ -293,7 +293,8 @@ server <- function(input,output,session){
       pop_final %>%
       select(!c(metric,X)) %>%
       mutate(values = values / 1000000)
-  })
+  })%>%
+    bindEvent(input$run)
   
   #data for index
   data_index <- reactive({
@@ -336,7 +337,8 @@ server <- function(input,output,session){
       left_join(.,supplement %>% filter(fyear %in% data_final$fyear),by=c('fyear')) %>%
       pivot_longer(cols=!c(fyear),names_to='names',values_to='values') %>%
       unique()
-  })
+  })%>%
+    bindEvent(input$run)
   
   #data for baseline
   data_baseline <- reactive({
@@ -374,12 +376,14 @@ server <- function(input,output,session){
       summarise(final_value_base = sum(final_value,na.rm=T))%>%
       left_join(.,pop_adj(),by='fyear') %>%
       mutate(final_value_base= final_value_base / values)
-  })
+  })%>%
+    bindEvent(input$run)
   
   intensity_adj <- reactive({
     intensity <- (100 + input$intensity)
     return(intensity)
-  })
+  })%>%
+    bindEvent(input$run)
   
   #data for model
   data_model <- reactive({
@@ -429,7 +433,8 @@ server <- function(input,output,session){
     
     return(data_model2)
     
-  })
+  })%>%
+    bindEvent(input$run)
   
   #area in model variation from baseline
   data_ribbon <- reactive({
@@ -437,7 +442,8 @@ server <- function(input,output,session){
     data_baseline() %>% select(fyear,final_value_base) %>%
       left_join(.,data_model() %>% select(fyear,final_value),by=c('fyear'))
     
-  })
+  })%>%
+    bindEvent(input$run)
   
   growth <- reactive({
     round(100*(((data_model() %>% 
@@ -453,14 +459,14 @@ server <- function(input,output,session){
                                                         select(fyear,final_value) %>% 
                                                         filter(fyear == min(fyear)))[1,2])),2)
     
-  })
+  })%>%
+    bindEvent(input$run)
   
   output$growth_rate <- renderText({
     paste0('   *Average annualised growth rate is: ', 
            growth(),
            '%')
-  }) %>%
-    bindEvent(input$run)
+  })
   
   #graphs and outputs
   output$maingraph <- plotly::renderPlotly({
@@ -476,8 +482,7 @@ server <- function(input,output,session){
                        labs(fill='POD') + 
                        theme(legend.position="bottom"))
     
-  }) %>%
-    bindEvent(input$run)
+  }) 
   
   output$subgraph <- plotly::renderPlotly({
     plotly::ggplotly(
@@ -495,8 +500,7 @@ server <- function(input,output,session){
         theme(legend.position="bottom")
       
     )
-  }) %>%
-    bindEvent(input$run)
+  }) 
   
   #data for model
   data_waterfall <- reactive({
@@ -531,7 +535,8 @@ server <- function(input,output,session){
       mutate(final_value_base = round((final_value - baseline_value)/1e9),2) %>%
       ungroup()%>%
       select(type,models,fyear,final_value,final_value_base)
-  })
+  })%>%
+    bindEvent(input$run)
   
   base_waterfall <- reactive({
     data_waterfall() %>%
@@ -539,7 +544,8 @@ server <- function(input,output,session){
       filter(type == input$water_type) %>%
       mutate(final_value = round(final_value / 1e9,2) ) %>%
       select(models,final_value)
-  })
+  })%>%
+    bindEvent(input$run)
   
   output$waterfall_graph <- renderPlot({
     waterfalls::waterfall(base_waterfall(),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
@@ -570,7 +576,8 @@ server <- function(input,output,session){
       #NOTE TO SELF: THIS MAY BE MUCKING THINGS UP. CHECK
       tidyr::drop_na ()%>%
       select(type,final_value_base)
-  })
+  })%>%
+    bindEvent(input$run)
   
   output$waterfall_graph2 <- renderPlot({
     waterfalls::waterfall(type_waterfall(),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
