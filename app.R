@@ -1,5 +1,6 @@
-library(dplyr)
+library(tidyverse)
 library(shinythemes)
+library(shiny)
 library(shinyWidgets)
 library(devtools)
 
