@@ -3,6 +3,8 @@ library(shinythemes)
 library(shiny)
 library(shinyWidgets)
 library(devtools)
+library(bslib)
+library(bsicons)
 
 devtools::install_github('THF-evaluative-analytics/THFstyle')
 
@@ -15,7 +17,9 @@ waterfall_baseline <- read.csv('const/waterfall_baseline.csv') %>%
   rename(baseline_value = 'final_value')
 
 splits <- read.csv('const/splits.csv') %>%
-  select(!X)
+  select(!X) %>%
+  mutate(r = case_when(type=='specialised' ~ 0,
+                       T~ 1-(w+d)))
 
 #activity growth data
 data_final <- read.csv('const/test_data.csv') %>%
@@ -73,9 +77,12 @@ CreateShock <- function(df,shock_type,shock_range,val_prod,inten){
   
 }
 
-CreateIndex <- function(w,d,prod,pay,drug,deflator){
-  1 + ((w*(((pay+deflator)-2))) - ((d)*(deflator-1)) + ((1-w-d)*(drug-1)))/(prod)
+CreateIndex <- function(w,d,r,prod,pay,drug,deflator){
+  
+  1 + (( (w*(pay-prod)) + (r*(drug-prod)) + (d*(1-prod) )))
+
 }
+
 
 # Global Variables --------------------------------------------------------
 
@@ -91,7 +98,9 @@ water_type <- unique(test$type)
 #note to self: this is ideally where purrr::walk should be used.
 for(i in test$type){
   assign(x=paste0(i,'_activity_growth_type'),
-         value=(test %>% filter(type==i))$models)
+         value=((test %>% filter(type==i))$models)[order(nchar(((test %>% filter(type==i))$models)), ((test %>% filter(type==i))$models),
+                                                         decreasing = T)]
+         )
          }
     
 
@@ -118,6 +127,7 @@ ui <- fluidPage(
                sidebarPanel(
                  titlePanel(h4(strong('BUDGET SCENARIOS'),icon('house',class='about-icon fa-pull-left'))),
                  hr(),
+                 
                  numericInput(
                    inputId = 'prod',
                    label = 'Custom productivity CAGR (%)',
@@ -130,7 +140,7 @@ ui <- fluidPage(
                    inputId = 'pay',
                    label = 'Custom above-inflation pay growth (%)',
                    min = -100,
-                   value = 0,
+                   value = 0.8,
                    max = 100,
                    step = 1
                  ),
@@ -138,7 +148,7 @@ ui <- fluidPage(
                    inputId = 'drug',
                    label = 'Custom drug growth (%)',
                    min = -100,
-                   value = 0.5,
+                   value = 2.5,
                    max = 100,
                    step = 1
                  ),
@@ -278,9 +288,9 @@ server <- function(input,output,session){
   
   deflator_adj <- reactive({
     if(input$real_flag == F){
-      deflator <- 0
-    } else {
       deflator <- 1
+    } else {
+      deflator <- 0
     }
   })%>%
     bindEvent(input$run)
@@ -297,6 +307,7 @@ server <- function(input,output,session){
   })%>%
     bindEvent(input$run)
   
+  #data for index
   #data for index
   data_index <- reactive({
     
@@ -316,6 +327,7 @@ server <- function(input,output,session){
       rowwise()%>%
       mutate(index = CreateIndex(w = w,
                                  d = d,
+                                 r=r,
                                  prod=val_prod,
                                  pay=val_pay,
                                  drug = val_drug,
@@ -356,11 +368,12 @@ server <- function(input,output,session){
       rowwise()%>%
       mutate(index = CreateIndex(w = w,
                                  d = d,
+                                 r = r,
                                  drug = val_drug,
                                  prod=val_prod,
                                  pay=val_pay,
                                  deflator=val_deflator),
-             final_value = baseline * (modelled_growth)*index) %>%
+             final_value = baseline * (modelled_growth)*index*val_deflator) %>%
       filter(measure == 'cwa') %>%
       filter(
         type == 'ae' & models == tolower(input$ae_growth) |
@@ -405,11 +418,12 @@ server <- function(input,output,session){
       rowwise()%>%
       mutate(index = CreateIndex(w = w,
                                  d = d,
+                                 r = r,
                                  drug = val_drug,
                                  prod=val_prod,
                                  pay=val_pay,
                                  deflator=val_deflator),
-             final_value = baseline * (modelled_growth)*index) %>%
+             final_value = baseline * (modelled_growth)*index*val_deflator) %>%
       filter(measure == 'cwa') %>%
       #true filter
       filter(
@@ -501,8 +515,7 @@ server <- function(input,output,session){
         theme(legend.position="bottom")
       
     )
-  }) 
-  
+  })   
   #data for model
   data_waterfall <- reactive({
     data_final %>%
@@ -522,6 +535,7 @@ server <- function(input,output,session){
       rowwise()%>%
       mutate(index = CreateIndex(w = w,
                                  d = d,
+                                 r = r,
                                  drug = val_drug,
                                  prod=val_prod,
                                  pay=val_pay,
@@ -535,7 +549,8 @@ server <- function(input,output,session){
       left_join(.,waterfall_baseline,by=c('type','fyear')) %>%
       mutate(final_value_base = round((final_value - baseline_value)/1e9),2) %>%
       ungroup()%>%
-      select(type,models,fyear,final_value,final_value_base)
+      select(type,models,fyear,final_value,final_value_base)%>%
+      filter(models %in% models[!grepl(pattern='log',models)])
   })%>%
     bindEvent(input$run)
   
@@ -576,7 +591,8 @@ server <- function(input,output,session){
           type == 'maternity' & models == tolower(input$maternity_growth)) %>%
       #NOTE TO SELF: THIS MAY BE MUCKING THINGS UP. CHECK
       tidyr::drop_na ()%>%
-      select(type,final_value_base)
+      select(type,final_value) %>%
+      mutate(final_value = round(final_value/1e9,2))
   })%>%
     bindEvent(input$run)
   
