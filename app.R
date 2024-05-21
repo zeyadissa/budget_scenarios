@@ -12,10 +12,6 @@ devtools::install_github('THF-evaluative-analytics/THFstyle')
 FINAL_deflator <- read.csv('const/FINAL_deflator.csv') %>%
   select(!X)
 
-waterfall_baseline <- read.csv('const/waterfall_baseline.csv') %>%
-  select(!X) %>%
-  rename(baseline_value = 'final_value')
-
 splits <- read.csv('const/splits.csv') %>%
   select(!X) %>%
   mutate(r = case_when(type=='specialised' ~ 0,
@@ -83,6 +79,17 @@ CreateIndex <- function(w,d,r,prod,pay,drug,deflator){
 
 }
 
+CreatePayIndex <- function(w,d,r,prod,pay,drug,deflator){
+  1+ (w*(pay))
+}
+
+CreateDrugIndex <- function(w,d,r,prod,pay,drug,deflator){
+  1+ (r*(drug)) 
+}
+
+CreateProdIndex <- function(w,d,r,prod,pay,drug,deflator){
+  CreateIndex(w,d,r,prod,pay,drug,deflator) - CreateProdIndex(w,d,r,prod,pay,drug,deflator) - CreateDrugIndex(w,d,r,prod,pay,drug,deflator)
+}
 
 # Global Variables --------------------------------------------------------
 
@@ -307,10 +314,13 @@ server <- function(input,output,session){
   })%>%
     bindEvent(input$run)
   
-  #data for index
-  #data for index
-  data_index <- reactive({
-    
+  intensity_adj <- reactive({
+    intensity <- (100 + input$intensity)
+    return(intensity)
+  })%>%
+    bindEvent(input$run)
+  
+  base_data <- reactive({
     data_final %>%
       CreateShock(.,
                   shock_type=input$shock_type,
@@ -331,8 +341,94 @@ server <- function(input,output,session){
                                  prod=val_prod,
                                  pay=val_pay,
                                  drug = val_drug,
-                                 deflator=val_deflator)) %>%
+                                 deflator=val_deflator),
+             pay_index = CreatePayIndex(w = w,
+                                     d = d,
+                                     r=r,
+                                     prod=val_prod,
+                                     pay=val_pay,
+                                     drug = val_drug,
+                                     deflator=val_deflator),
+             drugs_index = CreateDrugIndex(w = w,
+                                       d = d,
+                                       r=r,
+                                       prod=val_prod,
+                                       pay=val_pay,
+                                       drug = val_drug,
+                                       deflator=val_deflator),
+             final_value = baseline * (modelled_growth)*index*val_deflator,
+             final_value_no_cost_index = baseline * (modelled_growth)*val_deflator,
+             final_cost_value = baseline * (modelled_growth-1)*(1-index)*val_deflator,
+             final_drugs_value = baseline * (modelled_growth-1)*(1-drugs_index)*val_deflator,
+             final_pay_value = baseline * (modelled_growth-1)*(1-pay_index)*val_deflator,
+             final_prod_value = final_cost_value - final_drugs_value - final_pay_value) %>%
+      filter(measure == 'cwa')
+  })%>%
+    bindEvent(input$run)
+  
+  base_data_noshock <- reactive({
+    data_final %>%
+      group_by(type,measure,models)%>%
+      mutate(pay = (100 + input$pay)/100,
+             prod = (100 + input$prod)/100,
+             drug = (100 + input$drug)/100,
+             val_drug = cumprod(drug),
+             val_deflator = deflator ^ deflator_adj(),
+             val_prod = cumprod(prod),
+             val_pay = cumprod(pay)) %>%
+      rowwise()%>%
+      mutate(index = CreateIndex(w = w,
+                                 d = d,
+                                 r=r,
+                                 prod=val_prod,
+                                 pay=val_pay,
+                                 drug = val_drug,
+                                 deflator=val_deflator),
+             pay_index = CreatePayIndex(w = w,
+                                        d = d,
+                                        r=r,
+                                        prod=val_prod,
+                                        pay=val_pay,
+                                        drug = val_drug,
+                                        deflator=val_deflator),
+             drugs_index = CreateDrugIndex(w = w,
+                                           d = d,
+                                           r=r,
+                                           prod=val_prod,
+                                           pay=val_pay,
+                                           drug = val_drug,
+                                           deflator=val_deflator),
+             prod_index = index - pay_index - drugs_index,
+             final_value_no_cost_index = baseline * (modelled_growth)*val_deflator,
+             final_value_base = baseline * (modelled_growth)*index*val_deflator,
+             final_cost_value = baseline * (modelled_growth-1)*(1-index)*val_deflator,
+             final_drugs_value = baseline * (modelled_growth-1)*(1-drugs_index)*val_deflator,
+             final_pay_value = baseline * (modelled_growth-1)*(1-pay_index)*val_deflator,
+             final_prod_value = final_cost_value - final_drugs_value - final_pay_value) %>%
       filter(measure == 'cwa') %>%
+        #true filter
+        filter(
+          type == 'ae' & models == tolower(input$ae_growth) |
+            type == 'elective' & models == tolower(input$elective_growth) |
+            type == 'emergency' & models == tolower(input$emergency_growth) |
+            type == 'prescribing' & models == tolower(input$prescribing_growth) |
+            type == 'op' & models == tolower(input$op_growth) |
+            type == 'gp' & models == tolower(input$gp_growth) |
+            type == 'community' & models == tolower(input$community_growth) |
+            type == 'specialised' & models == tolower(input$specialised_growth) |
+            type == 'mh' & models == tolower(input$mh_growth) |
+            type == 'maternity' & models == tolower(input$maternity_growth)) %>%
+        group_by(fyear) %>%
+        summarise(final_value_base = sum(final_value_base,na.rm=T))%>%
+        left_join(.,pop_adj(),by='fyear') %>%
+        mutate(final_value= final_value_base / values)
+  })%>%
+    bindEvent(input$run)
+  
+  #data for index
+  #data for index
+  data_index <- reactive({
+    base_data() %>%
       #true filter
       filter(
         type == 'ae' & models == tolower(input$ae_growth) |
@@ -354,77 +450,8 @@ server <- function(input,output,session){
     bindEvent(input$run)
   
   #data for baseline
-  data_baseline <- reactive({
-    data_final %>%
-      group_by(models,measure,type) %>%
-      mutate(prod = (100 + input$prod)/100,
-             pay = (100 + input$pay)/100,
-             drug = (100 + input$drug)/100,
-             val_drug = cumprod(drug),
-             val_deflator = deflator ^ deflator_adj(),
-             val_prod = cumprod(prod),
-             val_pay = cumprod(pay)
-      ) %>%
-      rowwise()%>%
-      mutate(index = CreateIndex(w = w,
-                                 d = d,
-                                 r = r,
-                                 drug = val_drug,
-                                 prod=val_prod,
-                                 pay=val_pay,
-                                 deflator=val_deflator),
-             final_value = baseline * (modelled_growth)*index*val_deflator) %>%
-      filter(measure == 'cwa') %>%
-      filter(
-        type == 'ae' & models == tolower(input$ae_growth) |
-          type == 'elective' & models == tolower(input$elective_growth) |
-          type == 'emergency' & models == tolower(input$emergency_growth) |
-          type == 'prescribing' & models == tolower(input$prescribing_growth) |
-          type == 'op' & models == tolower(input$op_growth) |
-          type == 'gp' & models == tolower(input$gp_growth) |
-          type == 'community' & models == tolower(input$community_growth) |
-          type == 'specialised' & models == tolower(input$specialised_growth) |
-          type == 'mh' & models == tolower(input$mh_growth) |
-          type == 'maternity' & models == tolower(input$maternity_growth)) %>%
-      group_by(fyear) %>%
-      summarise(final_value_base = sum(final_value,na.rm=T))%>%
-      left_join(.,pop_adj(),by='fyear') %>%
-      mutate(final_value_base= final_value_base / values)
-  })%>%
-    bindEvent(input$run)
-  
-  intensity_adj <- reactive({
-    intensity <- (100 + input$intensity)
-    return(intensity)
-  })%>%
-    bindEvent(input$run)
-  
-  #data for model
   data_model <- reactive({
-    data_model1 <- data_final %>%
-      CreateShock(.,
-                  shock_type = input$shock_type,
-                  shock_range = input$range,
-                  val_prod = input$prod,
-                  inten = intensity_adj()) %>%
-      group_by(models,measure,type) %>%
-      mutate(pay = (100 + input$pay)/100,
-             drug = (100 + input$drug)/100,
-             val_drug = cumprod(drug),
-             val_deflator = deflator ^ deflator_adj(),
-             val_prod = cumprod(prod),
-             val_pay = cumprod(pay)
-      ) %>%
-      rowwise()%>%
-      mutate(index = CreateIndex(w = w,
-                                 d = d,
-                                 r = r,
-                                 drug = val_drug,
-                                 prod=val_prod,
-                                 pay=val_pay,
-                                 deflator=val_deflator),
-             final_value = baseline * (modelled_growth)*index*val_deflator) %>%
-      filter(measure == 'cwa') %>%
+    data_model1 <- base_data()%>%
       #true filter
       filter(
         type == 'ae' & models == tolower(input$ae_growth) |
@@ -453,9 +480,10 @@ server <- function(input,output,session){
   
   #area in model variation from baseline
   data_ribbon <- reactive({
-    
-    data_baseline() %>% select(fyear,final_value_base) %>%
-      left_join(.,data_model() %>% select(fyear,final_value),by=c('fyear'))
+    base_data_noshock() %>% 
+      select(fyear,final_value_base) %>%
+      left_join(.,data_model() %>% select(fyear,final_value),
+                by=c('fyear'))
     
   })%>%
     bindEvent(input$run)
@@ -487,7 +515,7 @@ server <- function(input,output,session){
   output$maingraph <- plotly::renderPlotly({
     plotly::ggplotly(ggplot()+
                        ggtitle("Shock adjusted budget prediction relative to baseline") +
-                       geom_line(data = data_baseline(),aes(x=fyear,y=final_value_base/1e9),linetype = 2,col='#dd0031',alpha=1) +
+                       geom_line(data = base_data_noshock(),aes(x=fyear,y=final_value_base/1e9),linetype = 2,col='#dd0031',alpha=1) +
                        geom_line(data=data_model(),aes(x=fyear,y=final_value/1e9),col='#dd0031') +
                        geom_ribbon(data=data_ribbon(),aes(x=fyear,ymin=final_value_base/1e9,ymax=final_value/1e9),fill='#dd0031',alpha=0.1)+
                        THFstyle::scale_colour_THF()+
@@ -516,67 +544,107 @@ server <- function(input,output,session){
       
     )
   })   
+  
   #data for model
   data_waterfall <- reactive({
-    data_final %>%
-      CreateShock(.,
-                  shock_type = input$shock_type,
-                  shock_range = input$range,
-                  val_prod = input$prod,
-                  inten = intensity_adj()) %>%
-      group_by(models,measure,type) %>%
-      mutate(pay = (100 + input$pay)/100,
-             drug = (100 + input$drug)/100,
-             val_drug = cumprod(drug),
-             val_deflator = deflator ^ deflator_adj(),
-             val_prod = cumprod(prod),
-             val_pay = cumprod(pay)
-      ) %>%
-      rowwise()%>%
-      mutate(index = CreateIndex(w = w,
-                                 d = d,
-                                 r = r,
-                                 drug = val_drug,
-                                 prod=val_prod,
-                                 pay=val_pay,
-                                 deflator=val_deflator),
-             final_value = baseline * (modelled_growth)*index) %>%
-      filter(measure == 'cwa') %>%
+    df1 <- base_data() %>%
       #true filter
       group_by(fyear,models,type) %>%
-      summarise(final_value = sum(final_value,na.rm=T))%>%
+      mutate(final_value_no_cost_index =   final_value_no_cost_index - baseline * (1) * val_deflator ) %>%
+      summarise(final_value_no_cost_index = sum(final_value_no_cost_index,na.rm=T),
+                final_value = sum(final_value,na.rm=T),
+                pay_adjustment = -sum(final_pay_value,na.rm=T),
+                drug_cost_adjustment = -sum(final_drugs_value,na.rm=T),
+                productivity_adjustment = -sum(final_prod_value,na.rm=T)) %>%
       ungroup() %>%
-      left_join(.,waterfall_baseline,by=c('type','fyear')) %>%
-      mutate(final_value_base = round((final_value - baseline_value)/1e9),2) %>%
-      ungroup()%>%
-      select(type,models,fyear,final_value,final_value_base)%>%
-      filter(models %in% models[!grepl(pattern='log',models)])
+      select(type,models,fyear,final_value_no_cost_index,pay_adjustment,drug_cost_adjustment,productivity_adjustment)
+    
+    df2 <- df1 %>%
+      filter(
+        type == 'ae' & models == tolower(input$ae_growth) |
+          type == 'elective' & models == tolower(input$elective_growth) |
+          type == 'emergency' & models == tolower(input$emergency_growth) |
+          type == 'prescribing' & models == tolower(input$prescribing_growth) |
+          type == 'op' & models == tolower(input$op_growth) |
+          type == 'gp' & models == tolower(input$gp_growth) |
+          type == 'community' & models == tolower(input$community_growth) |
+          type == 'specialised' & models == tolower(input$specialised_growth) |
+          type == 'mh' & models == tolower(input$mh_growth) |
+          type == 'maternity' & models == tolower(input$maternity_growth)) %>%
+      select(!c(models,final_value_no_cost_index)) %>%
+      pivot_longer(cols=!c(type,fyear),names_to='models',values_to='final_value_no_cost_index')
+    
+    df3 <- rbind(df1 %>% select(type,fyear,models,final_value_no_cost_index),df2)
+
+      
   })%>%
     bindEvent(input$run)
   
-  base_waterfall <- reactive({
-    data_waterfall() %>%
+  filter_val_waterfall <- reactive({
+    (data_waterfall() %>%
       filter(fyear == input$water_year) %>%
       filter(type == input$water_type) %>%
-      mutate(final_value = round(final_value / 1e9,2) ) %>%
-      select(models,final_value)
+      filter(
+        type == 'ae' & models == tolower(input$ae_growth) |
+          type == 'elective' & models == tolower(input$elective_growth) |
+          type == 'emergency' & models == tolower(input$emergency_growth) |
+          type == 'prescribing' & models == tolower(input$prescribing_growth) |
+          type == 'op' & models == tolower(input$op_growth) |
+          type == 'gp' & models == tolower(input$gp_growth) |
+          type == 'community' & models == tolower(input$community_growth) |
+          type == 'specialised' & models == tolower(input$specialised_growth) |
+          type == 'mh' & models == tolower(input$mh_growth) |
+          type == 'maternity' & models == tolower(input$maternity_growth)))$final_value_no_cost_index/1e9
+  }) %>%
+    bindEvent(input$run)
+  
+  base_waterfall <- reactive({
+    df1 <- data_waterfall() %>%
+      filter(fyear == input$water_year) %>%
+      filter(type == input$water_type) %>%
+      mutate(final_value_no_cost_index = round(final_value_no_cost_index / 1e9,2)) %>%
+      ungroup()%>%
+      select(models,final_value_no_cost_index)
+    
+    filter_val <- case_when(
+      input$water_type == 'ae' ~ tolower(input$ae_growth),
+      input$water_type == 'elective' ~ tolower(input$elective_growth),
+      input$water_type == 'emergency' ~ tolower(input$emergency_growth),
+      input$water_type == 'prescribing' ~ tolower(input$prescribing_growth),
+      input$water_type == 'op' ~ tolower(input$op_growth),
+      input$water_type == 'gp' ~ tolower(input$gp_growth),
+      input$water_type == 'community' ~ tolower(input$community_growth),
+      input$water_type == 'specialised' ~ tolower(input$specialised_growth),
+      input$water_type == 'mh' ~ tolower(input$mh_growth),
+      input$water_type == 'maternity' ~ tolower(input$maternity_growth))
+    
+    df2 <- df1 %>%
+      filter(
+        case_when(
+          grepl(pattern='log',filter_val) == T ~ grepl(pattern='linear',models) == F,
+          grepl(pattern='linear',filter_val) == T ~ grepl(pattern='log',models) == F,
+          T ~  final_value_no_cost_index <= filter_val_waterfall() | models %in% c('pay_adjustment','productivity_adjustment','drug_cost_adjustment'))
+        )
+      return(df2)
   })%>%
     bindEvent(input$run)
   
   output$waterfall_graph <- renderPlot({
-    waterfalls::waterfall(base_waterfall(),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
+    waterfalls::waterfall(base_waterfall() %>%
+                            mutate(final_value_no_cost_index = case_when(
+                              final_value_no_cost_index < 0 ~ 0,
+                              T ~ final_value_no_cost_index
+                            )) ,calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
       theme_bw(base_size = 16) +
       xlab('') + 
       ylab('') +
       THFstyle::scale_fill_THF()+
       ggtitle('Growth within POD dissagregated by model type')+
       theme(text=element_text(size=16))
-    
-      
   })
   
   type_waterfall <- reactive({
-    data_waterfall() %>%
+    base_data() %>%
       filter(fyear == input$water_year) %>%
       filter(
         type == 'ae' & models == tolower(input$ae_growth) |
@@ -597,7 +665,11 @@ server <- function(input,output,session){
     bindEvent(input$run)
   
   output$waterfall_graph2 <- renderPlot({
-    waterfalls::waterfall(type_waterfall(),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
+    waterfalls::waterfall(type_waterfall() %>%
+                            mutate(final_value = case_when(
+                              final_value < 0 ~ 0,
+                              T ~ final_value
+                            )),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
       theme_bw(base_size = 16) +
       xlab('') + 
       ylab('') +
