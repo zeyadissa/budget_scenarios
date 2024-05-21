@@ -421,7 +421,7 @@ server <- function(input,output,session){
         group_by(fyear) %>%
         summarise(final_value_base = sum(final_value_base,na.rm=T))%>%
         left_join(.,pop_adj(),by='fyear') %>%
-        mutate(final_value= final_value_base / values)
+        mutate(final_value_base= final_value_base / values)
   })%>%
     bindEvent(input$run)
   
@@ -630,11 +630,7 @@ server <- function(input,output,session){
     bindEvent(input$run)
   
   output$waterfall_graph <- renderPlot({
-    waterfalls::waterfall(base_waterfall() %>%
-                            mutate(final_value_no_cost_index = case_when(
-                              final_value_no_cost_index < 0 ~ 0,
-                              T ~ final_value_no_cost_index
-                            )) ,calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
+    waterfalls::waterfall(base_waterfall() ,calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
       theme_bw(base_size = 16) +
       xlab('') + 
       ylab('') +
@@ -665,11 +661,7 @@ server <- function(input,output,session){
     bindEvent(input$run)
   
   output$waterfall_graph2 <- renderPlot({
-    waterfalls::waterfall(type_waterfall() %>%
-                            mutate(final_value = case_when(
-                              final_value < 0 ~ 0,
-                              T ~ final_value
-                            )),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
+    waterfalls::waterfall(type_waterfall(),calc_total = TRUE,total_rect_color = "orange",rect_text_size=1.5) +
       theme_bw(base_size = 16) +
       xlab('') + 
       ylab('') +

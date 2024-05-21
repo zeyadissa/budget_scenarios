@@ -5,7 +5,7 @@ account: zeyad-issa
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11702726
-bundleId: 8643096
+bundleId: 8643191
 url: https://zeyad-issa.shinyapps.io/budget_scenarios/
 version: 1
 asMultiple: FALSE
