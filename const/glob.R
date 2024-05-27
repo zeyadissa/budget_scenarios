@@ -69,11 +69,11 @@ CreateIndex <- function(w,d,r,prod,pay,drug){
 }
 
 CreatePayIndex <- function(w,d,r,prod,pay,drug){
-  1+ (w*(pay))
+  1+ (w*(pay-1))
 }
 
 CreateDrugIndex <- function(w,d,r,prod,pay,drug){
-  1+ (r*(drug)) 
+  1+ (r*(drug-1)) 
 }
 
 CreateCommunityMHData <- function(df){

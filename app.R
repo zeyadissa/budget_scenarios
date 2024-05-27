@@ -8,10 +8,10 @@ library(bsicons)
 
 devtools::install_github("THF-evaluative-analytics/THFstyle")
 
-source("glob.R")
-source("sidebarUI.R")
-source("activityUI.R")
-source("indexUI.R")
+source("const/glob.R")
+source("ui/sidebarUI.R")
+source("ui/activityUI.R")
+source("ui/indexUI.R")
 
 # UI ----------------------------------------------------------------------
 
@@ -150,7 +150,8 @@ server <- function(input, output, session) {
     return(data_final2)
   })
 
-  base_data <- reactive({
+  base_data1 <- reactive({
+    
     data_final() %>%
       CreateShock(.,
         shock_type = input$shock_type,
@@ -198,11 +199,15 @@ server <- function(input, output, session) {
       mutate(
         final_value = baseline * (modelled_growth) * index * val_deflator,
         final_value_no_cost_index = baseline * (modelled_growth) * val_deflator,
-        final_cost_value = baseline * (modelled_growth - 1) * (1 - index) * val_deflator,
-        final_drugs_value = baseline * (modelled_growth - 1) * (1 - drugs_index) * val_deflator,
-        final_pay_value = baseline * (modelled_growth - 1) * (1 - pay_index) * val_deflator,
+        final_cost_value = final_value - final_value_no_cost_index,
+        final_drugs_value =  (baseline * (modelled_growth) * (drugs_index-1) * val_deflator),
+        final_pay_value = (baseline * (modelled_growth) * (pay_index-1) * val_deflator),
         final_prod_value = final_cost_value - final_drugs_value - final_pay_value
-      ) %>%
+      )
+  })
+
+  base_data <- reactive({
+    base_data1() %>%
       filter(
         type == "A&E" & models == (input$ae_growth) |
           type == "Elective" & models == (input$elective_growth) |
@@ -217,7 +222,7 @@ server <- function(input, output, session) {
           type == "Other"
       )
   })
-
+  
   # data for index
   data_index <- reactive({
     base_data() %>%
@@ -287,19 +292,47 @@ server <- function(input, output, session) {
 
   # data for model
   data_waterfall <- reactive({
-    df1 <- base_data() %>%
+    
+    df1 <- base_data1() %>%
       # true filter
       group_by(fyear, models, type) %>%
       mutate(
-        final_value_no_cost_index = final_value_no_cost_index - baseline * (1) * val_deflator,
-        final_value_no_cost_index = (final_value_no_cost_index),
-        final_value = (final_value),
-        pay_adjustment = -(final_pay_value),
-        drug_cost_adjustment = -(final_drugs_value),
-        productivity_adjustment = -(final_prod_value)
+        Pay = (final_pay_value),
+        Drugs = (final_drugs_value),
+        Productivity = (final_prod_value),
+        final_value_no_cost_index = final_value_no_cost_index - baseline
       ) %>%
-      select(type, models, fyear, final_value_no_cost_index, pay_adjustment, drug_cost_adjustment, productivity_adjustment)
-
+      ungroup()
+    
+  })
+  
+  filter_val_waterfall <- reactive({
+    (data_waterfall() %>%
+       filter(fyear == input$water_year) %>%
+       filter(type == input$water_type) %>%
+       filter(
+         type == "A&E" & models == (input$ae_growth) |
+           type == "Elective" & models == (input$elective_growth) |
+           type == "Emergency" & models == (input$emergency_growth) |
+           type == "Prescribing" & models == (input$prescribing_growth) |
+           type == "Outpatients" & models == (input$outpatients_growth) |
+           type == "General Practice" & models == (input$general_practice_growth) |
+           type == "Community" & models == (input$community_growth) |
+           type == "Specialised" & models == (input$specialised_growth) |
+           type == "Mental Health" & models == (input$mental_health_growth) |
+           type == "Maternity" & models == (input$maternity_growth) |
+           type == "Other"
+       ))$final_value_no_cost_index / 1e9
+  })
+  
+  base_waterfall <- reactive({
+    
+    df1 <- data_waterfall() %>%
+      ungroup() %>%
+      filter(fyear == input$water_year) %>%
+      filter(type == input$water_type) %>%
+      select(type,models,fyear,Pay,Drugs,Productivity,final_value_no_cost_index)
+    
     df2 <- df1 %>%
       filter(
         type == "A&E" & models == (input$ae_growth) |
@@ -314,39 +347,13 @@ server <- function(input, output, session) {
           type == "Maternity" & models == (input$maternity_growth) |
           type == "Other"
       ) %>%
-      select(!c(models, final_value_no_cost_index)) %>%
-      pivot_longer(cols = !c(type, fyear), names_to = "models", values_to = "final_value_no_cost_index")
-
-    df3 <- rbind(df1 %>% select(type, fyear, models, final_value_no_cost_index), df2)
-  })
-
-  filter_val_waterfall <- reactive({
-    (data_waterfall() %>%
-      filter(fyear == input$water_year) %>%
-      filter(type == input$water_type) %>%
-      filter(
-        type == "A&E" & models == (input$ae_growth) |
-          type == "Elective" & models == (input$elective_growth) |
-          type == "Emergency" & models == (input$emergency_growth) |
-          type == "Prescribing" & models == (input$prescribing_growth) |
-          type == "Outpatients" & models == (input$outpatients_growth) |
-          type == "General Practice" & models == (input$general_practice_growth) |
-          type == "Community" & models == (input$community_growth) |
-          type == "Specialised" & models == (input$specialised_growth) |
-          type == "Mental Health" & models == (input$mental_health_growth) |
-          type == "Maternity" & models == (input$maternity_growth) |
-          type == "Other"
-      ))$final_value_no_cost_index / 1e9
-  })
-
-  base_waterfall <- reactive({
-    df1 <- data_waterfall() %>%
-      filter(fyear == input$water_year) %>%
-      filter(type == input$water_type) %>%
-      mutate(final_value_no_cost_index = round(final_value_no_cost_index / 1e9, 2)) %>%
-      ungroup() %>%
-      select(models, final_value_no_cost_index)
-
+      select(fyear,Pay,Drugs,Productivity) %>%
+      pivot_longer(cols=!c('fyear'),names_to='models',values_to='final_value_no_cost_index')
+    
+    df3 <- rbind(df1 %>% select(fyear,models,final_value_no_cost_index),df2) %>%
+      select(!fyear) %>%
+      mutate(final_value_no_cost_index = round(final_value_no_cost_index / 1e9,2))
+    
     filter_val <- case_when(
       input$water_type == "A&E" ~ (input$ae_growth),
       input$water_type == "Elective" ~ (input$elective_growth),
@@ -360,19 +367,20 @@ server <- function(input, output, session) {
       input$water_type == "Maternity" ~ (input$maternity_growth),
       T ~ "Other"
     )
-
-    df2 <- df1 %>%
+    
+    df4 <- df3 %>%
       filter(
         case_when(
           grepl(pattern = "Log", filter_val) == T ~ grepl(pattern = "Linear|Recovery", models) == F,
           grepl(pattern = "Linear", filter_val) == T ~ grepl(pattern = "Log|Recovery", models) == F,
           grepl(pattern = "Recovery", filter_val) == T ~ grepl(pattern = "Log|Linear", models) == F,
-          T ~ final_value_no_cost_index <= filter_val_waterfall() | models %in% c("pay_adjustment", "productivity_adjustment", "drug_cost_adjustment")
+          T ~ final_value_no_cost_index <= filter_val_waterfall() | models %in% c("Pay", "Productivity", "Drugs")
         )
       )
-    return(df2)
-  })
 
+    return(df4)
+  })
+  
   type_waterfall <- reactive({
     base_data() %>%
       filter(fyear == input$water_year) %>%
@@ -394,28 +402,30 @@ server <- function(input, output, session) {
       select(type, final_value) %>%
       mutate(final_value = round(final_value / 1e9, 2))
   })
-
+  
   # OUTPUTS
-
+  
   output$waterfall_graph <- renderPlot({
-    waterfalls::waterfall(base_waterfall(), calc_total = TRUE, total_rect_color = "orange", rect_text_size = 1.5) +
+    waterfalls::waterfall(base_waterfall(), calc_total = TRUE, total_rect_color = "orange", rect_text_size = 2,total_rect_text_color = "black") +
       theme_bw(base_size = 16) +
       xlab("") +
       ylab("") +
       THFstyle::scale_fill_THF() +
-      ggtitle("Growth within POD dissagregated by model type") +
-      theme(text = element_text(size = 16))
-  })
-
+      ggtitle(paste0("Growth in ",input$water_type,' in ',input$water_year,' relative to 2018')) +
+      theme(axis.text=element_text(size=14))
+  }) %>%
+    bindEvent(input$run)
+  
   output$waterfall_graph2 <- renderPlot({
-    waterfalls::waterfall(type_waterfall(), calc_total = TRUE, total_rect_color = "orange", rect_text_size = 1.5) +
+    waterfalls::waterfall(type_waterfall(), calc_total = TRUE, total_rect_color = "orange", rect_text_size = 2,total_rect_text_color = "black")+
       theme_bw(base_size = 16) +
       xlab("") +
       ylab("") +
       THFstyle::scale_fill_THF() +
-      ggtitle("Change in budget relative to baseline scenario") +
-      theme(text = element_text(size = 16))
-  })
+      ggtitle(paste0('Total NHSE budget by POD in ',input$water_year)) +
+      theme(axis.text=element_text(size=14))
+  })%>%
+    bindEvent(input$run)
 
   # graphs and outputs
   output$maingraph <- plotly::renderPlotly({
@@ -432,15 +442,15 @@ server <- function(input, output, session) {
         labs(fill = "POD") +
         theme(legend.position = "bottom")
     )
-  })
+  })%>%
+    bindEvent(input$run)
 
   output$download <-  downloadHandler(
     filename = 'data.csv',
     content = function(file){
-      write.csv(data_model(), file)
+      write.csv(base_waterfall(), file)
     }
   )
-
 
   output$subgraph <- plotly::renderPlotly({
     plotly::ggplotly(
@@ -456,7 +466,8 @@ server <- function(input, output, session) {
         labs(col = "Measure") +
         theme(legend.position = "bottom")
     )
-  })
+  })%>%
+    bindEvent(input$run)
 }
 
 shinyApp(ui = ui, server = server, options = list(height = 2000))
