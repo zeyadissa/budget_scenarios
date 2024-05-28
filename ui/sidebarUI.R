@@ -61,12 +61,14 @@ sidebarUI <- function(id) {
     selectInput(
       inputId = "water_type",
       label = "Select POD for waterfall",
-      choices = water_type
+      choices = c(water_type,'Total'),
+      selected = 'Total'
     ),
     selectInput(
       inputId = "water_year",
       label = "Select year for waterfall",
-      choices = min_date:max_date
+      choices = min_date:max_date,
+      selected = 2035
     ),
     hr(),
     fluidRow(

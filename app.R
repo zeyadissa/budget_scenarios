@@ -123,6 +123,32 @@ server <- function(input, output, session) {
 
     return(growth)
   })
+  
+  mhcomm_growth <- reactive({
+    df <- data_final_a %>%
+      filter(type != 'Mental Health') %>%
+      # true filter
+      filter(
+        type == "A&E" & models == tolower(input$ae_growth) |
+          type == "Elective" & models == tolower(input$elective_growth) |
+          type == "Emergency" & models == tolower(input$emergency_growth) |
+          type == "Prescribing" & models == tolower(input$prescribing_growth) |
+          type == "Outpatients" & models == tolower(input$outpatients_growth) |
+          type == "General Practice" & models == tolower(input$general_practice_growth) |
+          type == "Community" & models == tolower(input$community_growth) |
+          type == "Specialised" & models == tolower(input$specialised_growth) |
+          type == "Maternity" & models == tolower(input$maternity_growth) |
+          type == "Other"
+      ) %>%
+      mutate(val = baseline * modelled_growth) %>%
+      group_by(fyear) %>%
+      summarise(val = sum(val, na.rm = T))
+    
+    growth <- as.numeric(((df %>% filter(fyear == max(fyear)))$val /
+                            (df %>% filter(fyear == min(fyear)))$val)^(1 / length(unique(data_final_a$fyear)))) - 1
+    
+    return(growth)
+  })
 
   data_final <- reactive({
     data_final2 <- rbind(
@@ -195,11 +221,12 @@ server <- function(input, output, session) {
           drug = val_drug
         )
       ) %>%
-      CreateCommunityMHData(.) %>%
+      CreateCommunityMHData(.,mhcomm_growth()) %>%
       mutate(
         final_value = baseline * (modelled_growth) * index * val_deflator,
-        final_value_no_cost_index = baseline * (modelled_growth) * val_deflator,
-        final_cost_value = final_value - final_value_no_cost_index,
+        final_value_no_cost_index = baseline * (modelled_growth-1) * val_deflator,
+        final_value_no_cost_index2 = baseline * (modelled_growth) * val_deflator,
+        final_cost_value = final_value - final_value_no_cost_index2,
         final_drugs_value =  (baseline * (modelled_growth) * (drugs_index-1) * val_deflator),
         final_pay_value = (baseline * (modelled_growth) * (pay_index-1) * val_deflator),
         final_prod_value = final_cost_value - final_drugs_value - final_pay_value
@@ -295,42 +322,23 @@ server <- function(input, output, session) {
     
     df1 <- base_data1() %>%
       # true filter
-      group_by(fyear, models, type) %>%
       mutate(
         Pay = (final_pay_value),
         Drugs = (final_drugs_value),
-        Productivity = (final_prod_value),
-        final_value_no_cost_index = final_value_no_cost_index - baseline
+        Productivity = (final_prod_value)
       ) %>%
       ungroup()
-    
   })
-  
-  filter_val_waterfall <- reactive({
-    (data_waterfall() %>%
-       filter(fyear == input$water_year) %>%
-       filter(type == input$water_type) %>%
-       filter(
-         type == "A&E" & models == (input$ae_growth) |
-           type == "Elective" & models == (input$elective_growth) |
-           type == "Emergency" & models == (input$emergency_growth) |
-           type == "Prescribing" & models == (input$prescribing_growth) |
-           type == "Outpatients" & models == (input$outpatients_growth) |
-           type == "General Practice" & models == (input$general_practice_growth) |
-           type == "Community" & models == (input$community_growth) |
-           type == "Specialised" & models == (input$specialised_growth) |
-           type == "Mental Health" & models == (input$mental_health_growth) |
-           type == "Maternity" & models == (input$maternity_growth) |
-           type == "Other"
-       ))$final_value_no_cost_index / 1e9
-  })
+
   
   base_waterfall <- reactive({
     
     df1 <- data_waterfall() %>%
       ungroup() %>%
       filter(fyear == input$water_year) %>%
-      filter(type == input$water_type) %>%
+      filter(
+        case_when(input$water_type == 'Total' ~ type %in% type,
+                  T ~ type == input$water_type)) %>%
       select(type,models,fyear,Pay,Drugs,Productivity,final_value_no_cost_index)
     
     df2 <- df1 %>%
@@ -347,38 +355,63 @@ server <- function(input, output, session) {
           type == "Maternity" & models == (input$maternity_growth) |
           type == "Other"
       ) %>%
-      select(fyear,Pay,Drugs,Productivity) %>%
-      pivot_longer(cols=!c('fyear'),names_to='models',values_to='final_value_no_cost_index')
+      select(type,fyear,Pay,Drugs,Productivity) %>%
+      pivot_longer(cols=!c('type','fyear'),names_to='models',values_to='final_value_no_cost_index')
     
-    df3 <- rbind(df1 %>% select(fyear,models,final_value_no_cost_index),df2) %>%
+    df3 <- rbind(df1 %>% select(type,fyear,models,final_value_no_cost_index),df2) %>%
       select(!fyear) %>%
       mutate(final_value_no_cost_index = round(final_value_no_cost_index / 1e9,2))
     
-    filter_val <- case_when(
-      input$water_type == "A&E" ~ (input$ae_growth),
-      input$water_type == "Elective" ~ (input$elective_growth),
-      input$water_type == "Emergency" ~ (input$emergency_growth),
-      input$water_type == "Prescribing" ~ (input$prescribing_growth),
-      input$water_type == "Outpatients" ~ (input$outpatients_growth),
-      input$water_type == "General Practice" ~ (input$general_practice_growth),
-      input$water_type == "Community" ~ (input$community_growth),
-      input$water_type == "Specialised" ~ (input$specialised_growth),
-      input$water_type == "Mental Health" ~ (input$mental_health_growth),
-      input$water_type == "Maternity" ~ (input$maternity_growth),
-      T ~ "Other"
-    )
+    filter_val_tot <- function(x){
+      case_when(
+        x == "A&E" ~ (input$ae_growth),
+        x == "Elective" ~ (input$elective_growth),
+        x == "Emergency" ~ (input$emergency_growth),
+        x == "Prescribing" ~ (input$prescribing_growth),
+        x == "Outpatients" ~ (input$outpatients_growth),
+        x == "General Practice" ~ (input$general_practice_growth),
+        x == "Community" ~ (input$community_growth),
+        x == "Specialised" ~ (input$specialised_growth),
+        x == "Mental Health" ~ (input$mental_health_growth),
+        x == "Maternity" ~ (input$maternity_growth),
+        T ~ "Other"
+    )}
     
-    df4 <- df3 %>%
-      filter(
-        case_when(
-          grepl(pattern = "Log", filter_val) == T ~ grepl(pattern = "Linear|Recovery", models) == F,
-          grepl(pattern = "Linear", filter_val) == T ~ grepl(pattern = "Log|Recovery", models) == F,
-          grepl(pattern = "Recovery", filter_val) == T ~ grepl(pattern = "Log|Linear", models) == F,
-          T ~ final_value_no_cost_index <= filter_val_waterfall() | models %in% c("Pay", "Productivity", "Drugs")
-        )
-      )
+    df4 <- lapply(
+      unique(df3$type),
+      function(x){
 
-    return(df4)
+        df3 %>%
+          filter(type == x) %>%
+          filter(
+            case_when(
+              grepl(pattern = "Log", filter_val_tot(x)) == T ~ grepl(pattern = "Linear|Recovery", models) == F,
+              grepl(pattern = "Linear", filter_val_tot(x)) == T ~ grepl(pattern = "Log|Recovery", models) == F,
+              grepl(pattern = "Recovery", filter_val_tot(x)) == T ~ grepl(pattern = "Log|Linear", models) == F,
+              grepl(pattern = "Demography", filter_val_tot(x)) == T ~ models %in% c('Demography',"Pay", "Productivity", "Drugs"),
+              grepl(pattern = "Morbidity", filter_val_tot(x)) == T ~ models %in% c('Demography','Morbidity',"Pay", "Productivity", "Drugs"),
+              grepl(pattern = "medium", filter_val_tot(x)) == T ~ models %in% c('lower','medium',"Pay", "Productivity", "Drugs"),
+              grepl(pattern = "upper", filter_val_tot(x)) == T ~ models %in% c('lower','medium',"Pay", "Productivity", "Drugs"),
+              grepl(pattern = "lower", filter_val_tot(x)) == T ~ models %in% c('lower',"Pay", "Productivity", "Drugs"),
+              T ~ models == 'Base'
+            )
+          ) %>%
+          group_by(type) %>%
+          arrange(final_value_no_cost_index) %>%
+          mutate(
+            lag_val = case_when(
+              is.na(lag(final_value_no_cost_index))==T ~ 0,
+              T ~ lag(final_value_no_cost_index)),
+            final_value_no_cost_index =  final_value_no_cost_index - lag_val)
+      }) %>%
+      data.table::rbindlist()
+    
+    df5 <- df4 %>%
+      group_by(models) %>%
+      summarise(final_value_no_cost_index=sum(final_value_no_cost_index,na.rm=T))
+    
+    return(df5)
+    
   })
   
   type_waterfall <- reactive({

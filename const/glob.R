@@ -76,11 +76,11 @@ CreateDrugIndex <- function(w,d,r,prod,pay,drug){
   1+ (r*(drug-1)) 
 }
 
-CreateCommunityMHData <- function(df){
+CreateCommunityMHData <- function(df,growth){
   df %>% 
     mutate(modelled_growth = 
              case_when(type %in% c('Community','Mental Health') & models %in% c('Policy: Recovery') ~ 
-                         modelled_growth + (1+base_growth)^(fyear-base_year) - (modelled_growth*index),
+                         modelled_growth + (1+growth)^(fyear-base_year) - (modelled_growth*index),
                        T ~ modelled_growth))
   
 }
