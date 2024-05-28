@@ -407,6 +407,14 @@ server <- function(input, output, session) {
       data.table::rbindlist()
     
     df5 <- df4 %>%
+      mutate(models = case_when(
+        models == 'Demography' ~ 'Demographics',
+        models %in% c('Log growth','Linear growth') ~ 'Rate of Care',
+        models %in% c('lower','upper','medium') ~ 'Policy',
+        models %in% c('Policy: Recovery') ~ 'Policy',
+        models == 'Base' ~ 'Other growth',
+        T ~ models
+      )) %>%
       group_by(models) %>%
       summarise(final_value_no_cost_index=sum(final_value_no_cost_index,na.rm=T))
     
