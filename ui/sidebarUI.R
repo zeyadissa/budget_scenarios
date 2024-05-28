@@ -54,7 +54,7 @@ sidebarUI <- function(id) {
     sliderTextInput(
       inputId = "range",
       label = "Choose shock range",
-      choices = min_date:max_date,
+      choices = min_date:max_year,
       selected = c(2020, 2021)
     ),
     hr(),
@@ -67,7 +67,7 @@ sidebarUI <- function(id) {
     selectInput(
       inputId = "water_year",
       label = "Select year for waterfall",
-      choices = min_date:max_date,
+      choices = min_date:max_year,
       selected = 2035
     ),
     hr(),
