@@ -315,7 +315,7 @@ server <- function(input, output, session) {
 
   growth <- reactive({
     
-    gro_df <- setDT(data_model())
+    gro_df <- data.table::setDT(data_model())
     round(100 * ((gro_df[fyear == max(fyear)]$final_value)/gro_df[fyear == min(gro_df$fyear)]$final_value)^(1/(length(unique(gro_df$fyear))-1)) - 100, 2)
   })
 
