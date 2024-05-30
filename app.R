@@ -156,7 +156,7 @@ server <- function(input, output, session) {
       expand_grid(
         "type" = "Other",
         "measure" = "cwa",
-        "models" = "Base",
+        "models" = "Other",
         "fyear" = c(base_year:max_year),
         "modelled_growth" = 1,
         "baseline" = 13214650700,
@@ -188,7 +188,14 @@ server <- function(input, output, session) {
       group_by(type, measure, models) %>%
       mutate(
         pay = (100 + input$pay) / 100,
-        drug = (100 + input$drug) / 100,
+        drug = (100 + input$drug) / 100) %>%
+      mutate(
+        pay = case_when(fyear==min(fyear) ~ 1,
+                        T ~ pay),
+        drug = case_when(fyear == min(fyear) ~ 1,
+                         T ~ drug),
+        prod = case_when(fyear == min(fyear) ~ 1,
+                         T ~ prod),
         val_drug = cumprod(drug),
         val_deflator = deflator^deflator_adj(),
         val_prod = cumprod(prod),
@@ -223,8 +230,11 @@ server <- function(input, output, session) {
       ) %>%
       CreateCommunityMHData(.,mhcomm_growth()) %>%
       mutate(
+        modelled_growth_inverse = case_when(
+          modelled_growth - 1 == 0 ~ 1,
+          T ~ modelled_growth - 1),
         final_value = baseline * (modelled_growth) * index * val_deflator,
-        final_value_no_cost_index = baseline * (modelled_growth-1) * val_deflator,
+        final_value_no_cost_index = baseline * (modelled_growth_inverse) * val_deflator,
         final_value_no_cost_index2 = baseline * (modelled_growth) * val_deflator,
         final_cost_value = final_value - final_value_no_cost_index2,
         final_drugs_value =  (baseline * (modelled_growth) * (drugs_index-1) * val_deflator),
@@ -387,22 +397,31 @@ server <- function(input, output, session) {
             case_when(
               grepl(pattern = "Log", filter_val_tot(x)) == T ~ grepl(pattern = "Linear|Recovery", models) == F,
               grepl(pattern = "Linear", filter_val_tot(x)) == T ~ grepl(pattern = "Log|Recovery", models) == F,
-              grepl(pattern = "Recovery", filter_val_tot(x)) == T ~ grepl(pattern = "Log|Linear", models) == F,
+              filter_val_tot(x) == 'Policy: Recovery (10-year)' ~ models %in% c('Demography','Morbidity','Policy: Recovery (10-year)',"Pay", "Productivity", "Drugs"),
+              filter_val_tot(x) == 'Policy: Recovery (5-year)' ~ models %in% c('Demography','Morbidity','Policy: Recovery (5-year)',"Pay", "Productivity", "Drugs"),
+              filter_val_tot(x) == 'Policy: Recovery' ~ grepl(pattern = "Log|Linear", models) == F,
               grepl(pattern = "Demography", filter_val_tot(x)) == T ~ models %in% c('Demography',"Pay", "Productivity", "Drugs"),
               grepl(pattern = "Morbidity", filter_val_tot(x)) == T ~ models %in% c('Demography','Morbidity',"Pay", "Productivity", "Drugs"),
               grepl(pattern = "medium", filter_val_tot(x)) == T ~ models %in% c('lower','medium',"Pay", "Productivity", "Drugs"),
               grepl(pattern = "upper", filter_val_tot(x)) == T ~ models %in% c('lower','medium',"Pay", "Productivity", "Drugs"),
               grepl(pattern = "lower", filter_val_tot(x)) == T ~ models %in% c('lower',"Pay", "Productivity", "Drugs"),
-              T ~ models == 'Base'
+              T ~ models %in% c('Resilience','Other',"Pay", "Productivity", "Drugs")
             )
           ) %>%
-          group_by(type) %>%
+          mutate(
+            group = case_when(
+              models %in% c("Pay", "Productivity", "Drugs",'Resilience') ~ 'ungroup',
+              T ~ 'group'
+          )) %>%
+          group_by(type,group) %>%
           arrange(final_value_no_cost_index) %>%
           mutate(
-            lag_val = case_when(
-              is.na(lag(final_value_no_cost_index))==T ~ 0,
-              T ~ lag(final_value_no_cost_index)),
-            final_value_no_cost_index =  final_value_no_cost_index - lag_val)
+            lag_val = lag(final_value_no_cost_index,default = 0),
+            final_value_no_cost_index_a =  final_value_no_cost_index - lag_val) %>%
+          mutate(
+            final_value_no_cost_index = case_when(
+              group == 'ungroup' ~ final_value_no_cost_index,
+              T ~ final_value_no_cost_index_a))
       }) %>%
       data.table::rbindlist()
     
@@ -412,7 +431,6 @@ server <- function(input, output, session) {
         models %in% c('Log growth','Linear growth') ~ 'Rate of Care',
         models %in% c('lower','upper','medium') ~ 'Policy',
         models %in% c('Policy: Recovery','Policy: Recovery (5-year)','Policy: Recovery (10-year)') ~ 'Policy',
-        models == 'Base' ~ 'Other growth',
         T ~ models
       )) %>%
       group_by(models) %>%
@@ -489,7 +507,7 @@ server <- function(input, output, session) {
   output$download <-  downloadHandler(
     filename = 'data.csv',
     content = function(file){
-      write.csv(base_waterfall(), file)
+      write.csv(base_data(), file)
     }
   )
 
