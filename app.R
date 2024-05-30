@@ -83,11 +83,10 @@ server <- function(input, output, session) {
   pop_adj <- reactive({
     if (input$per_capita == F) {
       pop_final %>%
-        mutate(values = 1) %>%
-        select(!c(metric, X))
+        mutate(values = 1,
+               index = 100)
     } else {
       pop_final %>%
-        select(!c(metric, X)) %>%
         mutate(values = values / 1000000)
     }
   })
@@ -264,7 +263,7 @@ server <- function(input, output, session) {
   data_index <- reactive({
     base_data() %>%
       ungroup() %>%
-      select(fyear, val_prod, val_drug, val_pay, val_deflator) %>%
+      select(fyear,val_prod, val_drug, val_pay, val_deflator) %>%
       left_join(., supplement %>% filter(fyear %in% data_final()$fyear), by = c("fyear")) %>%
       rename(
         Productivity = "val_prod",
@@ -275,7 +274,9 @@ server <- function(input, output, session) {
         Deflator = "val_deflator"
       ) %>%
       pivot_longer(cols = !c(fyear), names_to = "names", values_to = "values") %>%
-      filter(names %in% input$index_names)
+      filter(names %in% input$index_names) %>%
+      left_join(.,pop_adj() %>% select(fyear,index),by='fyear') %>%
+      mutate(values = values/(index/100))
   })
 
   # data for baseline
@@ -313,18 +314,9 @@ server <- function(input, output, session) {
   })
 
   growth <- reactive({
-    round(100 * (((data_model() %>%
-      ungroup() %>%
-      select(fyear, final_value) %>%
-      filter(fyear == max(fyear)))[1, 2] -
-      (data_model() %>%
-        ungroup() %>%
-        select(fyear, final_value) %>%
-        filter(fyear == min(fyear)))[1, 2]) /
-      (length(unique(data_model()$fyear)) * (data_model() %>%
-        ungroup() %>%
-        select(fyear, final_value) %>%
-        filter(fyear == min(fyear)))[1, 2])), 2)
+    
+    gro_df <- setDT(data_model())
+    round(100 * ((gro_df[fyear == max(fyear)]$final_value)/gro_df[fyear == min(gro_df$fyear)]$final_value)^(1/(length(unique(gro_df$fyear))-1)) - 100, 2)
   })
 
   # data for model

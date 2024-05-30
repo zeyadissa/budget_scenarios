@@ -31,7 +31,8 @@ test <- data_final_a %>%
   unique()
 
 #population data
-pop_final <- read.csv('const/FINAL_POP.csv')
+pop_final <- read.csv('const/FINAL_POP.csv') %>%
+  select(!c(X,metric))
 
 #supplementary gdp data
 supplement <- read.csv('const/supplementary_data.csv') %>%
