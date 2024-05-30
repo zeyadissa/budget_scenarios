@@ -411,7 +411,7 @@ server <- function(input, output, session) {
         models == 'Demography' ~ 'Demographics',
         models %in% c('Log growth','Linear growth') ~ 'Rate of Care',
         models %in% c('lower','upper','medium') ~ 'Policy',
-        models %in% c('Policy: Recovery') ~ 'Policy',
+        models %in% c('Policy: Recovery','Policy: Recovery (5-year)','Policy: Recovery (10-year)') ~ 'Policy',
         models == 'Base' ~ 'Other growth',
         T ~ models
       )) %>%
