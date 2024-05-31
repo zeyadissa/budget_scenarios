@@ -29,6 +29,7 @@ ui <- fluidPage(
   br(),
   sidebarLayout(
     sidebarPanel(
+      style = "height: 90vh; overflow-y: auto;", 
       titlePanel(h4(strong("BUDGET SCENARIOS"), icon("house", class = "about-icon fa-pull-left"))),
       hr(),
       sidebarUI("var"),
