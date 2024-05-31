@@ -192,6 +192,8 @@ server <- function(input, output, session) {
       mutate(
         pay = case_when(fyear==min(fyear) ~ 1,
                         T ~ pay),
+        pay = case_when(models == 'Policy: Recovery (5-year)' & fyear <= 2030 & fyear != 2018 ~ 1+((pay-1) * 1.0625),
+                        T ~ pay),
         drug = case_when(fyear == min(fyear) ~ 1,
                          T ~ drug),
         prod = case_when(fyear == min(fyear) ~ 1,
