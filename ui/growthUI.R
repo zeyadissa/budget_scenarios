@@ -19,7 +19,7 @@ growthUI <- function(id){
       radioGroupButtons(
         inputId = "productivity_growth_scenario",
         label = "Select Productivity Scenario",
-        choices = c("Lower","Median", "Upper"),
+        choices = c("Central","10-year", "5-year"),
         individual = TRUE,
         checkIcon = list(
           yes = tags$i(class = "fa fa-circle", 
@@ -30,7 +30,7 @@ growthUI <- function(id){
       radioGroupButtons(
         inputId = "pay_growth_scenario",
         label = "Select Pay Scenario",
-        choices = c("Lower","Median", "Upper"),
+        choices = c("Central","10-year", "5-year"),
         individual = TRUE,
         checkIcon = list(
           yes = tags$i(class = "fa fa-circle", 

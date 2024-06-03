@@ -11,6 +11,17 @@ base_font <- 14
 
 shock_types <- c('Permanent','U-Shaped')
 
+growth_scenarios <- read.csv('const/growth_scenarios.csv') %>%
+  group_by(scenario) %>%
+  mutate(
+  prod = case_when(
+    is.na(val_prod/lag(val_prod)) == T ~ 1,
+    T ~val_prod/lag(val_prod)),
+  pay = case_when(
+    is.na(val_pay/lag(val_pay)) == T ~ 1,
+    T ~ val_pay/lag(val_pay))
+  ) %>%
+  select(!c(val_prod,val_pay))
 
 data_final_a <- data_final_a %>%
   filter(fyear <= max_year)

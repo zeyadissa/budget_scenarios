@@ -14,7 +14,6 @@ source("ui/activityUI.R")
 source("ui/indexUI.R")
 source("ui/growthUI.R")
 
-
 # UI ----------------------------------------------------------------------
 
 ui <- fluidPage(
@@ -191,9 +190,25 @@ server <- function(input, output, session) {
       mutate(
         pay = (100 + input$pay) / 100,
         drug = (100 + input$drug) / 100) %>%
+      {if(input$growth_scenarios == T)
+              select(.,!c(pay,prod)) %>%
+                left_join(.,
+                        growth_scenarios %>%
+                          select(fyear,scenario,prod) %>%
+                          filter(scenario == input$productivity_growth_scenario) %>%
+                          select(!scenario),
+                        by=c('fyear')) %>%
+                left_join(.,
+                          growth_scenarios %>%
+                            select(fyear,scenario,pay) %>%
+                            filter(scenario == input$pay_growth_scenario) %>%
+                            select(!scenario),
+                          by=c('fyear'))
+        else .} %>%
       mutate(
         pay = case_when(models == 'Policy: Recovery (5-year)' & fyear <= 2030 & fyear != 2018 ~ 1+((pay-1) * 1.0625),
-                        T ~ pay),
+                        T ~ pay)) %>%
+      mutate(
         drug = case_when(fyear == min(fyear) ~ 1,
                          T ~ drug),
         prod = case_when(fyear == min(fyear) ~ 1,
@@ -203,8 +218,7 @@ server <- function(input, output, session) {
         val_drug = cumprod(drug),
         val_deflator = deflator^deflator_adj(),
         val_prod = cumprod(prod),
-        val_pay = cumprod(pay)
-      ) %>%
+        val_pay = cumprod(pay)) %>%
       rowwise() %>%
       mutate(
         index = CreateIndex(
