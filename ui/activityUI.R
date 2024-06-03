@@ -6,10 +6,10 @@ activityUI <- function(id){
       style = 'unite',
       size='sm',
       block = T,
+      width = '500px',
       label = 'Select model types',
       status = 'danger',
       icon = icon('hospital'),
-      width = '500px',
       fluidRow(
         column(6,
       #item 1

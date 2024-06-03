@@ -12,6 +12,8 @@ source("const/glob.R")
 source("ui/sidebarUI.R")
 source("ui/activityUI.R")
 source("ui/indexUI.R")
+source("ui/growthUI.R")
+
 
 # UI ----------------------------------------------------------------------
 
@@ -37,9 +39,9 @@ ui <- fluidPage(
     ),
     mainPanel(
       fluidRow(
-        column(6, activityUI("ba")),
-        column(6, indexUI("ba"))
-      ),
+        column(4, activityUI("ba")),
+        column(4, indexUI("ba")),
+        column(4, growthUI("ba"))),
       br(),
       fluidRow(
         tabsetPanel(
@@ -159,7 +161,7 @@ server <- function(input, output, session) {
         "models" = "Other",
         "fyear" = c(base_year:max_year),
         "modelled_growth" = 1,
-        "baseline" = 13214650700,
+        "baseline" = 11314650700,
         "w" = 0,
         "d" = 0,
         "r" = 0
@@ -190,14 +192,14 @@ server <- function(input, output, session) {
         pay = (100 + input$pay) / 100,
         drug = (100 + input$drug) / 100) %>%
       mutate(
-        pay = case_when(fyear==min(fyear) ~ 1,
-                        T ~ pay),
         pay = case_when(models == 'Policy: Recovery (5-year)' & fyear <= 2030 & fyear != 2018 ~ 1+((pay-1) * 1.0625),
                         T ~ pay),
         drug = case_when(fyear == min(fyear) ~ 1,
                          T ~ drug),
         prod = case_when(fyear == min(fyear) ~ 1,
                          T ~ prod),
+        pay = case_when(fyear==min(fyear) ~ 1,
+                        T ~ pay),
         val_drug = cumprod(drug),
         val_deflator = deflator^deflator_adj(),
         val_prod = cumprod(prod),
@@ -423,7 +425,7 @@ server <- function(input, output, session) {
     df5 <- df4 %>%
       mutate(models = case_when(
         models == 'Demography' ~ 'Demographics',
-        models %in% c('Log growth','Linear growth') ~ 'Rate of Care',
+        models %in% c('Log growth','Linear growth') ~ 'Policy',
         models %in% c('lower','upper','medium') ~ 'Policy',
         models %in% c('Policy: Recovery','Policy: Recovery (5-year)','Policy: Recovery (10-year)') ~ 'Policy',
         T ~ models

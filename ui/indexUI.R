@@ -9,7 +9,6 @@ indexUI <- function(id){
       label = 'Select supplementary indices',
       status = 'danger',
       icon = icon('book'),
-      width = '500px',
       #item 1
       selectInput(
         inputId = "index_names",
