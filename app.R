@@ -151,9 +151,19 @@ server <- function(input, output, session) {
     return(data_final2)
   })
 
+  pay_name <- reactive({
+    if(input$pay_growth_scenario == 'Recovery to 2018'){
+      '5-year'
+    } else if(input$pay_growth_scenario == 'Recovery to 2010'){
+      '10-year'
+    } else {
+      input$pay_growth_scenario
+    }
+  })
+  
   base_data1 <- reactive({
     
-    setDT(FINAL_deflator)
+    data.table::setDT(FINAL_deflator)
     
     data_final() %>%
       CreateShock(.,
@@ -170,6 +180,7 @@ server <- function(input, output, session) {
               select(.,!c(pay,prod)) %>%
                 left_join(.,
                         growth_scenarios %>%
+                          ungroup() %>%
                           select(fyear,scenario,prod) %>%
                           filter(scenario == input$productivity_growth_scenario) %>%
                           select(!scenario),
@@ -177,7 +188,8 @@ server <- function(input, output, session) {
                 left_join(.,
                           growth_scenarios %>%
                             select(fyear,scenario,pay) %>%
-                            filter(scenario == input$pay_growth_scenario) %>%
+                            filter(scenario == pay_name()) %>%
+                            ungroup() %>%
                             select(!scenario),
                           by=c('fyear'))
         else .} %>%

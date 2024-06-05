@@ -5,8 +5,8 @@ mainPanelUI <- function() {
       # row
       fluidRow(
         column(4, activityUI("ba")),
-        column(4, indexUI("ba")),
-        column(4, growthUI("ba"))),
+        column(4, growthUI("ba")),
+        column(4, indexUI("ba"))),
         br(),
       fluidRow(
         # tab panels

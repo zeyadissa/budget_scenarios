@@ -5,6 +5,7 @@ growthUI <- function(id){
       circle = T,
       block = T,
       size='sm',
+      width = '500px',
       style = 'unite',
       label = 'Select growth scenarios',
       status = 'danger',
@@ -30,7 +31,7 @@ growthUI <- function(id){
       radioGroupButtons(
         inputId = "pay_growth_scenario",
         label = "Select Pay Scenario",
-        choices = c("Central","10-year", "5-year"),
+        choices = c("Central","Recovery to 2010", "Recovery to 2018"),
         individual = TRUE,
         checkIcon = list(
           yes = tags$i(class = "fa fa-circle", 
