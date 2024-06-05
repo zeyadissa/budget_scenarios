@@ -1,5 +1,12 @@
 sidebarUI <- function(id) {
   tagList(
+    actionButton(label='Growth rates',
+                 icon = icon('gear'),
+                 inputId='info',
+                 status = 'danger',
+                 block = T,
+                 style = 'width: 100%'),
+    hr(),
     numericInput(
       inputId = "prod",
       label = "Custom productivity CAGR (%)",
@@ -66,7 +73,7 @@ sidebarUI <- function(id) {
     ),
     selectInput(
       inputId = "water_year",
-      label = "Select year for waterfall",
+      label = "Select baseline year for waterfall & deflator",
       choices = min_date:max_year,
       selected = 2035
     ),

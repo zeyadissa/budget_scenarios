@@ -13,6 +13,7 @@ source("ui/sidebarUI.R")
 source("ui/activityUI.R")
 source("ui/indexUI.R")
 source("ui/growthUI.R")
+source('ui/mainPanelUI.R')
 
 # UI ----------------------------------------------------------------------
 
@@ -29,42 +30,15 @@ ui <- fluidPage(
   theme = shinythemes::shinytheme(THEME),
   br(),
   sidebarLayout(
+    #sidebar panel
     sidebarPanel(
       style = "height: 90vh; overflow-y: auto;", 
       titlePanel(h4(strong("BUDGET SCENARIOS"), icon("house", class = "about-icon fa-pull-left"))),
       hr(),
       sidebarUI("var"),
-      width = 3
-    ),
-    mainPanel(
-      fluidRow(
-        column(4, activityUI("ba")),
-        column(4, indexUI("ba")),
-        column(4, growthUI("ba"))),
-      br(),
-      fluidRow(
-        tabsetPanel(
-          tabPanel("Time-series",
-            icon = icon("house"),
-            br(),
-            fluidRow(
-              column(12, plotly::plotlyOutput("maingraph")),
-              column(12, plotly::plotlyOutput("subgraph"))
-            )
-          ),
-          # waterfall
-          tabPanel("Waterfall",
-            icon = icon("water"),
-            fluidRow(
-              br(),
-              column(12, plotOutput("waterfall_graph")),
-              column(12, plotOutput("waterfall_graph2"))
-            )
-          )
-        )
-      ),
-      width = 9
-    )
+      width = 3),
+    #main panel
+    mainPanelUI()
   ),
   style = "font-size: 15px"
 )
@@ -179,6 +153,8 @@ server <- function(input, output, session) {
 
   base_data1 <- reactive({
     
+    setDT(FINAL_deflator)
+    
     data_final() %>%
       CreateShock(.,
         shock_type = input$shock_type,
@@ -216,7 +192,7 @@ server <- function(input, output, session) {
         pay = case_when(fyear==min(fyear) ~ 1,
                         T ~ pay),
         val_drug = cumprod(drug),
-        val_deflator = deflator^deflator_adj(),
+        val_deflator = (deflator/ FINAL_deflator[fyear == input$water_year,index_deflator])^deflator_adj() ,
         val_prod = cumprod(prod),
         val_pay = cumprod(pay)) %>%
       rowwise() %>%
@@ -350,7 +326,6 @@ server <- function(input, output, session) {
       ) %>%
       ungroup()
   })
-
   
   base_waterfall <- reactive({
     
@@ -522,9 +497,40 @@ server <- function(input, output, session) {
     }
   )
 
+  output$growth_table <- renderTable({
+    
+    df <- data.table::setDT(data_model())
+    
+    data <- tidyr::expand_grid(
+      'Start Year' = as.integer(c(2018,2024,2029,2035)),
+      'End Year' = as.integer(c(2018,2024,2029,2035))
+    ) %>%
+      filter(`Start Year` < `End Year`) %>%
+      rowwise() %>%
+      mutate(
+        `Growth Rate` = 
+          100*((df[fyear == `End Year`,final_value] / df[fyear ==  `Start Year`,final_value]) ^ (1/( `End Year`- `Start Year`)) - 1)
+      )
+    
+  })
+  
+  observeEvent(input$info, {
+    sendSweetAlert(
+      session = session,
+      title = "",
+      text = tags$span(
+        tableOutput("growth_table")
+      ),
+      html = T,
+      type = "info",
+      width = '25%'
+    )
+  })
+  
   output$subgraph <- plotly::renderPlotly({
     plotly::ggplotly(
       ggplot2::ggplot() +
+        ggtitle(paste0("Supplementary Index of values")) +
         geom_line(data = data_index(), aes(x = fyear, y = values, col = names)) +
         geom_point(data = data_index(), aes(x = fyear, y = values, col = names)) +
         geom_line(data = data_model(), aes(x = fyear, y = budget_index), linetype = 2, col = "black") +

@@ -1,11 +1,7 @@
 
 #activity growth data
 data_final_a <- read.csv('const/final_data.csv') %>%
-  select(!X) %>%
-  mutate(deflator = case_when(
-    fyear == 2018 ~ 1,
-    T ~ deflator
-  ))
+  select(!X)
 
 #data
 data_final_a <- rbind(data_final_a,
