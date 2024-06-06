@@ -27,7 +27,7 @@ data_final_a <- data_final_a %>%
   filter(fyear <= max_year)
 
 FINAL_deflator <- read.csv('const/FINAL_deflator.csv') %>%
-  select(!X) 
+  select(!c(deflator,X)) 
 
 splits <- read.csv('const/splits.csv') %>%
   select(!X) %>%

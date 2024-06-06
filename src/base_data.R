@@ -1,7 +1,12 @@
 
 #activity growth data
 data_final_a <- read.csv('const/final_data.csv') %>%
-  select(!X)
+  filter(measure == 'cwa') %>%
+  select(!deflator) %>%
+  left_join(read.csv('const/FINAL_deflator.csv') %>%
+              select(!c(deflator,X))) %>%
+  rename(deflator = 'index_deflator') %>%
+  mutate(modelled_growth = modelled_growth / 100)
 
 #data
 data_final_a <- rbind(data_final_a,
@@ -68,7 +73,11 @@ data_final_a <- rbind(data_final_a,
     fyear == 2018 ~ 1,
     T ~ modelled_growth))
 
-
-test <- data_final_a %>%
-  filter(type == 'Elective') %>%
-  filter(models == 'Policy: Recovery (10-year')
+data_final_a <- rbind(data_final_a,
+                      data_final_a %>%
+                        filter(type %in% c('IAPT','Community','Mental Health')) %>%
+                        filter(models == 'Morbidity') %>%
+                        mutate(models = 'Policy: Recovery')) %>%
+  mutate( modelled_growth = case_when(
+    fyear == 2018 ~ 1,
+    T ~ modelled_growth))

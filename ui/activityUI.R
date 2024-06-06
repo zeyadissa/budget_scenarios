@@ -54,6 +54,12 @@ activityUI <- function(id){
         inputId = "community_growth",
         label = "Community",
         choices = community_activity_growth_type)),
+      column(12,
+             selectInput(
+               inputId = "iapt_growth",
+               label = "IAPT",
+               choices = iapt_activity_growth_type,
+               width = '100%')),
       column(6, 
              actionButton("scen_a",
                           "Set Trend Scenario",

@@ -78,6 +78,7 @@ server <- function(input, output, session) {
           type == "Specialised" & models == tolower(input$specialised_growth) |
           type == "Mental Health" & models == tolower(input$mental_health_growth) |
           type == "Maternity" & models == tolower(input$maternity_growth) |
+          type == "IAPT" & models == tolower(input$iapt_growth) |
           type == "Other"
       ) %>%
       mutate(val = baseline * modelled_growth) %>%
@@ -92,7 +93,7 @@ server <- function(input, output, session) {
   
   mhcomm_growth <- reactive({
     df <- data_final_a %>%
-      filter(type != 'Mental Health') %>%
+      filter(!type %in% c('Mental Health','Community','IAPT')) %>%
       # true filter
       filter(
         type == "A&E" & models == tolower(input$ae_growth) |
@@ -101,7 +102,6 @@ server <- function(input, output, session) {
           type == "Prescribing" & models == tolower(input$prescribing_growth) |
           type == "Outpatients" & models == tolower(input$outpatients_growth) |
           type == "General Practice" & models == tolower(input$general_practice_growth) |
-          type == "Community" & models == tolower(input$community_growth) |
           type == "Specialised" & models == tolower(input$specialised_growth) |
           type == "Maternity" & models == tolower(input$maternity_growth) |
           type == "Other"
@@ -132,7 +132,6 @@ server <- function(input, output, session) {
       ) %>%
         left_join(., FINAL_deflator %>%
           rename(
-            real_deflator = "deflator",
             deflator = "index_deflator"
           ),
         by = "fyear"
@@ -352,6 +351,7 @@ server <- function(input, output, session) {
           type == "Specialised" & models == (input$specialised_growth) |
           type == "Mental Health" & models == (input$mental_health_growth) |
           type == "Maternity" & models == (input$maternity_growth) |
+          type == "IAPT" & models == tolower(input$iapt_growth) |
           type == "Other"
       ) %>%
       select(type,fyear,Pay,Drugs,Productivity) %>%
@@ -373,6 +373,7 @@ server <- function(input, output, session) {
         x == "Specialised" ~ (input$specialised_growth),
         x == "Mental Health" ~ (input$mental_health_growth),
         x == "Maternity" ~ (input$maternity_growth),
+        x == "IAPT" ~ (input$iapt_growth),
         T ~ "Other"
     )}
     
@@ -536,6 +537,10 @@ server <- function(input, output, session) {
       selected = 'Linear growth'
     )
     updateSelectInput(
+      inputId = 'iapt_growth',
+      selected = 'Morbidity'
+    )
+    updateSelectInput(
       inputId = 'elective_growth',
       selected = 'Linear growth'
     )
@@ -593,6 +598,10 @@ server <- function(input, output, session) {
     updateSelectInput(
       inputId = 'elective_growth',
       selected = 'Policy: Recovery (10-year)'
+    )
+    updateSelectInput(
+      inputId = 'iapt_growth',
+      selected = 'Policy: Recovery'
     )
     updateSelectInput(
       inputId = 'outpatients_growth',
