@@ -14,7 +14,7 @@ growthUI <- function(id){
       materialSwitch(
         inputId = "growth_scenarios",
         label = "Apply custom growth scenarios?",
-        value = F,
+        value = T,
         status = "primary"
       ),
       radioGroupButtons(

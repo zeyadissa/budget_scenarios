@@ -47,15 +47,6 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  # Base values
-  deflator_adj <- reactive({
-    if (input$real_flag == F) {
-      deflator <- 1
-    } else {
-      deflator <- 0
-    }
-  })
-
   pop_adj <- reactive({
     if (input$per_capita == F) {
       pop_final %>%
@@ -204,7 +195,7 @@ server <- function(input, output, session) {
         pay = case_when(fyear==min(fyear) ~ 1,
                         T ~ pay),
         val_drug = cumprod(drug),
-        val_deflator = (deflator/ FINAL_deflator[fyear == input$water_year,index_deflator])^deflator_adj() ,
+        val_deflator = (FINAL_deflator[fyear == input$base_yr,index_deflator]/FINAL_deflator[fyear == base_year,index_deflator]),
         val_prod = cumprod(prod),
         val_pay = cumprod(pay)) %>%
       rowwise() %>%
@@ -514,8 +505,8 @@ server <- function(input, output, session) {
     df <- data.table::setDT(data_model())
     
     data <- tidyr::expand_grid(
-      'Start Year' = as.integer(c(2018,2024,2029,2035)),
-      'End Year' = as.integer(c(2018,2024,2029,2035))
+      'Start Year' = as.integer(c(2018,2024,2029,2034)),
+      'End Year' = as.integer(c(2018,2024,2029,2034))
     ) %>%
       filter(`Start Year` < `End Year`) %>%
       rowwise() %>%
@@ -536,6 +527,116 @@ server <- function(input, output, session) {
       html = T,
       type = "info",
       width = '25%'
+    )
+  })
+  
+  observeEvent(input$scen_a,{
+    updateSelectInput(
+      inputId = 'ae_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'elective_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'outpatients_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'emergency_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'general_practice_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'prescribing_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'specialised_growth',
+      selected = 'medium'
+    )
+    updateSelectInput(
+      inputId = 'mental_health_growth',
+      selected = 'Morbidity'
+    )
+    updateSelectInput(
+      inputId = 'maternity_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'community_growth',
+      selected = 'Morbidity'
+    )
+    updateCheckboxGroupButtons(
+      inputId = 'productivity_growth_scenario',
+      selected = 'Central'
+    )
+    updateCheckboxGroupButtons(
+      inputId = 'pay_growth_scenario',
+      selected = 'Central'
+    )
+    updateNumericInput(
+      inputId = 'drug',
+      value = 2.3
+    )
+  })
+  
+  observeEvent(input$scen_b,{
+    updateSelectInput(
+      inputId = 'ae_growth',
+      selected = 'Log growth'
+    )
+    updateSelectInput(
+      inputId = 'elective_growth',
+      selected = 'Policy: Recovery (10-year)'
+    )
+    updateSelectInput(
+      inputId = 'outpatients_growth',
+      selected = 'Policy: Recovery (10-year)'
+    )
+    updateSelectInput(
+      inputId = 'emergency_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'general_practice_growth',
+      selected = 'Policy: Recovery'
+    )
+    updateSelectInput(
+      inputId = 'prescribing_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'specialised_growth',
+      selected = 'lower'
+    )
+    updateSelectInput(
+      inputId = 'mental_health_growth',
+      selected = 'Policy: Recovery'
+    )
+    updateSelectInput(
+      inputId = 'maternity_growth',
+      selected = 'Linear growth'
+    )
+    updateSelectInput(
+      inputId = 'community_growth',
+      selected = 'Policy: Recovery'
+    )
+    updateCheckboxGroupButtons(
+      inputId = 'productivity_growth_scenario',
+      selected = '10-year'
+    )
+    updateCheckboxGroupButtons(
+      inputId = 'pay_growth_scenario',
+      selected = 'Recovery to 2010'
+    )
+    updateNumericInput(
+      inputId = 'drug',
+      value = 2.3
     )
   })
   

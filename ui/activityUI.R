@@ -53,5 +53,14 @@ activityUI <- function(id){
       selectInput(
         inputId = "community_growth",
         label = "Community",
-        choices = community_activity_growth_type)))
-))}
+        choices = community_activity_growth_type)),
+      column(6, 
+             actionButton("scen_a",
+                          "Set Trend Scenario",
+                          style = 'width: 100%')),
+      column(6, 
+             actionButton("scen_b",
+                          "Set Policy Scenario",
+                          style = 'width: 100%'))
+      )
+    ))}

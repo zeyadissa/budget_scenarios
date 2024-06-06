@@ -7,6 +7,12 @@ sidebarUI <- function(id) {
                  block = T,
                  style = 'width: 100%'),
     hr(),
+    selectInput(
+      inputId = "base_yr",
+      label = "Select baseline year",
+      choices = min_date:max_year,
+      selected = 2024
+    ),
     numericInput(
       inputId = "prod",
       label = "Custom productivity CAGR (%)",
@@ -30,12 +36,6 @@ sidebarUI <- function(id) {
       value = 2.3,
       max = 100,
       step = 1
-    ),
-    materialSwitch(
-      inputId = "real_flag",
-      label = "Real terms?",
-      value = TRUE,
-      status = "primary"
     ),
     materialSwitch(
       inputId = "per_capita",
@@ -73,7 +73,7 @@ sidebarUI <- function(id) {
     ),
     selectInput(
       inputId = "water_year",
-      label = "Select baseline year for waterfall & deflator",
+      label = "Select waterfall baseline year",
       choices = min_date:max_year,
       selected = 2035
     ),
