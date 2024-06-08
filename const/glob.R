@@ -29,11 +29,6 @@ data_final_a <- data_final_a %>%
 FINAL_deflator <- read.csv('const/FINAL_deflator.csv') %>%
   select(!c(deflator,X)) 
 
-splits <- read.csv('const/splits.csv') %>%
-  select(!X) %>%
-  mutate(r = case_when(type=='specialised' ~ 0,
-                       T~ 1-(w+d)))
-
 test <- data_final_a %>%
   select(type,models) %>% 
   mutate(type=gsub(pattern=' ',replacement='_',x=type),

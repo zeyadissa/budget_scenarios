@@ -33,7 +33,7 @@ sidebarUI <- function(id) {
       inputId = "drug",
       label = "Custom drug growth (%)",
       min = -100,
-      value = 2.3,
+      value = 4.89,
       max = 100,
       step = 1
     ),
