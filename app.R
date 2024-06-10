@@ -104,6 +104,7 @@ server <- function(input, output, session) {
           type == "General Practice" & models == tolower(input$general_practice_growth) |
           type == "Specialised" & models == tolower(input$specialised_growth) |
           type == "Maternity" & models == tolower(input$maternity_growth) |
+          type == "IAPT" & models == tolower(input$iapt_growth) |
           type == "Other"
       ) %>%
       mutate(val = baseline * modelled_growth) %>%
@@ -252,6 +253,7 @@ server <- function(input, output, session) {
           type == "Specialised" & models == (input$specialised_growth) |
           type == "Mental Health" & models == (input$mental_health_growth) |
           type == "Maternity" & models == (input$maternity_growth) |
+          type == "IAPT" & models == (input$iapt_growth) |
           type == "Other"
       )
   })
