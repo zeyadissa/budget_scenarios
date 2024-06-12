@@ -504,7 +504,7 @@ server <- function(input, output, session) {
   output$download <-  downloadHandler(
     filename = 'data.csv',
     content = function(file){
-      write.csv(base_data(), file)
+      write.csv(base_data1(), file)
     }
   )
 

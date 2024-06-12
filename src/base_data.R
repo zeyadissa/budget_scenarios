@@ -2,9 +2,9 @@ cost_weights <- read.csv('const/cost_weights.csv') %>%
   select(!X)
 
 #activity growth data
-data_final_a <- read.csv('const/final_data.csv') %>%
+data_final_a <- data.table::fread('const/final_data.csv') %>%
+  mutate(modelled_growth = as.numeric(modelled_growth)) %>%
   filter(measure == 'cwa') %>%
-  select(!X) %>%
   left_join(read.csv('const/FINAL_deflator.csv') %>%
               select(!c(deflator,X))) %>%
   rename(deflator = 'index_deflator') %>%
