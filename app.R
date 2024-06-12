@@ -92,7 +92,8 @@ server <- function(input, output, session) {
   })
   
   mhcomm_growth <- reactive({
-    df <- data_final_a %>%
+    
+    mhcomm_growth_data <- data_final_a %>%
       filter(!type %in% c('Mental Health','Community','IAPT')) %>%
       # true filter
       filter(
@@ -104,17 +105,20 @@ server <- function(input, output, session) {
           type == "General Practice" & models == tolower(input$general_practice_growth) |
           type == "Specialised" & models == tolower(input$specialised_growth) |
           type == "Maternity" & models == tolower(input$maternity_growth) |
-          type == "IAPT" & models == tolower(input$iapt_growth) |
           type == "Other"
       ) %>%
       mutate(val = baseline * modelled_growth) %>%
       group_by(fyear) %>%
-      summarise(val = sum(val, na.rm = T))
+      summarise(val = sum(val, na.rm = T)) %>%
+      mutate(budget_growth_rate = 
+               1 + case_when(
+                 is.na((val/dplyr::lag(val,n=1L))-1) == T ~ 0 ,
+             T ~ (val/dplyr::lag(val,n=1L))-1),
+             budget_growth_rate = cumprod(budget_growth_rate)
+      )
+
+    return(mhcomm_growth_data)
     
-    growth <- as.numeric(((df %>% filter(fyear == max(fyear)))$val /
-                            (df %>% filter(fyear == min(fyear)))$val)^(1 / length(unique(data_final_a$fyear)))) - 1
-    
-    return(growth)
   })
 
   data_final <- reactive({
@@ -225,7 +229,8 @@ server <- function(input, output, session) {
           drug = val_drug
         )
       ) %>%
-      CreateCommunityMHData(.,mhcomm_growth()) %>%
+      left_join(.,mhcomm_growth(),by='fyear') %>%
+      CreateCommunityMHData(.,growth='budget_growth_rate') %>%
       mutate(
         modelled_growth_inverse = case_when(
           modelled_growth - 1 == 0 ~ 1,
@@ -556,7 +561,7 @@ server <- function(input, output, session) {
     )
     updateSelectInput(
       inputId = 'general_practice_growth',
-      selected = 'Linear growth'
+      selected = 'Morbidity'
     )
     updateSelectInput(
       inputId = 'prescribing_growth',
@@ -564,7 +569,7 @@ server <- function(input, output, session) {
     )
     updateSelectInput(
       inputId = 'specialised_growth',
-      selected = 'medium'
+      selected = 'upper'
     )
     updateSelectInput(
       inputId = 'mental_health_growth',
@@ -588,7 +593,7 @@ server <- function(input, output, session) {
     )
     updateNumericInput(
       inputId = 'drug',
-      value = 2.3
+      value = 4.89
     )
   })
   
@@ -623,7 +628,7 @@ server <- function(input, output, session) {
     )
     updateSelectInput(
       inputId = 'specialised_growth',
-      selected = 'lower'
+      selected = 'medium'
     )
     updateSelectInput(
       inputId = 'mental_health_growth',
@@ -647,7 +652,7 @@ server <- function(input, output, session) {
     )
     updateNumericInput(
       inputId = 'drug',
-      value = 2.3
+      value = 4.89
     )
   })
   

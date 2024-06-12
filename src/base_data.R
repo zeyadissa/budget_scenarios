@@ -3,7 +3,6 @@ cost_weights <- read.csv('const/cost_weights.csv') %>%
 
 #activity growth data
 data_final_a <- read.csv('const/final_data.csv') %>%
-  select(!X) %>%
   left_join(read.csv('const/FINAL_deflator.csv') %>%
               select(!c(deflator,X))) %>%
   rename(deflator = 'index_deflator') %>%

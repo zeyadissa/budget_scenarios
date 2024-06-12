@@ -1,852 +1,1657 @@
-"","type","measure","models","fyear","modelled_growth","baseline"
-"1","A&E","cwa","Demography",2018,1,3511161918
-"2","A&E","cwa","Demography",2019,1.00661637,3511161918
-"3","A&E","cwa","Demography",2020,1.008423251,3511161918
-"4","A&E","cwa","Demography",2021,1.012392185,3511161918
-"5","A&E","cwa","Demography",2022,1.023246198,3511161918
-"6","A&E","cwa","Demography",2023,1.016278687,3511161918
-"7","A&E","cwa","Demography",2024,1.029003445,3511161918
-"8","A&E","cwa","Demography",2025,1.040784253,3511161918
-"9","A&E","cwa","Demography",2026,1.051911558,3511161918
-"10","A&E","cwa","Demography",2027,1.063599425,3511161918
-"11","A&E","cwa","Demography",2028,1.073644675,3511161918
-"12","A&E","cwa","Demography",2029,1.082342722,3511161918
-"13","A&E","cwa","Demography",2030,1.090509417,3511161918
-"14","A&E","cwa","Demography",2031,1.098221904,3511161918
-"15","A&E","cwa","Demography",2032,1.105794959,3511161918
-"16","A&E","cwa","Demography",2033,1.113331271,3511161918
-"17","A&E","cwa","Demography",2034,1.120895884,3511161918
-"18","A&E","cwa","Demography",2035,1.128116975,3511161918
-"19","A&E","cwa","Demography",2036,1.135302248,3511161918
-"20","A&E","cwa","Demography",2037,1.14331827,3511161918
-"21","A&E","cwa","Demography",2038,1.150934836,3511161918
-"22","A&E","cwa","Demography",2039,1.158550896,3511161918
-"23","A&E","cwa","Demography",2040,1.166046506,3511161918
-"24","A&E","cwa","Morbidity",2018,1,3511161918
-"25","A&E","cwa","Morbidity",2019,1.009130851,3511161918
-"26","A&E","cwa","Morbidity",2020,1.014187806,3511161918
-"27","A&E","cwa","Morbidity",2021,1.022172012,3511161918
-"28","A&E","cwa","Morbidity",2022,1.036311663,3511161918
-"29","A&E","cwa","Morbidity",2023,1.031403977,3511161918
-"30","A&E","cwa","Morbidity",2024,1.046654151,3511161918
-"31","A&E","cwa","Morbidity",2025,1.061117497,3511161918
-"32","A&E","cwa","Morbidity",2026,1.074751515,3511161918
-"33","A&E","cwa","Morbidity",2027,1.088086708,3511161918
-"34","A&E","cwa","Morbidity",2028,1.10038985,3511161918
-"35","A&E","cwa","Morbidity",2029,1.111465129,3511161918
-"36","A&E","cwa","Morbidity",2030,1.122136026,3511161918
-"37","A&E","cwa","Morbidity",2031,1.132692464,3511161918
-"38","A&E","cwa","Morbidity",2032,1.142906339,3511161918
-"39","A&E","cwa","Morbidity",2033,1.153027194,3511161918
-"40","A&E","cwa","Morbidity",2034,1.163070623,3511161918
-"41","A&E","cwa","Morbidity",2035,1.172927918,3511161918
-"42","A&E","cwa","Morbidity",2036,1.182433829,3511161918
-"43","A&E","cwa","Morbidity",2037,1.192679724,3511161918
-"44","A&E","cwa","Morbidity",2038,1.20262393,3511161918
-"45","A&E","cwa","Morbidity",2039,1.212153423,3511161918
-"46","A&E","cwa","Morbidity",2040,1.221968036,3511161918
-"47","A&E","cwa","Linear growth",2018,1,3511161918
-"48","A&E","cwa","Linear growth",2019,1.036684849,3511161918
-"49","A&E","cwa","Linear growth",2020,1.070380043,3511161918
-"50","A&E","cwa","Linear growth",2021,1.108305261,3511161918
-"51","A&E","cwa","Linear growth",2022,1.154400825,3511161918
-"52","A&E","cwa","Linear growth",2023,1.180162352,3511161918
-"53","A&E","cwa","Linear growth",2024,1.230312569,3511161918
-"54","A&E","cwa","Linear growth",2025,1.281379644,3511161918
-"55","A&E","cwa","Linear growth",2026,1.333342543,3511161918
-"56","A&E","cwa","Linear growth",2027,1.386799367,3511161918
-"57","A&E","cwa","Linear growth",2028,1.440978608,3511161918
-"58","A&E","cwa","Linear growth",2029,1.495749651,3511161918
-"59","A&E","cwa","Linear growth",2030,1.552014213,3511161918
-"60","A&E","cwa","Linear growth",2031,1.610119743,3511161918
-"61","A&E","cwa","Linear growth",2032,1.669997512,3511161918
-"62","A&E","cwa","Linear growth",2033,1.731935606,3511161918
-"63","A&E","cwa","Linear growth",2034,1.796102883,3511161918
-"64","A&E","cwa","Linear growth",2035,1.862318887,3511161918
-"65","A&E","cwa","Linear growth",2036,1.930429199,3511161918
-"66","A&E","cwa","Linear growth",2037,2.002168316,3511161918
-"67","A&E","cwa","Linear growth",2038,2.076170753,3511161918
-"68","A&E","cwa","Linear growth",2039,2.152014511,3511161918
-"69","A&E","cwa","Linear growth",2040,2.231038603,3511161918
-"70","A&E","cwa","Log growth",2018,1,3511161918
-"71","A&E","cwa","Log growth",2019,1.020216464,3511161918
-"72","A&E","cwa","Log growth",2020,1.035495983,3511161918
-"73","A&E","cwa","Log growth",2021,1.053003689,3511161918
-"74","A&E","cwa","Log growth",2022,1.076436736,3511161918
-"75","A&E","cwa","Log growth",2023,1.078810337,3511161918
-"76","A&E","cwa","Log growth",2024,1.102318652,3511161918
-"77","A&E","cwa","Log growth",2025,1.12470664,3511161918
-"78","A&E","cwa","Log growth",2026,1.145984571,3511161918
-"79","A&E","cwa","Log growth",2027,1.166626401,3511161918
-"80","A&E","cwa","Log growth",2028,1.186032331,3511161918
-"81","A&E","cwa","Log growth",2029,1.204111134,3511161918
-"82","A&E","cwa","Log growth",2030,1.221645414,3511161918
-"83","A&E","cwa","Log growth",2031,1.238874892,3511161918
-"84","A&E","cwa","Log growth",2032,1.255715902,3511161918
-"85","A&E","cwa","Log growth",2033,1.272336349,3511161918
-"86","A&E","cwa","Log growth",2034,1.288836407,3511161918
-"87","A&E","cwa","Log growth",2035,1.305055203,3511161918
-"88","A&E","cwa","Log growth",2036,1.320862471,3511161918
-"89","A&E","cwa","Log growth",2037,1.337333458,3511161918
-"90","A&E","cwa","Log growth",2038,1.353478305,3511161918
-"91","A&E","cwa","Log growth",2039,1.369078157,3511161918
-"92","A&E","cwa","Log growth",2040,1.384884265,3511161918
-"93","Elective","cwa","Demography",2018,1,10363552521
-"94","Elective","cwa","Demography",2019,1.01115723,10363552521
-"95","Elective","cwa","Demography",2020,1.018541461,10363552521
-"96","Elective","cwa","Demography",2021,1.028116347,10363552521
-"97","Elective","cwa","Demography",2022,1.040166593,10363552521
-"98","Elective","cwa","Demography",2023,1.046440835,10363552521
-"99","Elective","cwa","Demography",2024,1.05919536,10363552521
-"100","Elective","cwa","Demography",2025,1.070792121,10363552521
-"101","Elective","cwa","Demography",2026,1.081615744,10363552521
-"102","Elective","cwa","Demography",2027,1.091045937,10363552521
-"103","Elective","cwa","Demography",2028,1.099892485,10363552521
-"104","Elective","cwa","Demography",2029,1.108922779,10363552521
-"105","Elective","cwa","Demography",2030,1.118300335,10363552521
-"106","Elective","cwa","Demography",2031,1.128507212,10363552521
-"107","Elective","cwa","Demography",2032,1.138117378,10363552521
-"108","Elective","cwa","Demography",2033,1.146910976,10363552521
-"109","Elective","cwa","Demography",2034,1.155100856,10363552521
-"110","Elective","cwa","Demography",2035,1.163192767,10363552521
-"111","Elective","cwa","Demography",2036,1.171034972,10363552521
-"112","Elective","cwa","Demography",2037,1.17746084,10363552521
-"113","Elective","cwa","Demography",2038,1.184520452,10363552521
-"114","Elective","cwa","Demography",2039,1.192626836,10363552521
-"115","Elective","cwa","Demography",2040,1.200847585,10363552521
-"116","Elective","cwa","Morbidity",2018,1,10363552521
-"117","Elective","cwa","Morbidity",2019,1.012298616,10363552521
-"118","Elective","cwa","Morbidity",2020,1.022938945,10363552521
-"119","Elective","cwa","Morbidity",2021,1.041011971,10363552521
-"120","Elective","cwa","Morbidity",2022,1.056684345,10363552521
-"121","Elective","cwa","Morbidity",2023,1.066319323,10363552521
-"122","Elective","cwa","Morbidity",2024,1.082254467,10363552521
-"123","Elective","cwa","Morbidity",2025,1.097106477,10363552521
-"124","Elective","cwa","Morbidity",2026,1.111167524,10363552521
-"125","Elective","cwa","Morbidity",2027,1.122598608,10363552521
-"126","Elective","cwa","Morbidity",2028,1.133852532,10363552521
-"127","Elective","cwa","Morbidity",2029,1.145529921,10363552521
-"128","Elective","cwa","Morbidity",2030,1.157897588,10363552521
-"129","Elective","cwa","Morbidity",2031,1.170566177,10363552521
-"130","Elective","cwa","Morbidity",2032,1.182902806,10363552521
-"131","Elective","cwa","Morbidity",2033,1.194452591,10363552521
-"132","Elective","cwa","Morbidity",2034,1.205882188,10363552521
-"133","Elective","cwa","Morbidity",2035,1.217287399,10363552521
-"134","Elective","cwa","Morbidity",2036,1.228435847,10363552521
-"135","Elective","cwa","Morbidity",2037,1.237944573,10363552521
-"136","Elective","cwa","Morbidity",2038,1.248070625,10363552521
-"137","Elective","cwa","Morbidity",2039,1.258681989,10363552521
-"138","Elective","cwa","Morbidity",2040,1.269721999,10363552521
-"139","Elective","cwa","Linear growth",2018,1,10363552521
-"140","Elective","cwa","Linear growth",2019,1.003972331,10363552521
-"141","Elective","cwa","Linear growth",2020,1.006225272,10363552521
-"142","Elective","cwa","Linear growth",2021,1.015759891,10363552521
-"143","Elective","cwa","Linear growth",2022,1.022754605,10363552521
-"144","Elective","cwa","Linear growth",2023,1.023447594,10363552521
-"145","Elective","cwa","Linear growth",2024,1.030361431,10363552521
-"146","Elective","cwa","Linear growth",2025,1.036158905,10363552521
-"147","Elective","cwa","Linear growth",2026,1.041000636,10363552521
-"148","Elective","cwa","Linear growth",2027,1.043268768,10363552521
-"149","Elective","cwa","Linear growth",2028,1.045198294,10363552521
-"150","Elective","cwa","Linear growth",2029,1.04744023,10363552521
-"151","Elective","cwa","Linear growth",2030,1.05010191,10363552521
-"152","Elective","cwa","Linear growth",2031,1.052849994,10363552521
-"153","Elective","cwa","Linear growth",2032,1.055128251,10363552521
-"154","Elective","cwa","Linear growth",2033,1.056627153,10363552521
-"155","Elective","cwa","Linear growth",2034,1.057861398,10363552521
-"156","Elective","cwa","Linear growth",2035,1.058968452,10363552521
-"157","Elective","cwa","Linear growth",2036,1.059779123,10363552521
-"158","Elective","cwa","Linear growth",2037,1.05912012,10363552521
-"159","Elective","cwa","Linear growth",2038,1.058913439,10363552521
-"160","Elective","cwa","Linear growth",2039,1.05907998,10363552521
-"161","Elective","cwa","Linear growth",2040,1.059618976,10363552521
-"162","Elective","cwa","Log growth",2018,1,10363552521
-"163","Elective","cwa","Log growth",2019,1.008790438,10363552521
-"164","Elective","cwa","Log growth",2020,1.016216026,10363552521
-"165","Elective","cwa","Log growth",2021,1.031359707,10363552521
-"166","Elective","cwa","Log growth",2022,1.044199948,10363552521
-"167","Elective","cwa","Log growth",2023,1.051100135,10363552521
-"168","Elective","cwa","Log growth",2024,1.064427086,10363552521
-"169","Elective","cwa","Log growth",2025,1.076855424,10363552521
-"170","Elective","cwa","Log growth",2026,1.088523454,10363552521
-"171","Elective","cwa","Log growth",2027,1.09770122,10363552521
-"172","Elective","cwa","Log growth",2028,1.1067048,10363552521
-"173","Elective","cwa","Log growth",2029,1.116216964,10363552521
-"174","Elective","cwa","Log growth",2030,1.126343306,10363552521
-"175","Elective","cwa","Log growth",2031,1.136729888,10363552521
-"176","Elective","cwa","Log growth",2032,1.146769179,10363552521
-"177","Elective","cwa","Log growth",2033,1.156103026,10363552521
-"178","Elective","cwa","Log growth",2034,1.16528817,10363552521
-"179","Elective","cwa","Log growth",2035,1.174462921,10363552521
-"180","Elective","cwa","Log growth",2036,1.183430095,10363552521
-"181","Elective","cwa","Log growth",2037,1.190850946,10363552521
-"182","Elective","cwa","Log growth",2038,1.198909393,10363552521
-"183","Elective","cwa","Log growth",2039,1.207491328,10363552521
-"184","Elective","cwa","Log growth",2040,1.216617658,10363552521
-"185","Emergency","cwa","Demography",2018,1,16735761400
-"186","Emergency","cwa","Demography",2019,1.014330384,16735761400
-"187","Emergency","cwa","Demography",2020,1.020502829,16735761400
-"188","Emergency","cwa","Demography",2021,1.029205436,16735761400
-"189","Emergency","cwa","Demography",2022,1.042671045,16735761400
-"190","Emergency","cwa","Demography",2023,1.051016677,16735761400
-"191","Emergency","cwa","Demography",2024,1.068990305,16735761400
-"192","Emergency","cwa","Demography",2025,1.085900193,16735761400
-"193","Emergency","cwa","Demography",2026,1.102705064,16735761400
-"194","Emergency","cwa","Demography",2027,1.125816022,16735761400
-"195","Emergency","cwa","Demography",2028,1.145387983,16735761400
-"196","Emergency","cwa","Demography",2029,1.162286717,16735761400
-"197","Emergency","cwa","Demography",2030,1.177827177,16735761400
-"198","Emergency","cwa","Demography",2031,1.192320302,16735761400
-"199","Emergency","cwa","Demography",2032,1.206736333,16735761400
-"200","Emergency","cwa","Demography",2033,1.221783545,16735761400
-"201","Emergency","cwa","Demography",2034,1.236816236,16735761400
-"202","Emergency","cwa","Demography",2035,1.250784984,16735761400
-"203","Emergency","cwa","Demography",2036,1.265005431,16735761400
-"204","Emergency","cwa","Demography",2037,1.2825613,16735761400
-"205","Emergency","cwa","Demography",2038,1.298894335,16735761400
-"206","Emergency","cwa","Demography",2039,1.314928095,16735761400
-"207","Emergency","cwa","Demography",2040,1.330584338,16735761400
-"208","Emergency","cwa","Morbidity",2018,1,16735761400
-"209","Emergency","cwa","Morbidity",2019,1.020110112,16735761400
-"210","Emergency","cwa","Morbidity",2020,1.037428069,16735761400
-"211","Emergency","cwa","Morbidity",2021,1.059630504,16735761400
-"212","Emergency","cwa","Morbidity",2022,1.084162778,16735761400
-"213","Emergency","cwa","Morbidity",2023,1.099045467,16735761400
-"214","Emergency","cwa","Morbidity",2024,1.124814326,16735761400
-"215","Emergency","cwa","Morbidity",2025,1.149818564,16735761400
-"216","Emergency","cwa","Morbidity",2026,1.173534816,16735761400
-"217","Emergency","cwa","Morbidity",2027,1.200329314,16735761400
-"218","Emergency","cwa","Morbidity",2028,1.226507617,16735761400
-"219","Emergency","cwa","Morbidity",2029,1.249790926,16735761400
-"220","Emergency","cwa","Morbidity",2030,1.272611324,16735761400
-"221","Emergency","cwa","Morbidity",2031,1.296625068,16735761400
-"222","Emergency","cwa","Morbidity",2032,1.319744935,16735761400
-"223","Emergency","cwa","Morbidity",2033,1.342808737,16735761400
-"224","Emergency","cwa","Morbidity",2034,1.36502639,16735761400
-"225","Emergency","cwa","Morbidity",2035,1.387135123,16735761400
-"226","Emergency","cwa","Morbidity",2036,1.40795725,16735761400
-"227","Emergency","cwa","Morbidity",2037,1.431534111,16735761400
-"228","Emergency","cwa","Morbidity",2038,1.454296004,16735761400
-"229","Emergency","cwa","Morbidity",2039,1.475340337,16735761400
-"230","Emergency","cwa","Morbidity",2040,1.498344115,16735761400
-"231","Emergency","cwa","Linear growth",2018,1,16735761400
-"232","Emergency","cwa","Linear growth",2019,1.028669586,16735761400
-"233","Emergency","cwa","Linear growth",2020,1.054584922,16735761400
-"234","Emergency","cwa","Linear growth",2021,1.085918891,16735761400
-"235","Emergency","cwa","Linear growth",2022,1.119903293,16735761400
-"236","Emergency","cwa","Linear growth",2023,1.144471861,16735761400
-"237","Emergency","cwa","Linear growth",2024,1.180597781,16735761400
-"238","Emergency","cwa","Linear growth",2025,1.216289173,16735761400
-"239","Emergency","cwa","Linear growth",2026,1.251339633,16735761400
-"240","Emergency","cwa","Linear growth",2027,1.289757113,16735761400
-"241","Emergency","cwa","Linear growth",2028,1.328199824,16735761400
-"242","Emergency","cwa","Linear growth",2029,1.364255549,16735761400
-"243","Emergency","cwa","Linear growth",2030,1.40044438,16735761400
-"244","Emergency","cwa","Linear growth",2031,1.438278142,16735761400
-"245","Emergency","cwa","Linear growth",2032,1.475729539,16735761400
-"246","Emergency","cwa","Linear growth",2033,1.513550859,16735761400
-"247","Emergency","cwa","Linear growth",2034,1.551136952,16735761400
-"248","Emergency","cwa","Linear growth",2035,1.589117193,16735761400
-"249","Emergency","cwa","Linear growth",2036,1.626422415,16735761400
-"250","Emergency","cwa","Linear growth",2037,1.666706822,16735761400
-"251","Emergency","cwa","Linear growth",2038,1.706979904,16735761400
-"252","Emergency","cwa","Linear growth",2039,1.746153945,16735761400
-"253","Emergency","cwa","Linear growth",2040,1.787915847,16735761400
-"254","Emergency","cwa","Log growth",2018,1,16735761400
-"255","Emergency","cwa","Log growth",2019,1.021992161,16735761400
-"256","Emergency","cwa","Log growth",2020,1.04070906,16735761400
-"257","Emergency","cwa","Log growth",2021,1.064235193,16735761400
-"258","Emergency","cwa","Log growth",2022,1.089828275,16735761400
-"259","Emergency","cwa","Log growth",2023,1.105621526,16735761400
-"260","Emergency","cwa","Log growth",2024,1.132203067,16735761400
-"261","Emergency","cwa","Log growth",2025,1.157810819,16735761400
-"262","Emergency","cwa","Log growth",2026,1.182266966,16735761400
-"263","Emergency","cwa","Log growth",2027,1.209330825,16735761400
-"264","Emergency","cwa","Log growth",2028,1.235848697,16735761400
-"265","Emergency","cwa","Log growth",2029,1.259599249,16735761400
-"266","Emergency","cwa","Log growth",2030,1.28295745,16735761400
-"267","Emergency","cwa","Log growth",2031,1.307293835,16735761400
-"268","Emergency","cwa","Log growth",2032,1.330757759,16735761400
-"269","Emergency","cwa","Log growth",2033,1.354034984,16735761400
-"270","Emergency","cwa","Log growth",2034,1.376592433,16735761400
-"271","Emergency","cwa","Log growth",2035,1.398994242,16735761400
-"272","Emergency","cwa","Log growth",2036,1.420310662,16735761400
-"273","Emergency","cwa","Log growth",2037,1.443714583,16735761400
-"274","Emergency","cwa","Log growth",2038,1.466573833,16735761400
-"275","Emergency","cwa","Log growth",2039,1.487997739,16735761400
-"276","Emergency","cwa","Log growth",2040,1.511104706,16735761400
-"277","Outpatients","cwa","Demography",2018,1,14139756885
-"278","Outpatients","cwa","Demography",2019,1.010033374,14139756885
-"279","Outpatients","cwa","Demography",2020,1.016030563,14139756885
-"280","Outpatients","cwa","Demography",2021,1.024130762,14139756885
-"281","Outpatients","cwa","Demography",2022,1.035859466,14139756885
-"282","Outpatients","cwa","Demography",2023,1.03845863,14139756885
-"283","Outpatients","cwa","Demography",2024,1.051526687,14139756885
-"284","Outpatients","cwa","Demography",2025,1.063509817,14139756885
-"285","Outpatients","cwa","Demography",2026,1.074718247,14139756885
-"286","Outpatients","cwa","Demography",2027,1.085503667,14139756885
-"287","Outpatients","cwa","Demography",2028,1.095130604,14139756885
-"288","Outpatients","cwa","Demography",2029,1.104565689,14139756885
-"289","Outpatients","cwa","Demography",2030,1.113916989,14139756885
-"290","Outpatients","cwa","Demography",2031,1.123553386,14139756885
-"291","Outpatients","cwa","Demography",2032,1.132791593,14139756885
-"292","Outpatients","cwa","Demography",2033,1.141625956,14139756885
-"293","Outpatients","cwa","Demography",2034,1.150138242,14139756885
-"294","Outpatients","cwa","Demography",2035,1.15850737,14139756885
-"295","Outpatients","cwa","Demography",2036,1.166630031,14139756885
-"296","Outpatients","cwa","Demography",2037,1.174099035,14139756885
-"297","Outpatients","cwa","Demography",2038,1.181861169,14139756885
-"298","Outpatients","cwa","Demography",2039,1.190190073,14139756885
-"299","Outpatients","cwa","Demography",2040,1.198611529,14139756885
-"300","Outpatients","cwa","Morbidity",2018,1,14139756885
-"301","Outpatients","cwa","Morbidity",2019,1.013920525,14139756885
-"302","Outpatients","cwa","Morbidity",2020,1.016615391,14139756885
-"303","Outpatients","cwa","Morbidity",2021,1.036842085,14139756885
-"304","Outpatients","cwa","Morbidity",2022,1.056494961,14139756885
-"305","Outpatients","cwa","Morbidity",2023,1.062695296,14139756885
-"306","Outpatients","cwa","Morbidity",2024,1.085238047,14139756885
-"307","Outpatients","cwa","Morbidity",2025,1.105415388,14139756885
-"308","Outpatients","cwa","Morbidity",2026,1.125055231,14139756885
-"309","Outpatients","cwa","Morbidity",2027,1.141462845,14139756885
-"310","Outpatients","cwa","Morbidity",2028,1.162002647,14139756885
-"311","Outpatients","cwa","Morbidity",2029,1.182621995,14139756885
-"312","Outpatients","cwa","Morbidity",2030,1.196855366,14139756885
-"313","Outpatients","cwa","Morbidity",2031,1.210811246,14139756885
-"314","Outpatients","cwa","Morbidity",2032,1.230952439,14139756885
-"315","Outpatients","cwa","Morbidity",2033,1.25353691,14139756885
-"316","Outpatients","cwa","Morbidity",2034,1.270827253,14139756885
-"317","Outpatients","cwa","Morbidity",2035,1.287562982,14139756885
-"318","Outpatients","cwa","Morbidity",2036,1.300249788,14139756885
-"319","Outpatients","cwa","Morbidity",2037,1.315809542,14139756885
-"320","Outpatients","cwa","Morbidity",2038,1.337105116,14139756885
-"321","Outpatients","cwa","Morbidity",2039,1.345977584,14139756885
-"322","Outpatients","cwa","Morbidity",2040,1.366432315,14139756885
-"323","Outpatients","cwa","Linear growth",2018,1,14139756885
-"324","Outpatients","cwa","Linear growth",2019,1.035520926,14139756885
-"325","Outpatients","cwa","Linear growth",2020,1.068308224,14139756885
-"326","Outpatients","cwa","Linear growth",2021,1.109843007,14139756885
-"327","Outpatients","cwa","Linear growth",2022,1.153449128,14139756885
-"328","Outpatients","cwa","Linear growth",2023,1.188750023,14139756885
-"329","Outpatients","cwa","Linear growth",2024,1.2378287,14139756885
-"330","Outpatients","cwa","Linear growth",2025,1.287035531,14139756885
-"331","Outpatients","cwa","Linear growth",2026,1.338320269,14139756885
-"332","Outpatients","cwa","Linear growth",2027,1.389171259,14139756885
-"333","Outpatients","cwa","Linear growth",2028,1.441503964,14139756885
-"334","Outpatients","cwa","Linear growth",2029,1.495386442,14139756885
-"335","Outpatients","cwa","Linear growth",2030,1.550355272,14139756885
-"336","Outpatients","cwa","Linear growth",2031,1.606374797,14139756885
-"337","Outpatients","cwa","Linear growth",2032,1.667558918,14139756885
-"338","Outpatients","cwa","Linear growth",2033,1.729836514,14139756885
-"339","Outpatients","cwa","Linear growth",2034,1.791506165,14139756885
-"340","Outpatients","cwa","Linear growth",2035,1.855974982,14139756885
-"341","Outpatients","cwa","Linear growth",2036,1.920054168,14139756885
-"342","Outpatients","cwa","Linear growth",2037,1.987833742,14139756885
-"343","Outpatients","cwa","Linear growth",2038,2.056403154,14139756885
-"344","Outpatients","cwa","Linear growth",2039,2.128630155,14139756885
-"345","Outpatients","cwa","Linear growth",2040,2.204539662,14139756885
-"346","Outpatients","cwa","Log growth",2018,1,14139756885
-"347","Outpatients","cwa","Log growth",2019,1.018182913,14139756885
-"348","Outpatients","cwa","Log growth",2020,1.031917585,14139756885
-"349","Outpatients","cwa","Log growth",2021,1.052384486,14139756885
-"350","Outpatients","cwa","Log growth",2022,1.073039165,14139756885
-"351","Outpatients","cwa","Log growth",2023,1.084319061,14139756885
-"352","Outpatients","cwa","Log growth",2024,1.106637834,14139756885
-"353","Outpatients","cwa","Log growth",2025,1.127310814,14139756885
-"354","Outpatients","cwa","Log growth",2026,1.148076025,14139756885
-"355","Outpatients","cwa","Log growth",2027,1.166786998,14139756885
-"356","Outpatients","cwa","Log growth",2028,1.185107895,14139756885
-"357","Outpatients","cwa","Log growth",2029,1.20308366,14139756885
-"358","Outpatients","cwa","Log growth",2030,1.220334297,14139756885
-"359","Outpatients","cwa","Log growth",2031,1.236838283,14139756885
-"360","Outpatients","cwa","Log growth",2032,1.255703505,14139756885
-"361","Outpatients","cwa","Log growth",2033,1.273733534,14139756885
-"362","Outpatients","cwa","Log growth",2034,1.289716359,14139756885
-"363","Outpatients","cwa","Log growth",2035,1.306135558,14139756885
-"364","Outpatients","cwa","Log growth",2036,1.320729832,14139756885
-"365","Outpatients","cwa","Log growth",2037,1.336325928,14139756885
-"366","Outpatients","cwa","Log growth",2038,1.350904332,14139756885
-"367","Outpatients","cwa","Log growth",2039,1.366321742,14139756885
-"368","Outpatients","cwa","Log growth",2040,1.382492527,14139756885
-"369","General Practice","cwa","Linear growth",2018,1,10535886000
-"370","General Practice","cwa","Linear growth",2019,0.992255586,10535886000
-"371","General Practice","cwa","Linear growth",2020,0.979907822,10535886000
-"372","General Practice","cwa","Linear growth",2021,0.970481681,10535886000
-"373","General Practice","cwa","Linear growth",2022,0.964431166,10535886000
-"374","General Practice","cwa","Linear growth",2023,0.948361798,10535886000
-"375","General Practice","cwa","Linear growth",2024,0.943529537,10535886000
-"376","General Practice","cwa","Linear growth",2025,0.937764253,10535886000
-"377","General Practice","cwa","Linear growth",2026,0.931220257,10535886000
-"378","General Practice","cwa","Linear growth",2027,0.924227914,10535886000
-"379","General Practice","cwa","Linear growth",2028,0.916286103,10535886000
-"380","General Practice","cwa","Linear growth",2029,0.907818423,10535886000
-"381","General Practice","cwa","Linear growth",2030,0.899127814,10535886000
-"382","General Practice","cwa","Linear growth",2031,0.890324252,10535886000
-"383","General Practice","cwa","Linear growth",2032,0.881324635,10535886000
-"384","General Practice","cwa","Linear growth",2033,0.872202366,10535886000
-"385","General Practice","cwa","Linear growth",2034,0.862980468,10535886000
-"386","General Practice","cwa","Linear growth",2035,0.853541846,10535886000
-"387","General Practice","cwa","Linear growth",2036,0.843986085,10535886000
-"388","General Practice","cwa","Linear growth",2037,0.834737768,10535886000
-"389","General Practice","cwa","Linear growth",2038,0.825262957,10535886000
-"390","General Practice","cwa","Linear growth",2039,0.815772394,10535886000
-"391","General Practice","cwa","Linear growth",2040,0.806326388,10535886000
-"392","General Practice","cwa","Log growth",2018,1,10535886000
-"393","General Practice","cwa","Log growth",2019,1.006621849,10535886000
-"394","General Practice","cwa","Log growth",2020,1.009055608,10535886000
-"395","General Practice","cwa","Log growth",2021,1.014847251,10535886000
-"396","General Practice","cwa","Log growth",2022,1.024512274,10535886000
-"397","General Practice","cwa","Log growth",2023,1.024025481,10535886000
-"398","General Practice","cwa","Log growth",2024,1.03564298,10535886000
-"399","General Practice","cwa","Log growth",2025,1.046580121,10535886000
-"400","General Practice","cwa","Log growth",2026,1.056935751,10535886000
-"401","General Practice","cwa","Log growth",2027,1.067042817,10535886000
-"402","General Practice","cwa","Log growth",2028,1.076261462,10535886000
-"403","General Practice","cwa","Log growth",2029,1.085039013,10535886000
-"404","General Practice","cwa","Log growth",2030,1.09366656,10535886000
-"405","General Practice","cwa","Log growth",2031,1.102258653,10535886000
-"406","General Practice","cwa","Log growth",2032,1.110700668,10535886000
-"407","General Practice","cwa","Log growth",2033,1.11906075,10535886000
-"408","General Practice","cwa","Log growth",2034,1.127361469,10535886000
-"409","General Practice","cwa","Log growth",2035,1.1354119,10535886000
-"410","General Practice","cwa","Log growth",2036,1.143316838,10535886000
-"411","General Practice","cwa","Log growth",2037,1.15166447,10535886000
-"412","General Practice","cwa","Log growth",2038,1.159757575,10535886000
-"413","General Practice","cwa","Log growth",2039,1.167795981,10535886000
-"414","General Practice","cwa","Log growth",2040,1.175890481,10535886000
-"415","General Practice","cwa","Demography",2018,1,10535886000
-"416","General Practice","cwa","Demography",2019,1.009292062,10535886000
-"417","General Practice","cwa","Demography",2020,1.013778953,10535886000
-"418","General Practice","cwa","Demography",2021,1.020425541,10535886000
-"419","General Practice","cwa","Demography",2022,1.031700763,10535886000
-"420","General Practice","cwa","Demography",2023,1.032968511,10535886000
-"421","General Practice","cwa","Demography",2024,1.046457751,10535886000
-"422","General Practice","cwa","Demography",2025,1.05898908,10535886000
-"423","General Practice","cwa","Demography",2026,1.070947461,10535886000
-"424","General Practice","cwa","Demography",2027,1.083585998,10535886000
-"425","General Practice","cwa","Demography",2028,1.094800502,10535886000
-"426","General Practice","cwa","Demography",2029,1.104995037,10535886000
-"427","General Practice","cwa","Demography",2030,1.114781686,10535886000
-"428","General Practice","cwa","Demography",2031,1.124404285,10535886000
-"429","General Practice","cwa","Demography",2032,1.133818112,10535886000
-"430","General Practice","cwa","Demography",2033,1.143185419,10535886000
-"431","General Practice","cwa","Demography",2034,1.152390246,10535886000
-"432","General Practice","cwa","Demography",2035,1.161190379,10535886000
-"433","General Practice","cwa","Demography",2036,1.169919914,10535886000
-"434","General Practice","cwa","Demography",2037,1.179348461,10535886000
-"435","General Practice","cwa","Demography",2038,1.18842796,10535886000
-"436","General Practice","cwa","Demography",2039,1.197632537,10535886000
-"437","General Practice","cwa","Demography",2040,1.206693607,10535886000
-"438","General Practice","cwa","Morbidity",2018,1,10535886000
-"439","General Practice","cwa","Morbidity",2019,1.015130667,10535886000
-"440","General Practice","cwa","Morbidity",2020,1.02542021,10535886000
-"441","General Practice","cwa","Morbidity",2021,1.039151705,10535886000
-"442","General Practice","cwa","Morbidity",2022,1.056144356,10535886000
-"443","General Practice","cwa","Morbidity",2023,1.062585239,10535886000
-"444","General Practice","cwa","Morbidity",2024,1.081005411,10535886000
-"445","General Practice","cwa","Morbidity",2025,1.098591676,10535886000
-"446","General Practice","cwa","Morbidity",2026,1.115509285,10535886000
-"447","General Practice","cwa","Morbidity",2027,1.132300316,10535886000
-"448","General Practice","cwa","Morbidity",2028,1.147997232,10535886000
-"449","General Practice","cwa","Morbidity",2029,1.163111674,10535886000
-"450","General Practice","cwa","Morbidity",2030,1.177997219,10535886000
-"451","General Practice","cwa","Morbidity",2031,1.192925519,10535886000
-"452","General Practice","cwa","Morbidity",2032,1.207499536,10535886000
-"453","General Practice","cwa","Morbidity",2033,1.221970494,10535886000
-"454","General Practice","cwa","Morbidity",2034,1.236313041,10535886000
-"455","General Practice","cwa","Morbidity",2035,1.250400398,10535886000
-"456","General Practice","cwa","Morbidity",2036,1.264104437,10535886000
-"457","General Practice","cwa","Morbidity",2037,1.278574246,10535886000
-"458","General Practice","cwa","Morbidity",2038,1.2927101,10535886000
-"459","General Practice","cwa","Morbidity",2039,1.306538345,10535886000
-"460","General Practice","cwa","Morbidity",2040,1.320542534,10535886000
-"461","General Practice","cwa","Policy: Recovery",2018,1,10535886000
-"462","General Practice","cwa","Policy: Recovery",2019,1.022706344,10535886000
-"463","General Practice","cwa","Policy: Recovery",2020,1.045928267,10535886000
-"464","General Practice","cwa","Policy: Recovery",2021,1.069677474,10535886000
-"465","General Practice","cwa","Policy: Recovery",2022,1.09396594,10535886000
-"466","General Practice","cwa","Policy: Recovery",2023,1.118805907,10535886000
-"467","General Practice","cwa","Policy: Recovery",2024,1.144209899,10535886000
-"468","General Practice","cwa","Policy: Recovery",2025,1.170190723,10535886000
-"469","General Practice","cwa","Policy: Recovery",2026,1.196761477,10535886000
-"470","General Practice","cwa","Policy: Recovery",2027,1.223935555,10535886000
-"471","General Practice","cwa","Policy: Recovery",2028,1.251726658,10535886000
-"472","General Practice","cwa","Policy: Recovery",2029,1.280148794,10535886000
-"473","General Practice","cwa","Policy: Recovery",2030,1.309216294,10535886000
-"474","General Practice","cwa","Policy: Recovery",2031,1.325549077,10535886000
-"475","General Practice","cwa","Policy: Recovery",2032,1.341445242,10535886000
-"476","General Practice","cwa","Policy: Recovery",2033,1.356868771,10535886000
-"477","General Practice","cwa","Policy: Recovery",2034,1.372162368,10535886000
-"478","General Practice","cwa","Policy: Recovery",2035,1.387167249,10535886000
-"479","General Practice","cwa","Policy: Recovery",2036,1.401819204,10535886000
-"480","General Practice","cwa","Policy: Recovery",2037,1.416158891,10535886000
-"481","General Practice","cwa","Policy: Recovery",2038,1.430533715,10535886000
-"482","General Practice","cwa","Policy: Recovery",2039,1.445129129,10535886000
-"483","General Practice","cwa","Policy: Recovery",2040,1.459880211,10535886000
-"484","Community","cwa","Demography",2018,1,8384600000
-"485","Community","cwa","Demography",2019,1.011664908,8384600000
-"486","Community","cwa","Demography",2020,1.015071593,8384600000
-"487","Community","cwa","Demography",2021,1.02137935,8384600000
-"488","Community","cwa","Demography",2022,1.037372918,8384600000
-"489","Community","cwa","Demography",2023,1.048169911,8384600000
-"490","Community","cwa","Demography",2024,1.065118237,8384600000
-"491","Community","cwa","Demography",2025,1.080627826,8384600000
-"492","Community","cwa","Demography",2026,1.094837946,8384600000
-"493","Community","cwa","Demography",2027,1.113223489,8384600000
-"494","Community","cwa","Demography",2028,1.131828198,8384600000
-"495","Community","cwa","Demography",2029,1.148904223,8384600000
-"496","Community","cwa","Demography",2030,1.164210895,8384600000
-"497","Community","cwa","Demography",2031,1.17908058,8384600000
-"498","Community","cwa","Demography",2032,1.199648209,8384600000
-"499","Community","cwa","Demography",2033,1.217128665,8384600000
-"500","Community","cwa","Demography",2034,1.232225878,8384600000
-"501","Community","cwa","Demography",2035,1.24575357,8384600000
-"502","Community","cwa","Demography",2036,1.258876345,8384600000
-"503","Community","cwa","Demography",2037,1.271661499,8384600000
-"504","Community","cwa","Demography",2038,1.285218835,8384600000
-"505","Community","cwa","Demography",2039,1.29898776,8384600000
-"506","Community","cwa","Demography",2040,1.312595552,8384600000
-"507","Community","cwa","Morbidity",2018,1,8384600000
-"508","Community","cwa","Morbidity",2019,1.027574578,8384600000
-"509","Community","cwa","Morbidity",2020,1.05539448,8384600000
-"510","Community","cwa","Morbidity",2021,1.084900464,8384600000
-"511","Community","cwa","Morbidity",2022,1.121205904,8384600000
-"512","Community","cwa","Morbidity",2023,1.147311097,8384600000
-"513","Community","cwa","Morbidity",2024,1.180728239,8384600000
-"514","Community","cwa","Morbidity",2025,1.218660983,8384600000
-"515","Community","cwa","Morbidity",2026,1.25102079,8384600000
-"516","Community","cwa","Morbidity",2027,1.298079236,8384600000
-"517","Community","cwa","Morbidity",2028,1.335724668,8384600000
-"518","Community","cwa","Morbidity",2029,1.374402126,8384600000
-"519","Community","cwa","Morbidity",2030,1.40671775,8384600000
-"520","Community","cwa","Morbidity",2031,1.440630685,8384600000
-"521","Community","cwa","Morbidity",2032,1.474243514,8384600000
-"522","Community","cwa","Morbidity",2033,1.514356826,8384600000
-"523","Community","cwa","Morbidity",2034,1.55162104,8384600000
-"524","Community","cwa","Morbidity",2035,1.591798554,8384600000
-"525","Community","cwa","Morbidity",2036,1.626737255,8384600000
-"526","Community","cwa","Morbidity",2037,1.686813492,8384600000
-"527","Community","cwa","Morbidity",2038,1.736570517,8384600000
-"528","Community","cwa","Morbidity",2039,1.771142193,8384600000
-"529","Community","cwa","Morbidity",2040,1.818019635,8384600000
-"530","Prescribing","cwa","Linear growth",2018,1,8199973922
-"531","Prescribing","cwa","Linear growth",2019,1.030392192,8199973922
-"532","Prescribing","cwa","Linear growth",2020,1.055238136,8199973922
-"533","Prescribing","cwa","Linear growth",2021,1.084084085,8199973922
-"534","Prescribing","cwa","Linear growth",2022,1.115125964,8199973922
-"535","Prescribing","cwa","Linear growth",2023,1.144185957,8199973922
-"536","Prescribing","cwa","Linear growth",2024,1.17830393,8199973922
-"537","Prescribing","cwa","Linear growth",2025,1.212117475,8199973922
-"538","Prescribing","cwa","Linear growth",2026,1.245972719,8199973922
-"539","Prescribing","cwa","Linear growth",2027,1.280948197,8199973922
-"540","Prescribing","cwa","Linear growth",2028,1.315210628,8199973922
-"541","Prescribing","cwa","Linear growth",2029,1.349906119,8199973922
-"542","Prescribing","cwa","Linear growth",2030,1.385090425,8199973922
-"543","Prescribing","cwa","Linear growth",2031,1.420872135,8199973922
-"544","Prescribing","cwa","Linear growth",2032,1.456924917,8199973922
-"545","Prescribing","cwa","Linear growth",2033,1.49310426,8199973922
-"546","Prescribing","cwa","Linear growth",2034,1.530030623,8199973922
-"547","Prescribing","cwa","Linear growth",2035,1.566854575,8199973922
-"548","Prescribing","cwa","Linear growth",2036,1.604359632,8199973922
-"549","Prescribing","cwa","Linear growth",2037,1.64312327,8199973922
-"550","Prescribing","cwa","Linear growth",2038,1.682375168,8199973922
-"551","Prescribing","cwa","Linear growth",2039,1.722753011,8199973922
-"552","Prescribing","cwa","Linear growth",2040,1.764022364,8199973922
-"553","Prescribing","cwa","Log growth",2018,1,8199973922
-"554","Prescribing","cwa","Log growth",2019,1.023446543,8199973922
-"555","Prescribing","cwa","Log growth",2020,1.040476511,8199973922
-"556","Prescribing","cwa","Log growth",2021,1.060602352,8199973922
-"557","Prescribing","cwa","Log growth",2022,1.082135939,8199973922
-"558","Prescribing","cwa","Log growth",2023,1.100518638,8199973922
-"559","Prescribing","cwa","Log growth",2024,1.123364493,8199973922
-"560","Prescribing","cwa","Log growth",2025,1.145131872,8199973922
-"561","Prescribing","cwa","Log growth",2026,1.166170917,8199973922
-"562","Prescribing","cwa","Log growth",2027,1.187465987,8199973922
-"563","Prescribing","cwa","Log growth",2028,1.207353555,8199973922
-"564","Prescribing","cwa","Log growth",2029,1.226893689,8199973922
-"565","Prescribing","cwa","Log growth",2030,1.246168472,8199973922
-"566","Prescribing","cwa","Log growth",2031,1.265270286,8199973922
-"567","Prescribing","cwa","Log growth",2032,1.283904367,8199973922
-"568","Prescribing","cwa","Log growth",2033,1.301957478,8199973922
-"569","Prescribing","cwa","Log growth",2034,1.319958019,8199973922
-"570","Prescribing","cwa","Log growth",2035,1.337198526,8199973922
-"571","Prescribing","cwa","Log growth",2036,1.354349037,8199973922
-"572","Prescribing","cwa","Log growth",2037,1.371864053,8199973922
-"573","Prescribing","cwa","Log growth",2038,1.389069313,8199973922
-"574","Prescribing","cwa","Log growth",2039,1.406532361,8199973922
-"575","Prescribing","cwa","Log growth",2040,1.424024823,8199973922
-"576","Prescribing","cwa","Demography",2018,1,8199973922
-"577","Prescribing","cwa","Demography",2019,1.014167745,8199973922
-"578","Prescribing","cwa","Demography",2020,1.022621048,8199973922
-"579","Prescribing","cwa","Demography",2021,1.033544706,8199973922
-"580","Prescribing","cwa","Demography",2022,1.047119208,8199973922
-"581","Prescribing","cwa","Demography",2023,1.05831915,8199973922
-"582","Prescribing","cwa","Demography",2024,1.074433577,8199973922
-"583","Prescribing","cwa","Demography",2025,1.089420262,8199973922
-"584","Prescribing","cwa","Demography",2026,1.103976944,8199973922
-"585","Prescribing","cwa","Demography",2027,1.120992953,8199973922
-"586","Prescribing","cwa","Demography",2028,1.136005895,8199973922
-"587","Prescribing","cwa","Demography",2029,1.150021847,8199973922
-"588","Prescribing","cwa","Demography",2030,1.163696434,8199973922
-"589","Prescribing","cwa","Demography",2031,1.177521619,8199973922
-"590","Prescribing","cwa","Demography",2032,1.190888706,8199973922
-"591","Prescribing","cwa","Demography",2033,1.203994338,8199973922
-"592","Prescribing","cwa","Demography",2034,1.216727247,8199973922
-"593","Prescribing","cwa","Demography",2035,1.228914405,8199973922
-"594","Prescribing","cwa","Demography",2036,1.241095729,8199973922
-"595","Prescribing","cwa","Demography",2037,1.253884852,8199973922
-"596","Prescribing","cwa","Demography",2038,1.266702787,8199973922
-"597","Prescribing","cwa","Demography",2039,1.28020901,8199973922
-"598","Prescribing","cwa","Demography",2040,1.293708669,8199973922
-"599","Prescribing","cwa","Morbidity",2018,1,8199973922
-"600","Prescribing","cwa","Morbidity",2019,1.03481535,8199973922
-"601","Prescribing","cwa","Morbidity",2020,1.061347517,8199973922
-"602","Prescribing","cwa","Morbidity",2021,1.093222154,8199973922
-"603","Prescribing","cwa","Morbidity",2022,1.125309319,8199973922
-"604","Prescribing","cwa","Morbidity",2023,1.152346372,8199973922
-"605","Prescribing","cwa","Morbidity",2024,1.185012523,8199973922
-"606","Prescribing","cwa","Morbidity",2025,1.216308002,8199973922
-"607","Prescribing","cwa","Morbidity",2026,1.247129173,8199973922
-"608","Prescribing","cwa","Morbidity",2027,1.279018277,8199973922
-"609","Prescribing","cwa","Morbidity",2028,1.309518257,8199973922
-"610","Prescribing","cwa","Morbidity",2029,1.339655928,8199973922
-"611","Prescribing","cwa","Morbidity",2030,1.369691417,8199973922
-"612","Prescribing","cwa","Morbidity",2031,1.400655724,8199973922
-"613","Prescribing","cwa","Morbidity",2032,1.430169471,8199973922
-"614","Prescribing","cwa","Morbidity",2033,1.45912075,8199973922
-"615","Prescribing","cwa","Morbidity",2034,1.488509825,8199973922
-"616","Prescribing","cwa","Morbidity",2035,1.517162209,8199973922
-"617","Prescribing","cwa","Morbidity",2036,1.544899727,8199973922
-"618","Prescribing","cwa","Morbidity",2037,1.574558651,8199973922
-"619","Prescribing","cwa","Morbidity",2038,1.603538628,8199973922
-"620","Prescribing","cwa","Morbidity",2039,1.632045196,8199973922
-"621","Prescribing","cwa","Morbidity",2040,1.661636672,8199973922
-"622","Specialised","cwa","medium",2018,1,1.59e+10
-"623","Specialised","cwa","medium",2019,1.066384986,1.59e+10
-"624","Specialised","cwa","medium",2020,1.10349254,1.59e+10
-"625","Specialised","cwa","medium",2021,1.140600094,1.59e+10
-"626","Specialised","cwa","medium",2022,1.177707648,1.59e+10
-"627","Specialised","cwa","medium",2023,1.214815202,1.59e+10
-"628","Specialised","cwa","medium",2024,1.251922756,1.59e+10
-"629","Specialised","cwa","medium",2025,1.28903031,1.59e+10
-"630","Specialised","cwa","medium",2026,1.326137864,1.59e+10
-"631","Specialised","cwa","medium",2027,1.363245418,1.59e+10
-"632","Specialised","cwa","medium",2028,1.400352972,1.59e+10
-"633","Specialised","cwa","medium",2029,1.437460525,1.59e+10
-"634","Specialised","cwa","medium",2030,1.474568079,1.59e+10
-"635","Specialised","cwa","medium",2031,1.511675633,1.59e+10
-"636","Specialised","cwa","medium",2032,1.548783187,1.59e+10
-"637","Specialised","cwa","medium",2033,1.585890741,1.59e+10
-"638","Specialised","cwa","medium",2034,1.622998295,1.59e+10
-"639","Specialised","cwa","medium",2035,1.660105849,1.59e+10
-"640","Specialised","cwa","medium",2036,1.697213403,1.59e+10
-"641","Specialised","cwa","medium",2037,1.734320957,1.59e+10
-"642","Specialised","cwa","medium",2038,1.771428511,1.59e+10
-"643","Specialised","cwa","medium",2039,1.808536065,1.59e+10
-"644","Specialised","cwa","medium",2040,1.845643619,1.59e+10
-"645","Specialised","cwa","lower",2018,1,1.59e+10
-"646","Specialised","cwa","lower",2019,1.066384986,1.59e+10
-"647","Specialised","cwa","lower",2020,1.068600934,1.59e+10
-"648","Specialised","cwa","lower",2021,1.091255911,1.59e+10
-"649","Specialised","cwa","lower",2022,1.117273613,1.59e+10
-"650","Specialised","cwa","lower",2023,1.145031989,1.59e+10
-"651","Specialised","cwa","lower",2024,1.173902752,1.59e+10
-"652","Specialised","cwa","lower",2025,1.203563677,1.59e+10
-"653","Specialised","cwa","lower",2026,1.23382335,1.59e+10
-"654","Specialised","cwa","lower",2027,1.264557051,1.59e+10
-"655","Specialised","cwa","lower",2028,1.295678152,1.59e+10
-"656","Specialised","cwa","lower",2029,1.327123578,1.59e+10
-"657","Specialised","cwa","lower",2030,1.358845712,1.59e+10
-"658","Specialised","cwa","lower",2031,1.390807563,1.59e+10
-"659","Specialised","cwa","lower",2032,1.422979711,1.59e+10
-"660","Specialised","cwa","lower",2033,1.455338304,1.59e+10
-"661","Specialised","cwa","lower",2034,1.487863684,1.59e+10
-"662","Specialised","cwa","lower",2035,1.520539423,1.59e+10
-"663","Specialised","cwa","lower",2036,1.553351624,1.59e+10
-"664","Specialised","cwa","lower",2037,1.586288408,1.59e+10
-"665","Specialised","cwa","lower",2038,1.619339524,1.59e+10
-"666","Specialised","cwa","lower",2039,1.652496057,1.59e+10
-"667","Specialised","cwa","lower",2040,1.685750191,1.59e+10
-"668","Specialised","cwa","upper",2018,1,1.59e+10
-"669","Specialised","cwa","upper",2019,1.066384986,1.59e+10
-"670","Specialised","cwa","upper",2020,1.138384146,1.59e+10
-"671","Specialised","cwa","upper",2021,1.189944277,1.59e+10
-"672","Specialised","cwa","upper",2022,1.238141683,1.59e+10
-"673","Specialised","cwa","upper",2023,1.284598415,1.59e+10
-"674","Specialised","cwa","upper",2024,1.32994276,1.59e+10
-"675","Specialised","cwa","upper",2025,1.374496942,1.59e+10
-"676","Specialised","cwa","upper",2026,1.418452377,1.59e+10
-"677","Specialised","cwa","upper",2027,1.461933784,1.59e+10
-"678","Specialised","cwa","upper",2028,1.505027791,1.59e+10
-"679","Specialised","cwa","upper",2029,1.547797473,1.59e+10
-"680","Specialised","cwa","upper",2030,1.590290446,1.59e+10
-"681","Specialised","cwa","upper",2031,1.632543704,1.59e+10
-"682","Specialised","cwa","upper",2032,1.674586664,1.59e+10
-"683","Specialised","cwa","upper",2033,1.716443178,1.59e+10
-"684","Specialised","cwa","upper",2034,1.758132906,1.59e+10
-"685","Specialised","cwa","upper",2035,1.799672275,1.59e+10
-"686","Specialised","cwa","upper",2036,1.841075182,1.59e+10
-"687","Specialised","cwa","upper",2037,1.882353506,1.59e+10
-"688","Specialised","cwa","upper",2038,1.923517498,1.59e+10
-"689","Specialised","cwa","upper",2039,1.964576073,1.59e+10
-"690","Specialised","cwa","upper",2040,2.005537047,1.59e+10
-"691","Mental Health","cwa","Demography",2018,1,1.0111e+10
-"692","Mental Health","cwa","Demography",2019,1.010229332,1.0111e+10
-"693","Mental Health","cwa","Demography",2020,1.015669565,1.0111e+10
-"694","Mental Health","cwa","Demography",2021,1.024521559,1.0111e+10
-"695","Mental Health","cwa","Demography",2022,1.038444433,1.0111e+10
-"696","Mental Health","cwa","Demography",2023,1.056286333,1.0111e+10
-"697","Mental Health","cwa","Demography",2024,1.071589789,1.0111e+10
-"698","Mental Health","cwa","Demography",2025,1.085286065,1.0111e+10
-"699","Mental Health","cwa","Demography",2026,1.09783775,1.0111e+10
-"700","Mental Health","cwa","Demography",2027,1.110319577,1.0111e+10
-"701","Mental Health","cwa","Demography",2028,1.119890674,1.0111e+10
-"702","Mental Health","cwa","Demography",2029,1.128774387,1.0111e+10
-"703","Mental Health","cwa","Demography",2030,1.137077929,1.0111e+10
-"704","Mental Health","cwa","Demography",2031,1.145272495,1.0111e+10
-"705","Mental Health","cwa","Demography",2032,1.15298991,1.0111e+10
-"706","Mental Health","cwa","Demography",2033,1.160806891,1.0111e+10
-"707","Mental Health","cwa","Demography",2034,1.169087488,1.0111e+10
-"708","Mental Health","cwa","Demography",2035,1.177726327,1.0111e+10
-"709","Mental Health","cwa","Demography",2036,1.186792715,1.0111e+10
-"710","Mental Health","cwa","Demography",2037,1.195479716,1.0111e+10
-"711","Mental Health","cwa","Demography",2038,1.203997971,1.0111e+10
-"712","Mental Health","cwa","Demography",2039,1.211928063,1.0111e+10
-"713","Mental Health","cwa","Demography",2040,1.220178633,1.0111e+10
-"714","Mental Health","cwa","Morbidity",2018,1,1.0111e+10
-"715","Mental Health","cwa","Morbidity",2019,1.020702894,1.0111e+10
-"716","Mental Health","cwa","Morbidity",2020,1.037523131,1.0111e+10
-"717","Mental Health","cwa","Morbidity",2021,1.058507485,1.0111e+10
-"718","Mental Health","cwa","Morbidity",2022,1.083580212,1.0111e+10
-"719","Mental Health","cwa","Morbidity",2023,1.111469096,1.0111e+10
-"720","Mental Health","cwa","Morbidity",2024,1.136967079,1.0111e+10
-"721","Mental Health","cwa","Morbidity",2025,1.162332094,1.0111e+10
-"722","Mental Health","cwa","Morbidity",2026,1.186300207,1.0111e+10
-"723","Mental Health","cwa","Morbidity",2027,1.207840135,1.0111e+10
-"724","Mental Health","cwa","Morbidity",2028,1.226967424,1.0111e+10
-"725","Mental Health","cwa","Morbidity",2029,1.245051949,1.0111e+10
-"726","Mental Health","cwa","Morbidity",2030,1.263354738,1.0111e+10
-"727","Mental Health","cwa","Morbidity",2031,1.281896957,1.0111e+10
-"728","Mental Health","cwa","Morbidity",2032,1.298534781,1.0111e+10
-"729","Mental Health","cwa","Morbidity",2033,1.314965587,1.0111e+10
-"730","Mental Health","cwa","Morbidity",2034,1.332906013,1.0111e+10
-"731","Mental Health","cwa","Morbidity",2035,1.350308251,1.0111e+10
-"732","Mental Health","cwa","Morbidity",2036,1.36851204,1.0111e+10
-"733","Mental Health","cwa","Morbidity",2037,1.385502286,1.0111e+10
-"734","Mental Health","cwa","Morbidity",2038,1.402844766,1.0111e+10
-"735","Mental Health","cwa","Morbidity",2039,1.418804994,1.0111e+10
-"736","Mental Health","cwa","Morbidity",2040,1.4348244,1.0111e+10
-"737","IAPT","cwa","Demography",2018,1,489256654
-"738","IAPT","cwa","Demography",2019,1.004851263,489256654
-"739","IAPT","cwa","Demography",2020,1.005953503,489256654
-"740","IAPT","cwa","Demography",2021,1.010345863,489256654
-"741","IAPT","cwa","Demography",2022,1.018320749,489256654
-"742","IAPT","cwa","Demography",2023,1.0334531,489256654
-"743","IAPT","cwa","Demography",2024,1.044487573,489256654
-"744","IAPT","cwa","Demography",2025,1.054026461,489256654
-"745","IAPT","cwa","Demography",2026,1.062346655,489256654
-"746","IAPT","cwa","Demography",2027,1.069525526,489256654
-"747","IAPT","cwa","Demography",2028,1.074723699,489256654
-"748","IAPT","cwa","Demography",2029,1.079746928,489256654
-"749","IAPT","cwa","Demography",2030,1.084686475,489256654
-"750","IAPT","cwa","Demography",2031,1.089439791,489256654
-"751","IAPT","cwa","Demography",2032,1.093773231,489256654
-"752","IAPT","cwa","Demography",2033,1.097682603,489256654
-"753","IAPT","cwa","Demography",2034,1.101591832,489256654
-"754","IAPT","cwa","Demography",2035,1.105642668,489256654
-"755","IAPT","cwa","Demography",2036,1.109569738,489256654
-"756","IAPT","cwa","Demography",2037,1.112772787,489256654
-"757","IAPT","cwa","Demography",2038,1.116317354,489256654
-"758","IAPT","cwa","Demography",2039,1.12015412,489256654
-"759","IAPT","cwa","Demography",2040,1.123931784,489256654
-"760","IAPT","cwa","Morbidity",2018,1,489256654
-"761","IAPT","cwa","Morbidity",2019,1.015324825,489256654
-"762","IAPT","cwa","Morbidity",2020,1.027702493,489256654
-"763","IAPT","cwa","Morbidity",2021,1.044018677,489256654
-"764","IAPT","cwa","Morbidity",2022,1.062801051,489256654
-"765","IAPT","cwa","Morbidity",2023,1.087688079,489256654
-"766","IAPT","cwa","Morbidity",2024,1.108495659,489256654
-"767","IAPT","cwa","Morbidity",2025,1.129180962,489256654
-"768","IAPT","cwa","Morbidity",2026,1.148319574,489256654
-"769","IAPT","cwa","Morbidity",2027,1.163873939,489256654
-"770","IAPT","cwa","Morbidity",2028,1.177928969,489256654
-"771","IAPT","cwa","Morbidity",2029,1.191452204,489256654
-"772","IAPT","cwa","Morbidity",2030,1.205653007,489256654
-"773","IAPT","cwa","Morbidity",2031,1.219942989,489256654
-"774","IAPT","cwa","Morbidity",2032,1.232408666,489256654
-"775","IAPT","cwa","Morbidity",2033,1.24405222,489256654
-"776","IAPT","cwa","Morbidity",2034,1.256581231,489256654
-"777","IAPT","cwa","Morbidity",2035,1.268322392,489256654
-"778","IAPT","cwa","Morbidity",2036,1.28016198,489256654
-"779","IAPT","cwa","Morbidity",2037,1.290380415,489256654
-"780","IAPT","cwa","Morbidity",2038,1.301448096,489256654
-"781","IAPT","cwa","Morbidity",2039,1.312155842,489256654
-"782","IAPT","cwa","Morbidity",2040,1.322463376,489256654
-"783","Maternity","cwa","Demography",2018,1,2745400000
-"784","Maternity","cwa","Demography",2019,0.9766373296,2745400000
-"785","Maternity","cwa","Demography",2020,0.9370079532,2745400000
-"786","Maternity","cwa","Demography",2021,0.9561098696,2745400000
-"787","Maternity","cwa","Demography",2022,0.9133003457,2745400000
-"788","Maternity","cwa","Demography",2023,0.9868746967,2745400000
-"789","Maternity","cwa","Demography",2024,1.00061666,2745400000
-"790","Maternity","cwa","Demography",2025,1.007428592,2745400000
-"791","Maternity","cwa","Demography",2026,1.011740032,2745400000
-"792","Maternity","cwa","Demography",2027,1.013745936,2745400000
-"793","Maternity","cwa","Demography",2028,1.014609938,2745400000
-"794","Maternity","cwa","Demography",2029,1.015474657,2745400000
-"795","Maternity","cwa","Demography",2030,1.016446168,2745400000
-"796","Maternity","cwa","Demography",2031,1.017728592,2745400000
-"797","Maternity","cwa","Demography",2032,1.018922537,2745400000
-"798","Maternity","cwa","Demography",2033,1.020138997,2745400000
-"799","Maternity","cwa","Demography",2034,1.021870805,2745400000
-"800","Maternity","cwa","Demography",2035,1.025448184,2745400000
-"801","Maternity","cwa","Demography",2036,1.031103032,2745400000
-"802","Maternity","cwa","Demography",2037,1.037245795,2745400000
-"803","Maternity","cwa","Demography",2038,1.043511603,2745400000
-"804","Maternity","cwa","Demography",2039,1.049704941,2745400000
-"805","Maternity","cwa","Demography",2040,1.054603453,2745400000
-"806","Maternity","cwa","Log growth",2018,1,2745400000
-"807","Maternity","cwa","Log growth",2019,0.980199437,2745400000
-"808","Maternity","cwa","Log growth",2020,0.9434084368,2745400000
-"809","Maternity","cwa","Log growth",2021,0.9650949085,2745400000
-"810","Maternity","cwa","Log growth",2022,0.9282682649,2745400000
-"811","Maternity","cwa","Log growth",2023,1.005487823,2745400000
-"812","Maternity","cwa","Log growth",2024,1.021814852,2745400000
-"813","Maternity","cwa","Log growth",2025,1.030983039,2745400000
-"814","Maternity","cwa","Log growth",2026,1.037498735,2745400000
-"815","Maternity","cwa","Log growth",2027,1.041525831,2745400000
-"816","Maternity","cwa","Log growth",2028,1.044263236,2745400000
-"817","Maternity","cwa","Log growth",2029,1.046918011,2745400000
-"818","Maternity","cwa","Log growth",2030,1.049617042,2745400000
-"819","Maternity","cwa","Log growth",2031,1.052588688,2745400000
-"820","Maternity","cwa","Log growth",2032,1.055412592,2745400000
-"821","Maternity","cwa","Log growth",2033,1.058196012,2745400000
-"822","Maternity","cwa","Log growth",2034,1.061442813,2745400000
-"823","Maternity","cwa","Log growth",2035,1.066598951,2745400000
-"824","Maternity","cwa","Log growth",2036,1.073918739,2745400000
-"825","Maternity","cwa","Log growth",2037,1.081671045,2745400000
-"826","Maternity","cwa","Log growth",2038,1.08945351,2745400000
-"827","Maternity","cwa","Log growth",2039,1.097097924,2745400000
-"828","Maternity","cwa","Log growth",2040,1.10338309,2745400000
-"829","Maternity","cwa","Linear growth",2018,1,2745400000
-"830","Maternity","cwa","Linear growth",2019,0.9870604636,2745400000
-"831","Maternity","cwa","Linear growth",2020,0.9570267714,2745400000
-"832","Maternity","cwa","Linear growth",2021,0.9865639771,2745400000
-"833","Maternity","cwa","Linear growth",2022,0.9564887516,2745400000
-"834","Maternity","cwa","Linear growth",2023,1.044548106,2745400000
-"835","Maternity","cwa","Linear growth",2024,1.070418481,2745400000
-"836","Maternity","cwa","Linear growth",2025,1.089271886,2745400000
-"837","Maternity","cwa","Linear growth",2026,1.105707921,2745400000
-"838","Maternity","cwa","Linear growth",2027,1.11982,2745400000
-"839","Maternity","cwa","Linear growth",2028,1.132829753,2745400000
-"840","Maternity","cwa","Linear growth",2029,1.14601336,2745400000
-"841","Maternity","cwa","Linear growth",2030,1.15950227,2745400000
-"842","Maternity","cwa","Linear growth",2031,1.173547695,2745400000
-"843","Maternity","cwa","Linear growth",2032,1.187681012,2745400000
-"844","Maternity","cwa","Linear growth",2033,1.202016301,2745400000
-"845","Maternity","cwa","Linear growth",2034,1.217127833,2745400000
-"846","Maternity","cwa","Linear growth",2035,1.234703405,2745400000
-"847","Maternity","cwa","Linear growth",2036,1.255102866,2745400000
-"848","Maternity","cwa","Linear growth",2037,1.276356913,2745400000
-"849","Maternity","cwa","Linear growth",2038,1.298003004,2745400000
-"850","Maternity","cwa","Linear growth",2039,1.319842388,2745400000
-"851","Maternity","cwa","Linear growth",2040,1.340389732,2745400000
+type,measure,models,fyear,modelled_growth,baseline
+A&E,cwa,Demography,2018,1,3511161918
+A&E,cwa,Demography,2019,1.00661637,3511161918
+A&E,cwa,Demography,2020,1.008423251,3511161918
+A&E,cwa,Demography,2021,1.012392185,3511161918
+A&E,cwa,Demography,2022,1.023246198,3511161918
+A&E,cwa,Demography,2023,1.016278687,3511161918
+A&E,cwa,Demography,2024,1.029003445,3511161918
+A&E,cwa,Demography,2025,1.040784253,3511161918
+A&E,cwa,Demography,2026,1.051911558,3511161918
+A&E,cwa,Demography,2027,1.063599425,3511161918
+A&E,cwa,Demography,2028,1.073644675,3511161918
+A&E,cwa,Demography,2029,1.082342722,3511161918
+A&E,cwa,Demography,2030,1.090509417,3511161918
+A&E,cwa,Demography,2031,1.098221904,3511161918
+A&E,cwa,Demography,2032,1.105794959,3511161918
+A&E,cwa,Demography,2033,1.113331271,3511161918
+A&E,cwa,Demography,2034,1.120895884,3511161918
+A&E,cwa,Demography,2035,1.128116975,3511161918
+A&E,cwa,Demography,2036,1.135302248,3511161918
+A&E,cwa,Demography,2037,1.14331827,3511161918
+A&E,cwa,Demography,2038,1.150934836,3511161918
+A&E,cwa,Demography,2039,1.158550896,3511161918
+A&E,cwa,Demography,2040,1.166046506,3511161918
+A&E,cwa,Morbidity,2018,1,3511161918
+A&E,cwa,Morbidity,2019,1.009130851,3511161918
+A&E,cwa,Morbidity,2020,1.014187806,3511161918
+A&E,cwa,Morbidity,2021,1.022172012,3511161918
+A&E,cwa,Morbidity,2022,1.036311663,3511161918
+A&E,cwa,Morbidity,2023,1.031403977,3511161918
+A&E,cwa,Morbidity,2024,1.046654151,3511161918
+A&E,cwa,Morbidity,2025,1.061117497,3511161918
+A&E,cwa,Morbidity,2026,1.074751515,3511161918
+A&E,cwa,Morbidity,2027,1.088086708,3511161918
+A&E,cwa,Morbidity,2028,1.10038985,3511161918
+A&E,cwa,Morbidity,2029,1.111465129,3511161918
+A&E,cwa,Morbidity,2030,1.122136026,3511161918
+A&E,cwa,Morbidity,2031,1.132692464,3511161918
+A&E,cwa,Morbidity,2032,1.142906339,3511161918
+A&E,cwa,Morbidity,2033,1.153027194,3511161918
+A&E,cwa,Morbidity,2034,1.163070623,3511161918
+A&E,cwa,Morbidity,2035,1.172927918,3511161918
+A&E,cwa,Morbidity,2036,1.182433829,3511161918
+A&E,cwa,Morbidity,2037,1.192679724,3511161918
+A&E,cwa,Morbidity,2038,1.20262393,3511161918
+A&E,cwa,Morbidity,2039,1.212153423,3511161918
+A&E,cwa,Morbidity,2040,1.221968036,3511161918
+A&E,cwa,Linear growth,2018,1,3511161918
+A&E,cwa,Linear growth,2019,1.036684849,3511161918
+A&E,cwa,Linear growth,2020,1.070380043,3511161918
+A&E,cwa,Linear growth,2021,1.108305261,3511161918
+A&E,cwa,Linear growth,2022,1.154400825,3511161918
+A&E,cwa,Linear growth,2023,1.180162352,3511161918
+A&E,cwa,Linear growth,2024,1.230312569,3511161918
+A&E,cwa,Linear growth,2025,1.281379644,3511161918
+A&E,cwa,Linear growth,2026,1.333342543,3511161918
+A&E,cwa,Linear growth,2027,1.386799367,3511161918
+A&E,cwa,Linear growth,2028,1.440978608,3511161918
+A&E,cwa,Linear growth,2029,1.495749651,3511161918
+A&E,cwa,Linear growth,2030,1.552014213,3511161918
+A&E,cwa,Linear growth,2031,1.610119743,3511161918
+A&E,cwa,Linear growth,2032,1.669997512,3511161918
+A&E,cwa,Linear growth,2033,1.731935606,3511161918
+A&E,cwa,Linear growth,2034,1.796102883,3511161918
+A&E,cwa,Linear growth,2035,1.862318887,3511161918
+A&E,cwa,Linear growth,2036,1.930429199,3511161918
+A&E,cwa,Linear growth,2037,2.002168316,3511161918
+A&E,cwa,Linear growth,2038,2.076170753,3511161918
+A&E,cwa,Linear growth,2039,2.152014511,3511161918
+A&E,cwa,Linear growth,2040,2.231038603,3511161918
+A&E,cwa,Log growth,2018,1,3511161918
+A&E,cwa,Log growth,2019,1.020216464,3511161918
+A&E,cwa,Log growth,2020,1.035495983,3511161918
+A&E,cwa,Log growth,2021,1.053003689,3511161918
+A&E,cwa,Log growth,2022,1.076436736,3511161918
+A&E,cwa,Log growth,2023,1.078810337,3511161918
+A&E,cwa,Log growth,2024,1.102318652,3511161918
+A&E,cwa,Log growth,2025,1.12470664,3511161918
+A&E,cwa,Log growth,2026,1.145984571,3511161918
+A&E,cwa,Log growth,2027,1.166626401,3511161918
+A&E,cwa,Log growth,2028,1.186032331,3511161918
+A&E,cwa,Log growth,2029,1.204111134,3511161918
+A&E,cwa,Log growth,2030,1.221645414,3511161918
+A&E,cwa,Log growth,2031,1.238874892,3511161918
+A&E,cwa,Log growth,2032,1.255715902,3511161918
+A&E,cwa,Log growth,2033,1.272336349,3511161918
+A&E,cwa,Log growth,2034,1.288836407,3511161918
+A&E,cwa,Log growth,2035,1.305055203,3511161918
+A&E,cwa,Log growth,2036,1.320862471,3511161918
+A&E,cwa,Log growth,2037,1.337333458,3511161918
+A&E,cwa,Log growth,2038,1.353478305,3511161918
+A&E,cwa,Log growth,2039,1.369078157,3511161918
+A&E,cwa,Log growth,2040,1.384884265,3511161918
+A&E,activity,Demography,2018,1,3511161918
+A&E,activity,Demography,2019,1.005656755,3511161918
+A&E,activity,Demography,2020,1.006833549,3511161918
+A&E,activity,Demography,2021,1.010111852,3511161918
+A&E,activity,Demography,2022,1.020628222,3511161918
+A&E,activity,Demography,2023,1.011362176,3511161918
+A&E,activity,Demography,2024,1.023419846,3511161918
+A&E,activity,Demography,2025,1.034560138,3511161918
+A&E,activity,Demography,2026,1.044989719,3511161918
+A&E,activity,Demography,2027,1.055385594,3511161918
+A&E,activity,Demography,2028,1.064367931,3511161918
+A&E,activity,Demography,2029,1.07212916,3511161918
+A&E,activity,Demography,2030,1.079455328,3511161918
+A&E,activity,Demography,2031,1.086402112,3511161918
+A&E,activity,Demography,2032,1.093205086,3511161918
+A&E,activity,Demography,2033,1.099910481,3511161918
+A&E,activity,Demography,2034,1.106619641,3511161918
+A&E,activity,Demography,2035,1.113061761,3511161918
+A&E,activity,Demography,2036,1.119445056,3511161918
+A&E,activity,Demography,2037,1.126395804,3511161918
+A&E,activity,Demography,2038,1.133043118,3511161918
+A&E,activity,Demography,2039,1.139706096,3511161918
+A&E,activity,Demography,2040,1.146274874,3511161918
+A&E,activity,Morbidity,2018,1,3511161918
+A&E,activity,Morbidity,2019,1.008330615,3511161918
+A&E,activity,Morbidity,2020,1.012831019,3511161918
+A&E,activity,Morbidity,2021,1.020188522,3511161918
+A&E,activity,Morbidity,2022,1.034083914,3511161918
+A&E,activity,Morbidity,2023,1.027342162,3511161918
+A&E,activity,Morbidity,2024,1.042104632,3511161918
+A&E,activity,Morbidity,2025,1.056123772,3511161918
+A&E,activity,Morbidity,2026,1.069276438,3511161918
+A&E,activity,Morbidity,2027,1.081845401,3511161918
+A&E,activity,Morbidity,2028,1.093530236,3511161918
+A&E,activity,Morbidity,2029,1.104026535,3511161918
+A&E,activity,Morbidity,2030,1.114128503,3511161918
+A&E,activity,Morbidity,2031,1.124179657,3511161918
+A&E,activity,Morbidity,2032,1.133896976,3511161918
+A&E,activity,Morbidity,2033,1.14360231,3511161918
+A&E,activity,Morbidity,2034,1.153150865,3511161918
+A&E,activity,Morbidity,2035,1.162605985,3511161918
+A&E,activity,Morbidity,2036,1.171651438,3511161918
+A&E,activity,Morbidity,2037,1.181568443,3511161918
+A&E,activity,Morbidity,2038,1.191113999,3511161918
+A&E,activity,Morbidity,2039,1.200109949,3511161918
+A&E,activity,Morbidity,2040,1.209408104,3511161918
+A&E,activity,Linear growth,2018,1,3511161918
+A&E,activity,Linear growth,2019,1.026867389,3511161918
+A&E,activity,Linear growth,2020,1.050161601,3511161918
+A&E,activity,Linear growth,2021,1.076731271,3511161918
+A&E,activity,Linear growth,2022,1.111240675,3511161918
+A&E,activity,Linear growth,2023,1.122716634,3511161918
+A&E,activity,Linear growth,2024,1.159354778,3511161918
+A&E,activity,Linear growth,2025,1.196038756,3511161918
+A&E,activity,Linear growth,2026,1.232716196,3511161918
+A&E,activity,Linear growth,2027,1.269445293,3511161918
+A&E,activity,Linear growth,2028,1.305933484,3511161918
+A&E,activity,Linear growth,2029,1.342146567,3511161918
+A&E,activity,Linear growth,2030,1.378872286,3511161918
+A&E,activity,Linear growth,2031,1.416243301,3511161918
+A&E,activity,Linear growth,2032,1.454263518,3511161918
+A&E,activity,Linear growth,2033,1.493050946,3511161918
+A&E,activity,Linear growth,2034,1.532803643,3511161918
+A&E,activity,Linear growth,2035,1.573318517,3511161918
+A&E,activity,Linear growth,2036,1.614527384,3511161918
+A&E,activity,Linear growth,2037,1.65734338,3511161918
+A&E,activity,Linear growth,2038,1.700925549,3511161918
+A&E,activity,Linear growth,2039,1.745138827,3511161918
+A&E,activity,Linear growth,2040,1.790615432,3511161918
+A&E,activity,Log growth,2018,1,3511161918
+A&E,activity,Log growth,2019,1.015028669,3511161918
+A&E,activity,Log growth,2020,1.025375689,3511161918
+A&E,activity,Log growth,2021,1.037884478,3511161918
+A&E,activity,Log growth,2022,1.05695944,3511161918
+A&E,activity,Log growth,2023,1.053284066,3511161918
+A&E,activity,Log growth,2024,1.072435605,3511161918
+A&E,activity,Log growth,2025,1.09055321,3511161918
+A&E,activity,Log growth,2026,1.107630518,3511161918
+A&E,activity,Log growth,2027,1.123759316,3511161918
+A&E,activity,Log growth,2028,1.138717874,3511161918
+A&E,activity,Log growth,2029,1.152521582,3511161918
+A&E,activity,Log growth,2030,1.165878707,3511161918
+A&E,activity,Log growth,2031,1.178909439,3511161918
+A&E,activity,Log growth,2032,1.191621095,3511161918
+A&E,activity,Log growth,2033,1.204111725,3511161918
+A&E,activity,Log growth,2034,1.216536307,3511161918
+A&E,activity,Log growth,2035,1.228724863,3511161918
+A&E,activity,Log growth,2036,1.240622045,3511161918
+A&E,activity,Log growth,2037,1.25291906,3511161918
+A&E,activity,Log growth,2038,1.264956624,3511161918
+A&E,activity,Log growth,2039,1.276629865,3511161918
+A&E,activity,Log growth,2040,1.288397322,3511161918
+Elective,cwa,Demography,2018,1,10363552521
+Elective,cwa,Demography,2019,1.01115723,10363552521
+Elective,cwa,Demography,2020,1.018541461,10363552521
+Elective,cwa,Demography,2021,1.028116347,10363552521
+Elective,cwa,Demography,2022,1.040166593,10363552521
+Elective,cwa,Demography,2023,1.046440835,10363552521
+Elective,cwa,Demography,2024,1.05919536,10363552521
+Elective,cwa,Demography,2025,1.070792121,10363552521
+Elective,cwa,Demography,2026,1.081615744,10363552521
+Elective,cwa,Demography,2027,1.091045937,10363552521
+Elective,cwa,Demography,2028,1.099892485,10363552521
+Elective,cwa,Demography,2029,1.108922779,10363552521
+Elective,cwa,Demography,2030,1.118300335,10363552521
+Elective,cwa,Demography,2031,1.128507212,10363552521
+Elective,cwa,Demography,2032,1.138117378,10363552521
+Elective,cwa,Demography,2033,1.146910976,10363552521
+Elective,cwa,Demography,2034,1.155100856,10363552521
+Elective,cwa,Demography,2035,1.163192767,10363552521
+Elective,cwa,Demography,2036,1.171034972,10363552521
+Elective,cwa,Demography,2037,1.17746084,10363552521
+Elective,cwa,Demography,2038,1.184520452,10363552521
+Elective,cwa,Demography,2039,1.192626836,10363552521
+Elective,cwa,Demography,2040,1.200847585,10363552521
+Elective,cwa,Morbidity,2018,1,10363552521
+Elective,cwa,Morbidity,2019,1.012298616,10363552521
+Elective,cwa,Morbidity,2020,1.022938945,10363552521
+Elective,cwa,Morbidity,2021,1.041011971,10363552521
+Elective,cwa,Morbidity,2022,1.056684345,10363552521
+Elective,cwa,Morbidity,2023,1.066319323,10363552521
+Elective,cwa,Morbidity,2024,1.082254467,10363552521
+Elective,cwa,Morbidity,2025,1.097106477,10363552521
+Elective,cwa,Morbidity,2026,1.111167524,10363552521
+Elective,cwa,Morbidity,2027,1.122598608,10363552521
+Elective,cwa,Morbidity,2028,1.133852532,10363552521
+Elective,cwa,Morbidity,2029,1.145529921,10363552521
+Elective,cwa,Morbidity,2030,1.157897588,10363552521
+Elective,cwa,Morbidity,2031,1.170566177,10363552521
+Elective,cwa,Morbidity,2032,1.182902806,10363552521
+Elective,cwa,Morbidity,2033,1.194452591,10363552521
+Elective,cwa,Morbidity,2034,1.205882188,10363552521
+Elective,cwa,Morbidity,2035,1.217287399,10363552521
+Elective,cwa,Morbidity,2036,1.228435847,10363552521
+Elective,cwa,Morbidity,2037,1.237944573,10363552521
+Elective,cwa,Morbidity,2038,1.248070625,10363552521
+Elective,cwa,Morbidity,2039,1.258681989,10363552521
+Elective,cwa,Morbidity,2040,1.269721999,10363552521
+Elective,cwa,Linear growth,2018,1,10363552521
+Elective,cwa,Linear growth,2019,1.003972331,10363552521
+Elective,cwa,Linear growth,2020,1.006225272,10363552521
+Elective,cwa,Linear growth,2021,1.015759891,10363552521
+Elective,cwa,Linear growth,2022,1.022754605,10363552521
+Elective,cwa,Linear growth,2023,1.023447594,10363552521
+Elective,cwa,Linear growth,2024,1.030361431,10363552521
+Elective,cwa,Linear growth,2025,1.036158905,10363552521
+Elective,cwa,Linear growth,2026,1.041000636,10363552521
+Elective,cwa,Linear growth,2027,1.043268768,10363552521
+Elective,cwa,Linear growth,2028,1.045198294,10363552521
+Elective,cwa,Linear growth,2029,1.04744023,10363552521
+Elective,cwa,Linear growth,2030,1.05010191,10363552521
+Elective,cwa,Linear growth,2031,1.052849994,10363552521
+Elective,cwa,Linear growth,2032,1.055128251,10363552521
+Elective,cwa,Linear growth,2033,1.056627153,10363552521
+Elective,cwa,Linear growth,2034,1.057861398,10363552521
+Elective,cwa,Linear growth,2035,1.058968452,10363552521
+Elective,cwa,Linear growth,2036,1.059779123,10363552521
+Elective,cwa,Linear growth,2037,1.05912012,10363552521
+Elective,cwa,Linear growth,2038,1.058913439,10363552521
+Elective,cwa,Linear growth,2039,1.05907998,10363552521
+Elective,cwa,Linear growth,2040,1.059618976,10363552521
+Elective,cwa,Log growth,2018,1,10363552521
+Elective,cwa,Log growth,2019,1.008790438,10363552521
+Elective,cwa,Log growth,2020,1.016216026,10363552521
+Elective,cwa,Log growth,2021,1.031359707,10363552521
+Elective,cwa,Log growth,2022,1.044199948,10363552521
+Elective,cwa,Log growth,2023,1.051100135,10363552521
+Elective,cwa,Log growth,2024,1.064427086,10363552521
+Elective,cwa,Log growth,2025,1.076855424,10363552521
+Elective,cwa,Log growth,2026,1.088523454,10363552521
+Elective,cwa,Log growth,2027,1.09770122,10363552521
+Elective,cwa,Log growth,2028,1.1067048,10363552521
+Elective,cwa,Log growth,2029,1.116216964,10363552521
+Elective,cwa,Log growth,2030,1.126343306,10363552521
+Elective,cwa,Log growth,2031,1.136729888,10363552521
+Elective,cwa,Log growth,2032,1.146769179,10363552521
+Elective,cwa,Log growth,2033,1.156103026,10363552521
+Elective,cwa,Log growth,2034,1.16528817,10363552521
+Elective,cwa,Log growth,2035,1.174462921,10363552521
+Elective,cwa,Log growth,2036,1.183430095,10363552521
+Elective,cwa,Log growth,2037,1.190850946,10363552521
+Elective,cwa,Log growth,2038,1.198909393,10363552521
+Elective,cwa,Log growth,2039,1.207491328,10363552521
+Elective,cwa,Log growth,2040,1.216617658,10363552521
+Emergency,cwa,Demography,2018,1,16735761400
+Emergency,cwa,Demography,2019,1.014330384,16735761400
+Emergency,cwa,Demography,2020,1.020502829,16735761400
+Emergency,cwa,Demography,2021,1.029205436,16735761400
+Emergency,cwa,Demography,2022,1.042671045,16735761400
+Emergency,cwa,Demography,2023,1.051016677,16735761400
+Emergency,cwa,Demography,2024,1.068990305,16735761400
+Emergency,cwa,Demography,2025,1.085900193,16735761400
+Emergency,cwa,Demography,2026,1.102705064,16735761400
+Emergency,cwa,Demography,2027,1.125816022,16735761400
+Emergency,cwa,Demography,2028,1.145387983,16735761400
+Emergency,cwa,Demography,2029,1.162286717,16735761400
+Emergency,cwa,Demography,2030,1.177827177,16735761400
+Emergency,cwa,Demography,2031,1.192320302,16735761400
+Emergency,cwa,Demography,2032,1.206736333,16735761400
+Emergency,cwa,Demography,2033,1.221783545,16735761400
+Emergency,cwa,Demography,2034,1.236816236,16735761400
+Emergency,cwa,Demography,2035,1.250784984,16735761400
+Emergency,cwa,Demography,2036,1.265005431,16735761400
+Emergency,cwa,Demography,2037,1.2825613,16735761400
+Emergency,cwa,Demography,2038,1.298894335,16735761400
+Emergency,cwa,Demography,2039,1.314928095,16735761400
+Emergency,cwa,Demography,2040,1.330584338,16735761400
+Emergency,cwa,Morbidity,2018,1,16735761400
+Emergency,cwa,Morbidity,2019,1.020110112,16735761400
+Emergency,cwa,Morbidity,2020,1.037428069,16735761400
+Emergency,cwa,Morbidity,2021,1.059630504,16735761400
+Emergency,cwa,Morbidity,2022,1.084162778,16735761400
+Emergency,cwa,Morbidity,2023,1.099045467,16735761400
+Emergency,cwa,Morbidity,2024,1.124814326,16735761400
+Emergency,cwa,Morbidity,2025,1.149818564,16735761400
+Emergency,cwa,Morbidity,2026,1.173534816,16735761400
+Emergency,cwa,Morbidity,2027,1.200329314,16735761400
+Emergency,cwa,Morbidity,2028,1.226507617,16735761400
+Emergency,cwa,Morbidity,2029,1.249790926,16735761400
+Emergency,cwa,Morbidity,2030,1.272611324,16735761400
+Emergency,cwa,Morbidity,2031,1.296625068,16735761400
+Emergency,cwa,Morbidity,2032,1.319744935,16735761400
+Emergency,cwa,Morbidity,2033,1.342808737,16735761400
+Emergency,cwa,Morbidity,2034,1.36502639,16735761400
+Emergency,cwa,Morbidity,2035,1.387135123,16735761400
+Emergency,cwa,Morbidity,2036,1.40795725,16735761400
+Emergency,cwa,Morbidity,2037,1.431534111,16735761400
+Emergency,cwa,Morbidity,2038,1.454296004,16735761400
+Emergency,cwa,Morbidity,2039,1.475340337,16735761400
+Emergency,cwa,Morbidity,2040,1.498344115,16735761400
+Emergency,cwa,Linear growth,2018,1,16735761400
+Emergency,cwa,Linear growth,2019,1.028669586,16735761400
+Emergency,cwa,Linear growth,2020,1.054584922,16735761400
+Emergency,cwa,Linear growth,2021,1.085918891,16735761400
+Emergency,cwa,Linear growth,2022,1.119903293,16735761400
+Emergency,cwa,Linear growth,2023,1.144471861,16735761400
+Emergency,cwa,Linear growth,2024,1.180597781,16735761400
+Emergency,cwa,Linear growth,2025,1.216289173,16735761400
+Emergency,cwa,Linear growth,2026,1.251339633,16735761400
+Emergency,cwa,Linear growth,2027,1.289757113,16735761400
+Emergency,cwa,Linear growth,2028,1.328199824,16735761400
+Emergency,cwa,Linear growth,2029,1.364255549,16735761400
+Emergency,cwa,Linear growth,2030,1.40044438,16735761400
+Emergency,cwa,Linear growth,2031,1.438278142,16735761400
+Emergency,cwa,Linear growth,2032,1.475729539,16735761400
+Emergency,cwa,Linear growth,2033,1.513550859,16735761400
+Emergency,cwa,Linear growth,2034,1.551136952,16735761400
+Emergency,cwa,Linear growth,2035,1.589117193,16735761400
+Emergency,cwa,Linear growth,2036,1.626422415,16735761400
+Emergency,cwa,Linear growth,2037,1.666706822,16735761400
+Emergency,cwa,Linear growth,2038,1.706979904,16735761400
+Emergency,cwa,Linear growth,2039,1.746153945,16735761400
+Emergency,cwa,Linear growth,2040,1.787915847,16735761400
+Emergency,cwa,Log growth,2018,1,16735761400
+Emergency,cwa,Log growth,2019,1.021992161,16735761400
+Emergency,cwa,Log growth,2020,1.04070906,16735761400
+Emergency,cwa,Log growth,2021,1.064235193,16735761400
+Emergency,cwa,Log growth,2022,1.089828275,16735761400
+Emergency,cwa,Log growth,2023,1.105621526,16735761400
+Emergency,cwa,Log growth,2024,1.132203067,16735761400
+Emergency,cwa,Log growth,2025,1.157810819,16735761400
+Emergency,cwa,Log growth,2026,1.182266966,16735761400
+Emergency,cwa,Log growth,2027,1.209330825,16735761400
+Emergency,cwa,Log growth,2028,1.235848697,16735761400
+Emergency,cwa,Log growth,2029,1.259599249,16735761400
+Emergency,cwa,Log growth,2030,1.28295745,16735761400
+Emergency,cwa,Log growth,2031,1.307293835,16735761400
+Emergency,cwa,Log growth,2032,1.330757759,16735761400
+Emergency,cwa,Log growth,2033,1.354034984,16735761400
+Emergency,cwa,Log growth,2034,1.376592433,16735761400
+Emergency,cwa,Log growth,2035,1.398994242,16735761400
+Emergency,cwa,Log growth,2036,1.420310662,16735761400
+Emergency,cwa,Log growth,2037,1.443714583,16735761400
+Emergency,cwa,Log growth,2038,1.466573833,16735761400
+Emergency,cwa,Log growth,2039,1.487997739,16735761400
+Emergency,cwa,Log growth,2040,1.511104706,16735761400
+Elective,activity,Demography,2018,1,10363552521
+Elective,activity,Demography,2019,1.011416567,10363552521
+Elective,activity,Demography,2020,1.018777218,10363552521
+Elective,activity,Demography,2021,1.028151696,10363552521
+Elective,activity,Demography,2022,1.039992779,10363552521
+Elective,activity,Demography,2023,1.046545126,10363552521
+Elective,activity,Demography,2024,1.05922068,10363552521
+Elective,activity,Demography,2025,1.070611175,10363552521
+Elective,activity,Demography,2026,1.08124474,10363552521
+Elective,activity,Demography,2027,1.091047348,10363552521
+Elective,activity,Demography,2028,1.100019419,10363552521
+Elective,activity,Demography,2029,1.109063731,10363552521
+Elective,activity,Demography,2030,1.118559744,10363552521
+Elective,activity,Demography,2031,1.12881972,10363552521
+Elective,activity,Demography,2032,1.138586531,10363552521
+Elective,activity,Demography,2033,1.14772013,10363552521
+Elective,activity,Demography,2034,1.156369004,10363552521
+Elective,activity,Demography,2035,1.164914172,10363552521
+Elective,activity,Demography,2036,1.173381228,10363552521
+Elective,activity,Demography,2037,1.180651319,10363552521
+Elective,activity,Demography,2038,1.188517155,10363552521
+Elective,activity,Demography,2039,1.197258614,10363552521
+Elective,activity,Demography,2040,1.205986474,10363552521
+Elective,activity,Morbidity,2018,1,10363552521
+Elective,activity,Morbidity,2019,1.01482744,10363552521
+Elective,activity,Morbidity,2020,1.028275072,10363552521
+Elective,activity,Morbidity,2021,1.051129812,10363552521
+Elective,activity,Morbidity,2022,1.069725195,10363552521
+Elective,activity,Morbidity,2023,1.082741954,10363552521
+Elective,activity,Morbidity,2024,1.101969526,10363552521
+Elective,activity,Morbidity,2025,1.119804904,10363552521
+Elective,activity,Morbidity,2026,1.136875451,10363552521
+Elective,activity,Morbidity,2027,1.152449163,10363552521
+Elective,activity,Morbidity,2028,1.16754356,10363552521
+Elective,activity,Morbidity,2029,1.182721529,10363552521
+Elective,activity,Morbidity,2030,1.198870387,10363552521
+Elective,activity,Morbidity,2031,1.215296041,10363552521
+Elective,activity,Morbidity,2032,1.231117939,10363552521
+Elective,activity,Morbidity,2033,1.246256158,10363552521
+Elective,activity,Morbidity,2034,1.261245598,10363552521
+Elective,activity,Morbidity,2035,1.276169795,10363552521
+Elective,activity,Morbidity,2036,1.291104424,10363552521
+Elective,activity,Morbidity,2037,1.303802392,10363552521
+Elective,activity,Morbidity,2038,1.317422668,10363552521
+Elective,activity,Morbidity,2039,1.331641917,10363552521
+Elective,activity,Morbidity,2040,1.34637201,10363552521
+Elective,activity,Linear growth,2018,1,10363552521
+Elective,activity,Linear growth,2019,1.02116091,10363552521
+Elective,activity,Linear growth,2020,1.040924579,10363552521
+Elective,activity,Linear growth,2021,1.068891118,10363552521
+Elective,activity,Linear growth,2022,1.094693383,10363552521
+Elective,activity,Linear growth,2023,1.115304099,10363552521
+Elective,activity,Linear growth,2024,1.142624607,10363552521
+Elective,activity,Linear growth,2025,1.16931214,10363552521
+Elective,activity,Linear growth,2026,1.195471606,10363552521
+Elective,activity,Linear growth,2027,1.219937109,10363552521
+Elective,activity,Linear growth,2028,1.244172993,10363552521
+Elective,activity,Linear growth,2029,1.269104765,10363552521
+Elective,activity,Linear growth,2030,1.294926855,10363552521
+Elective,activity,Linear growth,2031,1.321303415,10363552521
+Elective,activity,Linear growth,2032,1.347588134,10363552521
+Elective,activity,Linear growth,2033,1.373470169,10363552521
+Elective,activity,Linear growth,2034,1.399420878,10363552521
+Elective,activity,Linear growth,2035,1.425633032,10363552521
+Elective,activity,Linear growth,2036,1.451975295,10363552521
+Elective,activity,Linear growth,2037,1.477026548,10363552521
+Elective,activity,Linear growth,2038,1.503094428,10363552521
+Elective,activity,Linear growth,2039,1.530089238,10363552521
+Elective,activity,Linear growth,2040,1.557963689,10363552521
+Elective,activity,Log growth,2018,1,10363552521
+Elective,activity,Log growth,2019,1.014858998,10363552521
+Elective,activity,Log growth,2020,1.027803978,10363552521
+Elective,activity,Log growth,2021,1.048327249,10363552521
+Elective,activity,Log growth,2022,1.066183922,10363552521
+Elective,activity,Log growth,2023,1.078559665,10363552521
+Elective,activity,Log growth,2024,1.096949844,10363552521
+Elective,activity,Log growth,2025,1.114261083,10363552521
+Elective,activity,Log growth,2026,1.130623255,10363552521
+Elective,activity,Log growth,2027,1.144968597,10363552521
+Elective,activity,Log growth,2028,1.158707885,10363552521
+Elective,activity,Log growth,2029,1.172712851,10363552521
+Elective,activity,Log growth,2030,1.187156294,10363552521
+Elective,activity,Log growth,2031,1.201721955,10363552521
+Elective,activity,Log growth,2032,1.215823316,10363552521
+Elective,activity,Log growth,2033,1.229191375,10363552521
+Elective,activity,Log growth,2034,1.242263011,10363552521
+Elective,activity,Log growth,2035,1.255211826,10363552521
+Elective,activity,Log growth,2036,1.26792393,10363552521
+Elective,activity,Log growth,2037,1.279171204,10363552521
+Elective,activity,Log growth,2038,1.290974666,10363552521
+Elective,activity,Log growth,2039,1.303238263,10363552521
+Elective,activity,Log growth,2040,1.315908868,10363552521
+Emergency,activity,Demography,2018,1,16735761400
+Emergency,activity,Demography,2019,1.010183108,16735761400
+Emergency,activity,Demography,2020,1.014029667,16735761400
+Emergency,activity,Demography,2021,1.019964103,16735761400
+Emergency,activity,Demography,2022,1.031887047,16735761400
+Emergency,activity,Demography,2023,1.03252942,16735761400
+Emergency,activity,Demography,2024,1.047712786,16735761400
+Emergency,activity,Demography,2025,1.062009495,16735761400
+Emergency,activity,Demography,2026,1.076105319,16735761400
+Emergency,activity,Demography,2027,1.093269069,16735761400
+Emergency,activity,Demography,2028,1.108251494,16735761400
+Emergency,activity,Demography,2029,1.121081369,16735761400
+Emergency,activity,Demography,2030,1.133027837,16735761400
+Emergency,activity,Demography,2031,1.144397535,16735761400
+Emergency,activity,Demography,2032,1.155587128,16735761400
+Emergency,activity,Demography,2033,1.167033942,16735761400
+Emergency,activity,Demography,2034,1.178367276,16735761400
+Emergency,activity,Demography,2035,1.189022732,16735761400
+Emergency,activity,Demography,2036,1.199748742,16735761400
+Emergency,activity,Demography,2037,1.212329365,16735761400
+Emergency,activity,Demography,2038,1.224200471,16735761400
+Emergency,activity,Demography,2039,1.236085607,16735761400
+Emergency,activity,Demography,2040,1.247767598,16735761400
+Emergency,activity,Morbidity,2018,1,16735761400
+Emergency,activity,Morbidity,2019,1.017050922,16735761400
+Emergency,activity,Morbidity,2020,1.032859235,16735761400
+Emergency,activity,Morbidity,2021,1.053234644,16735761400
+Emergency,activity,Morbidity,2022,1.077489142,16735761400
+Emergency,activity,Morbidity,2023,1.086585895,16735761400
+Emergency,activity,Morbidity,2024,1.111336217,16735761400
+Emergency,activity,Morbidity,2025,1.135397445,16735761400
+Emergency,activity,Morbidity,2026,1.158342531,16735761400
+Emergency,activity,Morbidity,2027,1.183766253,16735761400
+Emergency,activity,Morbidity,2028,1.209276445,16735761400
+Emergency,activity,Morbidity,2029,1.231228251,16735761400
+Emergency,activity,Morbidity,2030,1.252293952,16735761400
+Emergency,activity,Morbidity,2031,1.275057778,16735761400
+Emergency,activity,Morbidity,2032,1.296601992,16735761400
+Emergency,activity,Morbidity,2033,1.318338904,16735761400
+Emergency,activity,Morbidity,2034,1.339678412,16735761400
+Emergency,activity,Morbidity,2035,1.36087603,16735761400
+Emergency,activity,Morbidity,2036,1.380191347,16735761400
+Emergency,activity,Morbidity,2037,1.404701806,16735761400
+Emergency,activity,Morbidity,2038,1.427052468,16735761400
+Emergency,activity,Morbidity,2039,1.446806172,16735761400
+Emergency,activity,Morbidity,2040,1.468431558,16735761400
+Emergency,activity,Linear growth,2018,1,16735761400
+Emergency,activity,Linear growth,2019,1.012894944,16735761400
+Emergency,activity,Linear growth,2020,1.021724767,16735761400
+Emergency,activity,Linear growth,2021,1.034422756,16735761400
+Emergency,activity,Linear growth,2022,1.051035603,16735761400
+Emergency,activity,Linear growth,2023,1.053096309,16735761400
+Emergency,activity,Linear growth,2024,1.070650571,16735761400
+Emergency,activity,Linear growth,2025,1.087298949,16735761400
+Emergency,activity,Linear growth,2026,1.103123009,16735761400
+Emergency,activity,Linear growth,2027,1.119791993,16735761400
+Emergency,activity,Linear growth,2028,1.135737526,16735761400
+Emergency,activity,Linear growth,2029,1.149603089,16735761400
+Emergency,activity,Linear growth,2030,1.16300184,16735761400
+Emergency,activity,Linear growth,2031,1.176615665,16735761400
+Emergency,activity,Linear growth,2032,1.189624572,16735761400
+Emergency,activity,Linear growth,2033,1.202406232,16735761400
+Emergency,activity,Linear growth,2034,1.214832339,16735761400
+Emergency,activity,Linear growth,2035,1.22692285,16735761400
+Emergency,activity,Linear growth,2036,1.238324353,16735761400
+Emergency,activity,Linear growth,2037,1.251073674,16735761400
+Emergency,activity,Linear growth,2038,1.263175318,16735761400
+Emergency,activity,Linear growth,2039,1.274461346,16735761400
+Emergency,activity,Linear growth,2040,1.286314943,16735761400
+Emergency,activity,Log growth,2018,1,16735761400
+Emergency,activity,Log growth,2019,1.013047851,16735761400
+Emergency,activity,Log growth,2020,1.022234791,16735761400
+Emergency,activity,Log growth,2021,1.035501055,16735761400
+Emergency,activity,Log growth,2022,1.052727689,16735761400
+Emergency,activity,Log growth,2023,1.056043585,16735761400
+Emergency,activity,Log growth,2024,1.07456329,16735761400
+Emergency,activity,Log growth,2025,1.092288416,16735761400
+Emergency,activity,Log growth,2026,1.109287635,16735761400
+Emergency,activity,Log growth,2027,1.127322207,16735761400
+Emergency,activity,Log growth,2028,1.144735071,16735761400
+Emergency,activity,Log growth,2029,1.160191008,16735761400
+Emergency,activity,Log growth,2030,1.175270554,16735761400
+Emergency,activity,Log growth,2031,1.190678006,16735761400
+Emergency,activity,Log growth,2032,1.205578743,16735761400
+Emergency,activity,Log growth,2033,1.220357834,16735761400
+Emergency,activity,Log growth,2034,1.234892557,16735761400
+Emergency,activity,Log growth,2035,1.249176891,16735761400
+Emergency,activity,Log growth,2036,1.262829381,16735761400
+Emergency,activity,Log growth,2037,1.278016039,16735761400
+Emergency,activity,Log growth,2038,1.292668464,16735761400
+Emergency,activity,Log growth,2039,1.306504981,16735761400
+Emergency,activity,Log growth,2040,1.321039547,16735761400
+Prescribing,activity,Linear growth,2018,1,8199973922
+Prescribing,activity,Linear growth,2019,1.030392192,8199973922
+Prescribing,activity,Linear growth,2020,1.055238136,8199973922
+Prescribing,activity,Linear growth,2021,1.084084085,8199973922
+Prescribing,activity,Linear growth,2022,1.115125964,8199973922
+Prescribing,activity,Linear growth,2023,1.144185957,8199973922
+Prescribing,activity,Linear growth,2024,1.17830393,8199973922
+Prescribing,activity,Linear growth,2025,1.212117475,8199973922
+Prescribing,activity,Linear growth,2026,1.245972719,8199973922
+Prescribing,activity,Linear growth,2027,1.280948197,8199973922
+Prescribing,activity,Linear growth,2028,1.315210628,8199973922
+Prescribing,activity,Linear growth,2029,1.349906119,8199973922
+Prescribing,activity,Linear growth,2030,1.385090425,8199973922
+Prescribing,activity,Linear growth,2031,1.420872135,8199973922
+Prescribing,activity,Linear growth,2032,1.456924917,8199973922
+Prescribing,activity,Linear growth,2033,1.49310426,8199973922
+Prescribing,activity,Linear growth,2034,1.530030623,8199973922
+Prescribing,activity,Linear growth,2035,1.566854575,8199973922
+Prescribing,activity,Linear growth,2036,1.604359632,8199973922
+Prescribing,activity,Linear growth,2037,1.64312327,8199973922
+Prescribing,activity,Linear growth,2038,1.682375168,8199973922
+Prescribing,activity,Linear growth,2039,1.722753011,8199973922
+Prescribing,activity,Linear growth,2040,1.764022364,8199973922
+Prescribing,activity,Log growth,2018,1,8199973922
+Prescribing,activity,Log growth,2019,1.023446543,8199973922
+Prescribing,activity,Log growth,2020,1.040476511,8199973922
+Prescribing,activity,Log growth,2021,1.060602352,8199973922
+Prescribing,activity,Log growth,2022,1.082135939,8199973922
+Prescribing,activity,Log growth,2023,1.100518638,8199973922
+Prescribing,activity,Log growth,2024,1.123364493,8199973922
+Prescribing,activity,Log growth,2025,1.145131872,8199973922
+Prescribing,activity,Log growth,2026,1.166170917,8199973922
+Prescribing,activity,Log growth,2027,1.187465987,8199973922
+Prescribing,activity,Log growth,2028,1.207353555,8199973922
+Prescribing,activity,Log growth,2029,1.226893689,8199973922
+Prescribing,activity,Log growth,2030,1.246168472,8199973922
+Prescribing,activity,Log growth,2031,1.265270286,8199973922
+Prescribing,activity,Log growth,2032,1.283904367,8199973922
+Prescribing,activity,Log growth,2033,1.301957478,8199973922
+Prescribing,activity,Log growth,2034,1.319958019,8199973922
+Prescribing,activity,Log growth,2035,1.337198526,8199973922
+Prescribing,activity,Log growth,2036,1.354349037,8199973922
+Prescribing,activity,Log growth,2037,1.371864053,8199973922
+Prescribing,activity,Log growth,2038,1.389069313,8199973922
+Prescribing,activity,Log growth,2039,1.406532361,8199973922
+Prescribing,activity,Log growth,2040,1.424024823,8199973922
+Outpatients,cwa,Demography,2018,1,14139756885
+Outpatients,cwa,Demography,2019,1.010019002,14139756885
+Outpatients,cwa,Demography,2020,1.015995583,14139756885
+Outpatients,cwa,Demography,2021,1.024123344,14139756885
+Outpatients,cwa,Demography,2022,1.035851215,14139756885
+Outpatients,cwa,Demography,2023,1.038425031,14139756885
+Outpatients,cwa,Demography,2024,1.051504204,14139756885
+Outpatients,cwa,Demography,2025,1.063470102,14139756885
+Outpatients,cwa,Demography,2026,1.074650024,14139756885
+Outpatients,cwa,Demography,2027,1.085398114,14139756885
+Outpatients,cwa,Demography,2028,1.095015445,14139756885
+Outpatients,cwa,Demography,2029,1.10444085,14139756885
+Outpatients,cwa,Demography,2030,1.113770507,14139756885
+Outpatients,cwa,Demography,2031,1.123385515,14139756885
+Outpatients,cwa,Demography,2032,1.132597846,14139756885
+Outpatients,cwa,Demography,2033,1.141417619,14139756885
+Outpatients,cwa,Demography,2034,1.149915707,14139756885
+Outpatients,cwa,Demography,2035,1.158248962,14139756885
+Outpatients,cwa,Demography,2036,1.166380542,14139756885
+Outpatients,cwa,Demography,2037,1.173824283,14139756885
+Outpatients,cwa,Demography,2038,1.181572336,14139756885
+Outpatients,cwa,Demography,2039,1.189885768,14139756885
+Outpatients,cwa,Demography,2040,1.198254302,14139756885
+Outpatients,cwa,Morbidity,2018,1,14139756885
+Outpatients,cwa,Morbidity,2019,1.016531609,14139756885
+Outpatients,cwa,Morbidity,2020,1.031538008,14139756885
+Outpatients,cwa,Morbidity,2021,1.055404117,14139756885
+Outpatients,cwa,Morbidity,2022,1.076593145,14139756885
+Outpatients,cwa,Morbidity,2023,1.088745641,14139756885
+Outpatients,cwa,Morbidity,2024,1.111486982,14139756885
+Outpatients,cwa,Morbidity,2025,1.132742545,14139756885
+Outpatients,cwa,Morbidity,2026,1.153271181,14139756885
+Outpatients,cwa,Morbidity,2027,1.173155227,14139756885
+Outpatients,cwa,Morbidity,2028,1.192378253,14139756885
+Outpatients,cwa,Morbidity,2029,1.211319178,14139756885
+Outpatients,cwa,Morbidity,2030,1.230628624,14139756885
+Outpatients,cwa,Morbidity,2031,1.250287028,14139756885
+Outpatients,cwa,Morbidity,2032,1.269173616,14139756885
+Outpatients,cwa,Morbidity,2033,1.287208515,14139756885
+Outpatients,cwa,Morbidity,2034,1.305424969,14139756885
+Outpatients,cwa,Morbidity,2035,1.323219863,14139756885
+Outpatients,cwa,Morbidity,2036,1.341237153,14139756885
+Outpatients,cwa,Morbidity,2037,1.357576985,14139756885
+Outpatients,cwa,Morbidity,2038,1.374200384,14139756885
+Outpatients,cwa,Morbidity,2039,1.391154213,14139756885
+Outpatients,cwa,Morbidity,2040,1.408932322,14139756885
+Outpatients,cwa,Linear growth,2018,1,14139756885
+Outpatients,cwa,Linear growth,2019,1.038317028,14139756885
+Outpatients,cwa,Linear growth,2020,1.07524457,14139756885
+Outpatients,cwa,Linear growth,2021,1.119761908,14139756885
+Outpatients,cwa,Linear growth,2022,1.166150205,14139756885
+Outpatients,cwa,Linear growth,2023,1.203656172,14139756885
+Outpatients,cwa,Linear growth,2024,1.254419216,14139756885
+Outpatients,cwa,Linear growth,2025,1.305850493,14139756885
+Outpatients,cwa,Linear growth,2026,1.358110159,14139756885
+Outpatients,cwa,Linear growth,2027,1.410257667,14139756885
+Outpatients,cwa,Linear growth,2028,1.463285722,14139756885
+Outpatients,cwa,Linear growth,2029,1.51822776,14139756885
+Outpatients,cwa,Linear growth,2030,1.575299935,14139756885
+Outpatients,cwa,Linear growth,2031,1.634352234,14139756885
+Outpatients,cwa,Linear growth,2032,1.694973987,14139756885
+Outpatients,cwa,Linear growth,2033,1.756936433,14139756885
+Outpatients,cwa,Linear growth,2034,1.820914555,14139756885
+Outpatients,cwa,Linear growth,2035,1.88678293,14139756885
+Outpatients,cwa,Linear growth,2036,1.954688239,14139756885
+Outpatients,cwa,Linear growth,2037,2.023396557,14139756885
+Outpatients,cwa,Linear growth,2038,2.094638498,14139756885
+Outpatients,cwa,Linear growth,2039,2.168734438,14139756885
+Outpatients,cwa,Linear growth,2040,2.245642402,14139756885
+Outpatients,cwa,Log growth,2018,1,14139756885
+Outpatients,cwa,Log growth,2019,1.020922992,14139756885
+Outpatients,cwa,Log growth,2020,1.038599763,14139756885
+Outpatients,cwa,Log growth,2021,1.061762537,14139756885
+Outpatients,cwa,Log growth,2022,1.084815978,14139756885
+Outpatients,cwa,Log growth,2023,1.097871292,14139756885
+Outpatients,cwa,Log growth,2024,1.121417402,14139756885
+Outpatients,cwa,Log growth,2025,1.143728591,14139756885
+Outpatients,cwa,Log growth,2026,1.16498456,14139756885
+Outpatients,cwa,Log growth,2027,1.18442466,14139756885
+Outpatients,cwa,Log growth,2028,1.202936773,14139756885
+Outpatients,cwa,Log growth,2029,1.221374955,14139756885
+Outpatients,cwa,Log growth,2030,1.239878565,14139756885
+Outpatients,cwa,Log growth,2031,1.258284584,14139756885
+Outpatients,cwa,Log growth,2032,1.276247043,14139756885
+Outpatients,cwa,Log growth,2033,1.29358324,14139756885
+Outpatients,cwa,Log growth,2034,1.310775779,14139756885
+Outpatients,cwa,Log growth,2035,1.327701304,14139756885
+Outpatients,cwa,Log growth,2036,1.344434099,14139756885
+Outpatients,cwa,Log growth,2037,1.360111081,14139756885
+Outpatients,cwa,Log growth,2038,1.375888029,14139756885
+Outpatients,cwa,Log growth,2039,1.391924838,14139756885
+Outpatients,cwa,Log growth,2040,1.408127564,14139756885
+Outpatients,activity,Demography,2018,1,14139756885
+Outpatients,activity,Demography,2019,1.010282868,14139756885
+Outpatients,activity,Demography,2020,1.016356424,14139756885
+Outpatients,activity,Demography,2021,1.024659548,14139756885
+Outpatients,activity,Demography,2022,1.036486878,14139756885
+Outpatients,activity,Demography,2023,1.040120162,14139756885
+Outpatients,activity,Demography,2024,1.053610497,14139756885
+Outpatients,activity,Demography,2025,1.065980298,14139756885
+Outpatients,activity,Demography,2026,1.07756291,14139756885
+Outpatients,activity,Demography,2027,1.088995872,14139756885
+Outpatients,activity,Demography,2028,1.09916301,14139756885
+Outpatients,activity,Demography,2029,1.109044617,14139756885
+Outpatients,activity,Demography,2030,1.118760945,14139756885
+Outpatients,activity,Demography,2031,1.128698141,14139756885
+Outpatients,activity,Demography,2032,1.138220008,14139756885
+Outpatients,activity,Demography,2033,1.147365983,14139756885
+Outpatients,activity,Demography,2034,1.156191087,14139756885
+Outpatients,activity,Demography,2035,1.164801424,14139756885
+Outpatients,activity,Demography,2036,1.173217316,14139756885
+Outpatients,activity,Demography,2037,1.181089816,14139756885
+Outpatients,activity,Demography,2038,1.189174103,14139756885
+Outpatients,activity,Demography,2039,1.197800093,14139756885
+Outpatients,activity,Demography,2040,1.206469086,14139756885
+Outpatients,activity,Morbidity,2018,1,14139756885
+Outpatients,activity,Morbidity,2019,1.016497722,14139756885
+Outpatients,activity,Morbidity,2020,1.03000449,14139756885
+Outpatients,activity,Morbidity,2021,1.050403432,14139756885
+Outpatients,activity,Morbidity,2022,1.070015741,14139756885
+Outpatients,activity,Morbidity,2023,1.081271577,14139756885
+Outpatients,activity,Morbidity,2024,1.102261157,14139756885
+Outpatients,activity,Morbidity,2025,1.122088576,14139756885
+Outpatients,activity,Morbidity,2026,1.141212738,14139756885
+Outpatients,activity,Morbidity,2027,1.159608936,14139756885
+Outpatients,activity,Morbidity,2028,1.177119526,14139756885
+Outpatients,activity,Morbidity,2029,1.194502064,14139756885
+Outpatients,activity,Morbidity,2030,1.21205452,14139756885
+Outpatients,activity,Morbidity,2031,1.229670208,14139756885
+Outpatients,activity,Morbidity,2032,1.246747042,14139756885
+Outpatients,activity,Morbidity,2033,1.263236718,14139756885
+Outpatients,activity,Morbidity,2034,1.279720212,14139756885
+Outpatients,activity,Morbidity,2035,1.295988135,14139756885
+Outpatients,activity,Morbidity,2036,1.312091125,14139756885
+Outpatients,activity,Morbidity,2037,1.327065132,14139756885
+Outpatients,activity,Morbidity,2038,1.34228866,14139756885
+Outpatients,activity,Morbidity,2039,1.357870354,14139756885
+Outpatients,activity,Morbidity,2040,1.373789141,14139756885
+Outpatients,activity,Linear growth,2018,1,14139756885
+Outpatients,activity,Linear growth,2019,1.040852228,14139756885
+Outpatients,activity,Linear growth,2020,1.079816439,14139756885
+Outpatients,activity,Linear growth,2021,1.125648738,14139756885
+Outpatients,activity,Linear growth,2022,1.174163527,14139756885
+Outpatients,activity,Linear growth,2023,1.2150373,14139756885
+Outpatients,activity,Linear growth,2024,1.268464982,14139756885
+Outpatients,activity,Linear growth,2025,1.322756268,14139756885
+Outpatients,activity,Linear growth,2026,1.378059413,14139756885
+Outpatients,activity,Linear growth,2027,1.433704239,14139756885
+Outpatients,activity,Linear growth,2028,1.490313091,14139756885
+Outpatients,activity,Linear growth,2029,1.549085179,14139756885
+Outpatients,activity,Linear growth,2030,1.610162915,14139756885
+Outpatients,activity,Linear growth,2031,1.673467302,14139756885
+Outpatients,activity,Linear growth,2032,1.738585734,14139756885
+Outpatients,activity,Linear growth,2033,1.805316649,14139756885
+Outpatients,activity,Linear growth,2034,1.874335122,14139756885
+Outpatients,activity,Linear growth,2035,1.945510935,14139756885
+Outpatients,activity,Linear growth,2036,2.018952573,14139756885
+Outpatients,activity,Linear growth,2037,2.09359098,14139756885
+Outpatients,activity,Linear growth,2038,2.171164919,14139756885
+Outpatients,activity,Linear growth,2039,2.252046787,14139756885
+Outpatients,activity,Linear growth,2040,2.335995126,14139756885
+Outpatients,activity,Log growth,2018,1,14139756885
+Outpatients,activity,Log growth,2019,1.022628601,14139756885
+Outpatients,activity,Log growth,2020,1.04133134,14139756885
+Outpatients,activity,Log growth,2021,1.064645474,14139756885
+Outpatients,activity,Log growth,2022,1.088474073,14139756885
+Outpatients,activity,Log growth,2023,1.103191118,14139756885
+Outpatients,activity,Log growth,2024,1.127607136,14139756885
+Outpatients,activity,Log growth,2025,1.150776225,14139756885
+Outpatients,activity,Log growth,2026,1.17286079,14139756885
+Outpatients,activity,Log growth,2027,1.193323926,14139756885
+Outpatients,activity,Log growth,2028,1.21272919,14139756885
+Outpatients,activity,Log growth,2029,1.232055735,14139756885
+Outpatients,activity,Log growth,2030,1.251380464,14139756885
+Outpatients,activity,Log growth,2031,1.27058838,14139756885
+Outpatients,activity,Log growth,2032,1.289329438,14139756885
+Outpatients,activity,Log growth,2033,1.307439362,14139756885
+Outpatients,activity,Log growth,2034,1.325378995,14139756885
+Outpatients,activity,Log growth,2035,1.343022206,14139756885
+Outpatients,activity,Log growth,2036,1.36041008,14139756885
+Outpatients,activity,Log growth,2037,1.376800586,14139756885
+Outpatients,activity,Log growth,2038,1.393298127,14139756885
+Outpatients,activity,Log growth,2039,1.410099115,14139756885
+Outpatients,activity,Log growth,2040,1.426968177,14139756885
+General Practice,activity,Linear growth,2018,1,10535886000
+General Practice,activity,Linear growth,2019,0.997687222,10535886000
+General Practice,activity,Linear growth,2020,0.990903541,10535886000
+General Practice,activity,Linear growth,2021,0.98688226,10535886000
+General Practice,activity,Linear growth,2022,0.986126722,10535886000
+General Practice,activity,Linear growth,2023,0.975685121,10535886000
+General Practice,activity,Linear growth,2024,0.976055102,10535886000
+General Practice,activity,Linear growth,2025,0.975430418,10535886000
+General Practice,activity,Linear growth,2026,0.973975708,10535886000
+General Practice,activity,Linear growth,2027,0.971667177,10535886000
+General Practice,activity,Linear growth,2028,0.96843602,10535886000
+General Practice,activity,Linear growth,2029,0.964679585,10535886000
+General Practice,activity,Linear growth,2030,0.960694011,10535886000
+General Practice,activity,Linear growth,2031,0.956571806,10535886000
+General Practice,activity,Linear growth,2032,0.952126134,10535886000
+General Practice,activity,Linear growth,2033,0.94734282,10535886000
+General Practice,activity,Linear growth,2034,0.942381784,10535886000
+General Practice,activity,Linear growth,2035,0.937127155,10535886000
+General Practice,activity,Linear growth,2036,0.931674913,10535886000
+General Practice,activity,Linear growth,2037,0.926111767,10535886000
+General Practice,activity,Linear growth,2038,0.920410733,10535886000
+General Practice,activity,Linear growth,2039,0.914779206,10535886000
+General Practice,activity,Linear growth,2040,0.909130135,10535886000
+General Practice,activity,Log growth,2018,1,10535886000
+General Practice,activity,Log growth,2019,1.007728771,10535886000
+General Practice,activity,Log growth,2020,1.011363546,10535886000
+General Practice,activity,Log growth,2021,1.018142383,10535886000
+General Practice,activity,Log growth,2022,1.028628877,10535886000
+General Practice,activity,Log growth,2023,1.029362683,10535886000
+General Practice,activity,Log growth,2024,1.041639225,10535886000
+General Practice,activity,Log growth,2025,1.053177745,10535886000
+General Practice,activity,Log growth,2026,1.06410301,10535886000
+General Practice,activity,Log growth,2027,1.074345952,10535886000
+General Practice,activity,Log growth,2028,1.083790415,10535886000
+General Practice,activity,Log growth,2029,1.092845378,10535886000
+General Practice,activity,Log growth,2030,1.101805058,10535886000
+General Practice,activity,Log growth,2031,1.110764019,10535886000
+General Practice,activity,Log growth,2032,1.119494426,10535886000
+General Practice,activity,Log growth,2033,1.127958899,10535886000
+General Practice,activity,Log growth,2034,1.136336037,10535886000
+General Practice,activity,Log growth,2035,1.144464087,10535886000
+General Practice,activity,Log growth,2036,1.152441,10535886000
+General Practice,activity,Log growth,2037,1.160367508,10535886000
+General Practice,activity,Log growth,2038,1.168229651,10535886000
+General Practice,activity,Log growth,2039,1.176243852,10535886000
+General Practice,activity,Log growth,2040,1.184312827,10535886000
+General Practice,cwa,Linear growth,2018,1,10535886000
+General Practice,cwa,Linear growth,2019,0.992255586,10535886000
+General Practice,cwa,Linear growth,2020,0.979907822,10535886000
+General Practice,cwa,Linear growth,2021,0.970481681,10535886000
+General Practice,cwa,Linear growth,2022,0.964431166,10535886000
+General Practice,cwa,Linear growth,2023,0.948361798,10535886000
+General Practice,cwa,Linear growth,2024,0.943529537,10535886000
+General Practice,cwa,Linear growth,2025,0.937764253,10535886000
+General Practice,cwa,Linear growth,2026,0.931220257,10535886000
+General Practice,cwa,Linear growth,2027,0.924227914,10535886000
+General Practice,cwa,Linear growth,2028,0.916286103,10535886000
+General Practice,cwa,Linear growth,2029,0.907818423,10535886000
+General Practice,cwa,Linear growth,2030,0.899127814,10535886000
+General Practice,cwa,Linear growth,2031,0.890324252,10535886000
+General Practice,cwa,Linear growth,2032,0.881324635,10535886000
+General Practice,cwa,Linear growth,2033,0.872202366,10535886000
+General Practice,cwa,Linear growth,2034,0.862980468,10535886000
+General Practice,cwa,Linear growth,2035,0.853541846,10535886000
+General Practice,cwa,Linear growth,2036,0.843986085,10535886000
+General Practice,cwa,Linear growth,2037,0.834737768,10535886000
+General Practice,cwa,Linear growth,2038,0.825262957,10535886000
+General Practice,cwa,Linear growth,2039,0.815772394,10535886000
+General Practice,cwa,Linear growth,2040,0.806326388,10535886000
+General Practice,cwa,Log growth,2018,1,10535886000
+General Practice,cwa,Log growth,2019,1.006621849,10535886000
+General Practice,cwa,Log growth,2020,1.009055608,10535886000
+General Practice,cwa,Log growth,2021,1.014847251,10535886000
+General Practice,cwa,Log growth,2022,1.024512274,10535886000
+General Practice,cwa,Log growth,2023,1.024025481,10535886000
+General Practice,cwa,Log growth,2024,1.03564298,10535886000
+General Practice,cwa,Log growth,2025,1.046580121,10535886000
+General Practice,cwa,Log growth,2026,1.056935751,10535886000
+General Practice,cwa,Log growth,2027,1.067042817,10535886000
+General Practice,cwa,Log growth,2028,1.076261462,10535886000
+General Practice,cwa,Log growth,2029,1.085039013,10535886000
+General Practice,cwa,Log growth,2030,1.09366656,10535886000
+General Practice,cwa,Log growth,2031,1.102258653,10535886000
+General Practice,cwa,Log growth,2032,1.110700668,10535886000
+General Practice,cwa,Log growth,2033,1.11906075,10535886000
+General Practice,cwa,Log growth,2034,1.127361469,10535886000
+General Practice,cwa,Log growth,2035,1.1354119,10535886000
+General Practice,cwa,Log growth,2036,1.143316838,10535886000
+General Practice,cwa,Log growth,2037,1.15166447,10535886000
+General Practice,cwa,Log growth,2038,1.159757575,10535886000
+General Practice,cwa,Log growth,2039,1.167795981,10535886000
+General Practice,cwa,Log growth,2040,1.175890481,10535886000
+General Practice,activity,Demography,2018,1,10535886000
+General Practice,activity,Demography,2019,1.009196093,10535886000
+General Practice,activity,Demography,2020,1.013931648,10535886000
+General Practice,activity,Demography,2021,1.020762675,10535886000
+General Practice,activity,Demography,2022,1.03197839,10535886000
+General Practice,activity,Demography,2023,1.033645805,10535886000
+General Practice,activity,Demography,2024,1.046898431,10535886000
+General Practice,activity,Demography,2025,1.05917071,10535886000
+General Practice,activity,Demography,2026,1.070850277,10535886000
+General Practice,activity,Demography,2027,1.082676923,10535886000
+General Practice,activity,Demography,2028,1.093304408,10535886000
+General Practice,activity,Demography,2029,1.103073828,10535886000
+General Practice,activity,Demography,2030,1.11257164,10535886000
+General Practice,activity,Demography,2031,1.1221412,10535886000
+General Practice,activity,Demography,2032,1.131350608,10535886000
+General Practice,activity,Demography,2033,1.140288268,10535886000
+General Practice,activity,Demography,2034,1.148936088,10535886000
+General Practice,activity,Demography,2035,1.157283719,10535886000
+General Practice,activity,Demography,2036,1.165502357,10535886000
+General Practice,activity,Demography,2037,1.173698713,10535886000
+General Practice,activity,Demography,2038,1.181895058,10535886000
+General Practice,activity,Demography,2039,1.190506448,10535886000
+General Practice,activity,Demography,2040,1.199102072,10535886000
+General Practice,activity,Morbidity,2018,1,10535886000
+General Practice,activity,Morbidity,2019,1.014676888,10535886000
+General Practice,activity,Morbidity,2020,1.024640573,10535886000
+General Practice,activity,Morbidity,2021,1.037798902,10535886000
+General Practice,activity,Morbidity,2022,1.054168962,10535886000
+General Practice,activity,Morbidity,2023,1.060607874,10535886000
+General Practice,activity,Morbidity,2024,1.078435695,10535886000
+General Practice,activity,Morbidity,2025,1.095366039,10535886000
+General Practice,activity,Morbidity,2026,1.11169385,10535886000
+General Practice,activity,Morbidity,2027,1.127452885,10535886000
+General Practice,activity,Morbidity,2028,1.142295282,10535886000
+General Practice,activity,Morbidity,2029,1.156558083,10535886000
+General Practice,activity,Morbidity,2030,1.170716118,10535886000
+General Practice,activity,Morbidity,2031,1.184901051,10535886000
+General Practice,activity,Morbidity,2032,1.198706677,10535886000
+General Practice,activity,Morbidity,2033,1.212122434,10535886000
+General Practice,activity,Morbidity,2034,1.225439496,10535886000
+General Practice,activity,Morbidity,2035,1.238482966,10535886000
+General Practice,activity,Morbidity,2036,1.251232637,10535886000
+General Practice,activity,Morbidity,2037,1.263886048,10535886000
+General Practice,activity,Morbidity,2038,1.27653504,10535886000
+General Practice,activity,Morbidity,2039,1.289325371,10535886000
+General Practice,activity,Morbidity,2040,1.302246003,10535886000
+General Practice,cwa,Demography,2018,1,10535886000
+General Practice,cwa,Demography,2019,1.009292062,10535886000
+General Practice,cwa,Demography,2020,1.013778953,10535886000
+General Practice,cwa,Demography,2021,1.020425541,10535886000
+General Practice,cwa,Demography,2022,1.031700763,10535886000
+General Practice,cwa,Demography,2023,1.032968511,10535886000
+General Practice,cwa,Demography,2024,1.046457751,10535886000
+General Practice,cwa,Demography,2025,1.05898908,10535886000
+General Practice,cwa,Demography,2026,1.070947461,10535886000
+General Practice,cwa,Demography,2027,1.083585998,10535886000
+General Practice,cwa,Demography,2028,1.094800502,10535886000
+General Practice,cwa,Demography,2029,1.104995037,10535886000
+General Practice,cwa,Demography,2030,1.114781686,10535886000
+General Practice,cwa,Demography,2031,1.124404285,10535886000
+General Practice,cwa,Demography,2032,1.133818112,10535886000
+General Practice,cwa,Demography,2033,1.143185419,10535886000
+General Practice,cwa,Demography,2034,1.152390246,10535886000
+General Practice,cwa,Demography,2035,1.161190379,10535886000
+General Practice,cwa,Demography,2036,1.169919914,10535886000
+General Practice,cwa,Demography,2037,1.179348461,10535886000
+General Practice,cwa,Demography,2038,1.18842796,10535886000
+General Practice,cwa,Demography,2039,1.197632537,10535886000
+General Practice,cwa,Demography,2040,1.206693607,10535886000
+General Practice,cwa,Morbidity,2018,1,10535886000
+General Practice,cwa,Morbidity,2019,1.015130667,10535886000
+General Practice,cwa,Morbidity,2020,1.02542021,10535886000
+General Practice,cwa,Morbidity,2021,1.039151705,10535886000
+General Practice,cwa,Morbidity,2022,1.056144356,10535886000
+General Practice,cwa,Morbidity,2023,1.062585239,10535886000
+General Practice,cwa,Morbidity,2024,1.081005411,10535886000
+General Practice,cwa,Morbidity,2025,1.098591676,10535886000
+General Practice,cwa,Morbidity,2026,1.115509285,10535886000
+General Practice,cwa,Morbidity,2027,1.132300316,10535886000
+General Practice,cwa,Morbidity,2028,1.147997232,10535886000
+General Practice,cwa,Morbidity,2029,1.163111674,10535886000
+General Practice,cwa,Morbidity,2030,1.177997219,10535886000
+General Practice,cwa,Morbidity,2031,1.192925519,10535886000
+General Practice,cwa,Morbidity,2032,1.207499536,10535886000
+General Practice,cwa,Morbidity,2033,1.221970494,10535886000
+General Practice,cwa,Morbidity,2034,1.236313041,10535886000
+General Practice,cwa,Morbidity,2035,1.250400398,10535886000
+General Practice,cwa,Morbidity,2036,1.264104437,10535886000
+General Practice,cwa,Morbidity,2037,1.278574246,10535886000
+General Practice,cwa,Morbidity,2038,1.2927101,10535886000
+General Practice,cwa,Morbidity,2039,1.306538345,10535886000
+General Practice,cwa,Morbidity,2040,1.320542534,10535886000
+General Practice,cwa,Policy: Recovery,2018,1,10535886000
+General Practice,cwa,Policy: Recovery,2019,1.022706344,10535886000
+General Practice,cwa,Policy: Recovery,2020,1.045928267,10535886000
+General Practice,cwa,Policy: Recovery,2021,1.069677474,10535886000
+General Practice,cwa,Policy: Recovery,2022,1.09396594,10535886000
+General Practice,cwa,Policy: Recovery,2023,1.118805907,10535886000
+General Practice,cwa,Policy: Recovery,2024,1.144209899,10535886000
+General Practice,cwa,Policy: Recovery,2025,1.170190723,10535886000
+General Practice,cwa,Policy: Recovery,2026,1.196761477,10535886000
+General Practice,cwa,Policy: Recovery,2027,1.223935555,10535886000
+General Practice,cwa,Policy: Recovery,2028,1.251726658,10535886000
+General Practice,cwa,Policy: Recovery,2029,1.280148794,10535886000
+General Practice,cwa,Policy: Recovery,2030,1.309216294,10535886000
+General Practice,cwa,Policy: Recovery,2031,1.325549077,10535886000
+General Practice,cwa,Policy: Recovery,2032,1.341445242,10535886000
+General Practice,cwa,Policy: Recovery,2033,1.356868771,10535886000
+General Practice,cwa,Policy: Recovery,2034,1.372162368,10535886000
+General Practice,cwa,Policy: Recovery,2035,1.387167249,10535886000
+General Practice,cwa,Policy: Recovery,2036,1.401819204,10535886000
+General Practice,cwa,Policy: Recovery,2037,1.416158891,10535886000
+General Practice,cwa,Policy: Recovery,2038,1.430533715,10535886000
+General Practice,cwa,Policy: Recovery,2039,1.445129129,10535886000
+General Practice,cwa,Policy: Recovery,2040,1.459880211,10535886000
+General Practice,activity,Policy: Recovery,2018,1,10535886000
+General Practice,activity,Policy: Recovery,2019,1.022706344,10535886000
+General Practice,activity,Policy: Recovery,2020,1.045928267,10535886000
+General Practice,activity,Policy: Recovery,2021,1.069677474,10535886000
+General Practice,activity,Policy: Recovery,2022,1.09396594,10535886000
+General Practice,activity,Policy: Recovery,2023,1.118805907,10535886000
+General Practice,activity,Policy: Recovery,2024,1.144209899,10535886000
+General Practice,activity,Policy: Recovery,2025,1.170190723,10535886000
+General Practice,activity,Policy: Recovery,2026,1.196761477,10535886000
+General Practice,activity,Policy: Recovery,2027,1.223935555,10535886000
+General Practice,activity,Policy: Recovery,2028,1.251726658,10535886000
+General Practice,activity,Policy: Recovery,2029,1.280148794,10535886000
+General Practice,activity,Policy: Recovery,2030,1.309216294,10535886000
+General Practice,activity,Policy: Recovery,2031,1.325549077,10535886000
+General Practice,activity,Policy: Recovery,2032,1.341445242,10535886000
+General Practice,activity,Policy: Recovery,2033,1.356868771,10535886000
+General Practice,activity,Policy: Recovery,2034,1.372162368,10535886000
+General Practice,activity,Policy: Recovery,2035,1.387167249,10535886000
+General Practice,activity,Policy: Recovery,2036,1.401819204,10535886000
+General Practice,activity,Policy: Recovery,2037,1.416158891,10535886000
+General Practice,activity,Policy: Recovery,2038,1.430533715,10535886000
+General Practice,activity,Policy: Recovery,2039,1.445129129,10535886000
+General Practice,activity,Policy: Recovery,2040,1.459880211,10535886000
+Community,activity,Demography,2018,1,8384600000
+Community,activity,Demography,2019,1.011664908,8384600000
+Community,activity,Demography,2020,1.015071593,8384600000
+Community,activity,Demography,2021,1.02137935,8384600000
+Community,activity,Demography,2022,1.037372918,8384600000
+Community,activity,Demography,2023,1.048169911,8384600000
+Community,activity,Demography,2024,1.065118237,8384600000
+Community,activity,Demography,2025,1.080627826,8384600000
+Community,activity,Demography,2026,1.094837946,8384600000
+Community,activity,Demography,2027,1.113223489,8384600000
+Community,activity,Demography,2028,1.131828198,8384600000
+Community,activity,Demography,2029,1.148904223,8384600000
+Community,activity,Demography,2030,1.164210895,8384600000
+Community,activity,Demography,2031,1.17908058,8384600000
+Community,activity,Demography,2032,1.199648209,8384600000
+Community,activity,Demography,2033,1.217128665,8384600000
+Community,activity,Demography,2034,1.232225878,8384600000
+Community,activity,Demography,2035,1.24575357,8384600000
+Community,activity,Demography,2036,1.258876345,8384600000
+Community,activity,Demography,2037,1.271661499,8384600000
+Community,activity,Demography,2038,1.285218835,8384600000
+Community,activity,Demography,2039,1.29898776,8384600000
+Community,activity,Demography,2040,1.312595552,8384600000
+Community,activity,Morbidity,2018,1,8384600000
+Community,activity,Morbidity,2019,1.027574578,8384600000
+Community,activity,Morbidity,2020,1.05539448,8384600000
+Community,activity,Morbidity,2021,1.084900464,8384600000
+Community,activity,Morbidity,2022,1.121205904,8384600000
+Community,activity,Morbidity,2023,1.147311097,8384600000
+Community,activity,Morbidity,2024,1.180728239,8384600000
+Community,activity,Morbidity,2025,1.218660983,8384600000
+Community,activity,Morbidity,2026,1.25102079,8384600000
+Community,activity,Morbidity,2027,1.298079236,8384600000
+Community,activity,Morbidity,2028,1.335724668,8384600000
+Community,activity,Morbidity,2029,1.374402126,8384600000
+Community,activity,Morbidity,2030,1.40671775,8384600000
+Community,activity,Morbidity,2031,1.440630685,8384600000
+Community,activity,Morbidity,2032,1.474243514,8384600000
+Community,activity,Morbidity,2033,1.514356826,8384600000
+Community,activity,Morbidity,2034,1.55162104,8384600000
+Community,activity,Morbidity,2035,1.591798554,8384600000
+Community,activity,Morbidity,2036,1.626737255,8384600000
+Community,activity,Morbidity,2037,1.686813492,8384600000
+Community,activity,Morbidity,2038,1.736570517,8384600000
+Community,activity,Morbidity,2039,1.771142193,8384600000
+Community,activity,Morbidity,2040,1.818019635,8384600000
+Community,cwa,Demography,2018,1,8384600000
+Community,cwa,Demography,2019,1.011664908,8384600000
+Community,cwa,Demography,2020,1.015071593,8384600000
+Community,cwa,Demography,2021,1.02137935,8384600000
+Community,cwa,Demography,2022,1.037372918,8384600000
+Community,cwa,Demography,2023,1.048169911,8384600000
+Community,cwa,Demography,2024,1.065118237,8384600000
+Community,cwa,Demography,2025,1.080627826,8384600000
+Community,cwa,Demography,2026,1.094837946,8384600000
+Community,cwa,Demography,2027,1.113223489,8384600000
+Community,cwa,Demography,2028,1.131828198,8384600000
+Community,cwa,Demography,2029,1.148904223,8384600000
+Community,cwa,Demography,2030,1.164210895,8384600000
+Community,cwa,Demography,2031,1.17908058,8384600000
+Community,cwa,Demography,2032,1.199648209,8384600000
+Community,cwa,Demography,2033,1.217128665,8384600000
+Community,cwa,Demography,2034,1.232225878,8384600000
+Community,cwa,Demography,2035,1.24575357,8384600000
+Community,cwa,Demography,2036,1.258876345,8384600000
+Community,cwa,Demography,2037,1.271661499,8384600000
+Community,cwa,Demography,2038,1.285218835,8384600000
+Community,cwa,Demography,2039,1.29898776,8384600000
+Community,cwa,Demography,2040,1.312595552,8384600000
+Community,cwa,Morbidity,2018,1,8384600000
+Community,cwa,Morbidity,2019,1.027574578,8384600000
+Community,cwa,Morbidity,2020,1.05539448,8384600000
+Community,cwa,Morbidity,2021,1.084900464,8384600000
+Community,cwa,Morbidity,2022,1.121205904,8384600000
+Community,cwa,Morbidity,2023,1.147311097,8384600000
+Community,cwa,Morbidity,2024,1.180728239,8384600000
+Community,cwa,Morbidity,2025,1.218660983,8384600000
+Community,cwa,Morbidity,2026,1.25102079,8384600000
+Community,cwa,Morbidity,2027,1.298079236,8384600000
+Community,cwa,Morbidity,2028,1.335724668,8384600000
+Community,cwa,Morbidity,2029,1.374402126,8384600000
+Community,cwa,Morbidity,2030,1.40671775,8384600000
+Community,cwa,Morbidity,2031,1.440630685,8384600000
+Community,cwa,Morbidity,2032,1.474243514,8384600000
+Community,cwa,Morbidity,2033,1.514356826,8384600000
+Community,cwa,Morbidity,2034,1.55162104,8384600000
+Community,cwa,Morbidity,2035,1.591798554,8384600000
+Community,cwa,Morbidity,2036,1.626737255,8384600000
+Community,cwa,Morbidity,2037,1.686813492,8384600000
+Community,cwa,Morbidity,2038,1.736570517,8384600000
+Community,cwa,Morbidity,2039,1.771142193,8384600000
+Community,cwa,Morbidity,2040,1.818019635,8384600000
+Prescribing,activity,Demography,2018,1,8199973922
+Prescribing,activity,Demography,2019,1.014167745,8199973922
+Prescribing,activity,Demography,2020,1.022621048,8199973922
+Prescribing,activity,Demography,2021,1.033544706,8199973922
+Prescribing,activity,Demography,2022,1.047119208,8199973922
+Prescribing,activity,Demography,2023,1.05831915,8199973922
+Prescribing,activity,Demography,2024,1.074433577,8199973922
+Prescribing,activity,Demography,2025,1.089420262,8199973922
+Prescribing,activity,Demography,2026,1.103976944,8199973922
+Prescribing,activity,Demography,2027,1.120992953,8199973922
+Prescribing,activity,Demography,2028,1.136005895,8199973922
+Prescribing,activity,Demography,2029,1.150021847,8199973922
+Prescribing,activity,Demography,2030,1.163696434,8199973922
+Prescribing,activity,Demography,2031,1.177521619,8199973922
+Prescribing,activity,Demography,2032,1.190888706,8199973922
+Prescribing,activity,Demography,2033,1.203994338,8199973922
+Prescribing,activity,Demography,2034,1.216727247,8199973922
+Prescribing,activity,Demography,2035,1.228914405,8199973922
+Prescribing,activity,Demography,2036,1.241095729,8199973922
+Prescribing,activity,Demography,2037,1.253884852,8199973922
+Prescribing,activity,Demography,2038,1.266702787,8199973922
+Prescribing,activity,Demography,2039,1.28020901,8199973922
+Prescribing,activity,Demography,2040,1.293708669,8199973922
+Prescribing,activity,Morbidity,2018,1,8199973922
+Prescribing,activity,Morbidity,2019,1.03481535,8199973922
+Prescribing,activity,Morbidity,2020,1.061347517,8199973922
+Prescribing,activity,Morbidity,2021,1.093222154,8199973922
+Prescribing,activity,Morbidity,2022,1.125309319,8199973922
+Prescribing,activity,Morbidity,2023,1.152346372,8199973922
+Prescribing,activity,Morbidity,2024,1.185012523,8199973922
+Prescribing,activity,Morbidity,2025,1.216308002,8199973922
+Prescribing,activity,Morbidity,2026,1.247129173,8199973922
+Prescribing,activity,Morbidity,2027,1.279018277,8199973922
+Prescribing,activity,Morbidity,2028,1.309518257,8199973922
+Prescribing,activity,Morbidity,2029,1.339655928,8199973922
+Prescribing,activity,Morbidity,2030,1.369691417,8199973922
+Prescribing,activity,Morbidity,2031,1.400655724,8199973922
+Prescribing,activity,Morbidity,2032,1.430169471,8199973922
+Prescribing,activity,Morbidity,2033,1.45912075,8199973922
+Prescribing,activity,Morbidity,2034,1.488509825,8199973922
+Prescribing,activity,Morbidity,2035,1.517162209,8199973922
+Prescribing,activity,Morbidity,2036,1.544899727,8199973922
+Prescribing,activity,Morbidity,2037,1.574558651,8199973922
+Prescribing,activity,Morbidity,2038,1.603538628,8199973922
+Prescribing,activity,Morbidity,2039,1.632045196,8199973922
+Prescribing,activity,Morbidity,2040,1.661636672,8199973922
+Prescribing,cwa,Linear growth,2018,1,8199973922
+Prescribing,cwa,Linear growth,2019,1.030392192,8199973922
+Prescribing,cwa,Linear growth,2020,1.055238136,8199973922
+Prescribing,cwa,Linear growth,2021,1.084084085,8199973922
+Prescribing,cwa,Linear growth,2022,1.115125964,8199973922
+Prescribing,cwa,Linear growth,2023,1.144185957,8199973922
+Prescribing,cwa,Linear growth,2024,1.17830393,8199973922
+Prescribing,cwa,Linear growth,2025,1.212117475,8199973922
+Prescribing,cwa,Linear growth,2026,1.245972719,8199973922
+Prescribing,cwa,Linear growth,2027,1.280948197,8199973922
+Prescribing,cwa,Linear growth,2028,1.315210628,8199973922
+Prescribing,cwa,Linear growth,2029,1.349906119,8199973922
+Prescribing,cwa,Linear growth,2030,1.385090425,8199973922
+Prescribing,cwa,Linear growth,2031,1.420872135,8199973922
+Prescribing,cwa,Linear growth,2032,1.456924917,8199973922
+Prescribing,cwa,Linear growth,2033,1.49310426,8199973922
+Prescribing,cwa,Linear growth,2034,1.530030623,8199973922
+Prescribing,cwa,Linear growth,2035,1.566854575,8199973922
+Prescribing,cwa,Linear growth,2036,1.604359632,8199973922
+Prescribing,cwa,Linear growth,2037,1.64312327,8199973922
+Prescribing,cwa,Linear growth,2038,1.682375168,8199973922
+Prescribing,cwa,Linear growth,2039,1.722753011,8199973922
+Prescribing,cwa,Linear growth,2040,1.764022364,8199973922
+Prescribing,cwa,Log growth,2018,1,8199973922
+Prescribing,cwa,Log growth,2019,1.023446543,8199973922
+Prescribing,cwa,Log growth,2020,1.040476511,8199973922
+Prescribing,cwa,Log growth,2021,1.060602352,8199973922
+Prescribing,cwa,Log growth,2022,1.082135939,8199973922
+Prescribing,cwa,Log growth,2023,1.100518638,8199973922
+Prescribing,cwa,Log growth,2024,1.123364493,8199973922
+Prescribing,cwa,Log growth,2025,1.145131872,8199973922
+Prescribing,cwa,Log growth,2026,1.166170917,8199973922
+Prescribing,cwa,Log growth,2027,1.187465987,8199973922
+Prescribing,cwa,Log growth,2028,1.207353555,8199973922
+Prescribing,cwa,Log growth,2029,1.226893689,8199973922
+Prescribing,cwa,Log growth,2030,1.246168472,8199973922
+Prescribing,cwa,Log growth,2031,1.265270286,8199973922
+Prescribing,cwa,Log growth,2032,1.283904367,8199973922
+Prescribing,cwa,Log growth,2033,1.301957478,8199973922
+Prescribing,cwa,Log growth,2034,1.319958019,8199973922
+Prescribing,cwa,Log growth,2035,1.337198526,8199973922
+Prescribing,cwa,Log growth,2036,1.354349037,8199973922
+Prescribing,cwa,Log growth,2037,1.371864053,8199973922
+Prescribing,cwa,Log growth,2038,1.389069313,8199973922
+Prescribing,cwa,Log growth,2039,1.406532361,8199973922
+Prescribing,cwa,Log growth,2040,1.424024823,8199973922
+Prescribing,cwa,Demography,2018,1,8199973922
+Prescribing,cwa,Demography,2019,1.014167745,8199973922
+Prescribing,cwa,Demography,2020,1.022621048,8199973922
+Prescribing,cwa,Demography,2021,1.033544706,8199973922
+Prescribing,cwa,Demography,2022,1.047119208,8199973922
+Prescribing,cwa,Demography,2023,1.05831915,8199973922
+Prescribing,cwa,Demography,2024,1.074433577,8199973922
+Prescribing,cwa,Demography,2025,1.089420262,8199973922
+Prescribing,cwa,Demography,2026,1.103976944,8199973922
+Prescribing,cwa,Demography,2027,1.120992953,8199973922
+Prescribing,cwa,Demography,2028,1.136005895,8199973922
+Prescribing,cwa,Demography,2029,1.150021847,8199973922
+Prescribing,cwa,Demography,2030,1.163696434,8199973922
+Prescribing,cwa,Demography,2031,1.177521619,8199973922
+Prescribing,cwa,Demography,2032,1.190888706,8199973922
+Prescribing,cwa,Demography,2033,1.203994338,8199973922
+Prescribing,cwa,Demography,2034,1.216727247,8199973922
+Prescribing,cwa,Demography,2035,1.228914405,8199973922
+Prescribing,cwa,Demography,2036,1.241095729,8199973922
+Prescribing,cwa,Demography,2037,1.253884852,8199973922
+Prescribing,cwa,Demography,2038,1.266702787,8199973922
+Prescribing,cwa,Demography,2039,1.28020901,8199973922
+Prescribing,cwa,Demography,2040,1.293708669,8199973922
+Prescribing,cwa,Morbidity,2018,1,8199973922
+Prescribing,cwa,Morbidity,2019,1.03481535,8199973922
+Prescribing,cwa,Morbidity,2020,1.061347517,8199973922
+Prescribing,cwa,Morbidity,2021,1.093222154,8199973922
+Prescribing,cwa,Morbidity,2022,1.125309319,8199973922
+Prescribing,cwa,Morbidity,2023,1.152346372,8199973922
+Prescribing,cwa,Morbidity,2024,1.185012523,8199973922
+Prescribing,cwa,Morbidity,2025,1.216308002,8199973922
+Prescribing,cwa,Morbidity,2026,1.247129173,8199973922
+Prescribing,cwa,Morbidity,2027,1.279018277,8199973922
+Prescribing,cwa,Morbidity,2028,1.309518257,8199973922
+Prescribing,cwa,Morbidity,2029,1.339655928,8199973922
+Prescribing,cwa,Morbidity,2030,1.369691417,8199973922
+Prescribing,cwa,Morbidity,2031,1.400655724,8199973922
+Prescribing,cwa,Morbidity,2032,1.430169471,8199973922
+Prescribing,cwa,Morbidity,2033,1.45912075,8199973922
+Prescribing,cwa,Morbidity,2034,1.488509825,8199973922
+Prescribing,cwa,Morbidity,2035,1.517162209,8199973922
+Prescribing,cwa,Morbidity,2036,1.544899727,8199973922
+Prescribing,cwa,Morbidity,2037,1.574558651,8199973922
+Prescribing,cwa,Morbidity,2038,1.603538628,8199973922
+Prescribing,cwa,Morbidity,2039,1.632045196,8199973922
+Prescribing,cwa,Morbidity,2040,1.661636672,8199973922
+Specialised,cwa,medium,2018,1,15900000000
+Specialised,cwa,medium,2019,1.066384986,15900000000
+Specialised,cwa,medium,2020,1.040573869,15900000000
+Specialised,cwa,medium,2021,1.148595862,15900000000
+Specialised,cwa,medium,2022,1.158148164,15900000000
+Specialised,cwa,medium,2023,1.185624827,15900000000
+Specialised,cwa,medium,2024,1.230514115,15900000000
+Specialised,cwa,medium,2025,1.257982503,15900000000
+Specialised,cwa,medium,2026,1.29790753,15900000000
+Specialised,cwa,medium,2027,1.328925562,15900000000
+Specialised,cwa,medium,2028,1.366312452,15900000000
+Specialised,cwa,medium,2029,1.399145354,15900000000
+Specialised,cwa,medium,2030,1.435234539,15900000000
+Specialised,cwa,medium,2031,1.468995352,15900000000
+Specialised,cwa,medium,2032,1.504421043,15900000000
+Specialised,cwa,medium,2033,1.53865628,15900000000
+Specialised,cwa,medium,2034,1.57374274,15900000000
+Specialised,cwa,medium,2035,1.608220541,15900000000
+Specialised,cwa,medium,2036,1.643133558,15900000000
+Specialised,cwa,medium,2037,1.677735378,15900000000
+Specialised,cwa,medium,2038,1.712559716,15900000000
+Specialised,cwa,medium,2039,1.747224945,15900000000
+Specialised,cwa,medium,2040,1.782003943,15900000000
+Specialised,cwa,lower,2018,1,15900000000
+Specialised,cwa,lower,2019,1.066384986,15900000000
+Specialised,cwa,lower,2020,1.040573869,15900000000
+Specialised,cwa,lower,2021,1.148595862,15900000000
+Specialised,cwa,lower,2022,1.158148164,15900000000
+Specialised,cwa,lower,2023,1.185624827,15900000000
+Specialised,cwa,lower,2024,1.230514115,15900000000
+Specialised,cwa,lower,2025,1.211247564,15900000000
+Specialised,cwa,lower,2026,1.249312132,15900000000
+Specialised,cwa,lower,2027,1.26771878,15900000000
+Specialised,cwa,lower,2028,1.301881467,15900000000
+Specialised,cwa,lower,2029,1.327051946,15900000000
+Specialised,cwa,lower,2030,1.359374165,15900000000
+Specialised,cwa,lower,2031,1.387471889,15900000000
+Specialised,cwa,lower,2032,1.419035905,15900000000
+Specialised,cwa,lower,2033,1.448614473,15900000000
+Specialised,cwa,lower,2034,1.479939162,15900000000
+Specialised,cwa,lower,2035,1.510346937,15900000000
+Specialised,cwa,lower,2036,1.541666738,15900000000
+Specialised,cwa,lower,2037,1.572582289,15900000000
+Specialised,cwa,lower,2038,1.603995285,15900000000
+Specialised,cwa,lower,2039,1.635249359,15900000000
+Specialised,cwa,lower,2040,1.666790321,15900000000
+Specialised,cwa,upper,2018,1,15900000000
+Specialised,cwa,upper,2019,1.066384986,15900000000
+Specialised,cwa,upper,2020,1.040573869,15900000000
+Specialised,cwa,upper,2021,1.148595862,15900000000
+Specialised,cwa,upper,2022,1.158148164,15900000000
+Specialised,cwa,upper,2023,1.185624827,15900000000
+Specialised,cwa,upper,2024,1.230514115,15900000000
+Specialised,cwa,upper,2025,1.304717442,15900000000
+Specialised,cwa,upper,2026,1.346502928,15900000000
+Specialised,cwa,upper,2027,1.390132345,15900000000
+Specialised,cwa,upper,2028,1.430743436,15900000000
+Specialised,cwa,upper,2029,1.471238762,15900000000
+Specialised,cwa,upper,2030,1.511094912,15900000000
+Specialised,cwa,upper,2031,1.550518814,15900000000
+Specialised,cwa,upper,2032,1.589806182,15900000000
+Specialised,cwa,upper,2033,1.628698088,15900000000
+Specialised,cwa,upper,2034,1.667546317,15900000000
+Specialised,cwa,upper,2035,1.706094145,15900000000
+Specialised,cwa,upper,2036,1.744600378,15900000000
+Specialised,cwa,upper,2037,1.782888466,15900000000
+Specialised,cwa,upper,2038,1.821124146,15900000000
+Specialised,cwa,upper,2039,1.85920053,15900000000
+Specialised,cwa,upper,2040,1.897217565,15900000000
+Mental Health,activity,Demography,2018,1,10111000000
+Mental Health,activity,Demography,2019,1.010719031,10111000000
+Mental Health,activity,Demography,2020,1.015716673,10111000000
+Mental Health,activity,Demography,2021,1.023889828,10111000000
+Mental Health,activity,Demography,2022,1.038111717,10111000000
+Mental Health,activity,Demography,2023,1.053393948,10111000000
+Mental Health,activity,Demography,2024,1.06865209,10111000000
+Mental Health,activity,Demography,2025,1.081987798,10111000000
+Mental Health,activity,Demography,2026,1.094192792,10111000000
+Mental Health,activity,Demography,2027,1.108747552,10111000000
+Mental Health,activity,Demography,2028,1.119727816,10111000000
+Mental Health,activity,Demography,2029,1.12855714,10111000000
+Mental Health,activity,Demography,2030,1.13626187,10111000000
+Mental Health,activity,Demography,2031,1.14356104,10111000000
+Mental Health,activity,Demography,2032,1.149687843,10111000000
+Mental Health,activity,Demography,2033,1.156138564,10111000000
+Mental Health,activity,Demography,2034,1.163125625,10111000000
+Mental Health,activity,Demography,2035,1.170691909,10111000000
+Mental Health,activity,Demography,2036,1.178912992,10111000000
+Mental Health,activity,Demography,2037,1.187086463,10111000000
+Mental Health,activity,Demography,2038,1.195718636,10111000000
+Mental Health,activity,Demography,2039,1.204140697,10111000000
+Mental Health,activity,Demography,2040,1.213182591,10111000000
+Mental Health,cwa,Demography,2018,1,10111000000
+Mental Health,cwa,Demography,2019,1.010229332,10111000000
+Mental Health,cwa,Demography,2020,1.015669565,10111000000
+Mental Health,cwa,Demography,2021,1.024521559,10111000000
+Mental Health,cwa,Demography,2022,1.038444433,10111000000
+Mental Health,cwa,Demography,2023,1.056286333,10111000000
+Mental Health,cwa,Demography,2024,1.071589789,10111000000
+Mental Health,cwa,Demography,2025,1.085286065,10111000000
+Mental Health,cwa,Demography,2026,1.09783775,10111000000
+Mental Health,cwa,Demography,2027,1.110319577,10111000000
+Mental Health,cwa,Demography,2028,1.119890674,10111000000
+Mental Health,cwa,Demography,2029,1.128774387,10111000000
+Mental Health,cwa,Demography,2030,1.137077929,10111000000
+Mental Health,cwa,Demography,2031,1.145272495,10111000000
+Mental Health,cwa,Demography,2032,1.15298991,10111000000
+Mental Health,cwa,Demography,2033,1.160806891,10111000000
+Mental Health,cwa,Demography,2034,1.169087488,10111000000
+Mental Health,cwa,Demography,2035,1.177726327,10111000000
+Mental Health,cwa,Demography,2036,1.186792715,10111000000
+Mental Health,cwa,Demography,2037,1.195479716,10111000000
+Mental Health,cwa,Demography,2038,1.203997971,10111000000
+Mental Health,cwa,Demography,2039,1.211928063,10111000000
+Mental Health,cwa,Demography,2040,1.220178633,10111000000
+Mental Health,activity,Morbidity,2018,1,10111000000
+Mental Health,activity,Morbidity,2019,1.021192593,10111000000
+Mental Health,activity,Morbidity,2020,1.037571058,10111000000
+Mental Health,activity,Morbidity,2021,1.057862517,10111000000
+Mental Health,activity,Morbidity,2022,1.083237773,10111000000
+Mental Health,activity,Morbidity,2023,1.108452871,10111000000
+Mental Health,activity,Morbidity,2024,1.133878074,10111000000
+Mental Health,activity,Morbidity,2025,1.158831438,10111000000
+Mental Health,activity,Morbidity,2026,1.182396907,10111000000
+Mental Health,activity,Morbidity,2027,1.206150777,10111000000
+Mental Health,activity,Morbidity,2028,1.226799017,10111000000
+Mental Health,activity,Morbidity,2029,1.244822886,10111000000
+Mental Health,activity,Morbidity,2030,1.262463568,10111000000
+Mental Health,activity,Morbidity,2031,1.280004396,10111000000
+Mental Health,activity,Morbidity,2032,1.29485017,10111000000
+Mental Health,activity,Morbidity,2033,1.3097208,10111000000
+Mental Health,activity,Morbidity,2034,1.326162025,10111000000
+Mental Health,activity,Morbidity,2035,1.342303548,10111000000
+Mental Health,activity,Morbidity,2036,1.359492298,10111000000
+Mental Health,activity,Morbidity,2037,1.375844883,10111000000
+Mental Health,activity,Morbidity,2038,1.393267829,10111000000
+Mental Health,activity,Morbidity,2039,1.409755889,10111000000
+Mental Health,activity,Morbidity,2040,1.426661638,10111000000
+Mental Health,cwa,Morbidity,2018,1,10111000000
+Mental Health,cwa,Morbidity,2019,1.020702894,10111000000
+Mental Health,cwa,Morbidity,2020,1.037523131,10111000000
+Mental Health,cwa,Morbidity,2021,1.058507485,10111000000
+Mental Health,cwa,Morbidity,2022,1.083580212,10111000000
+Mental Health,cwa,Morbidity,2023,1.111469096,10111000000
+Mental Health,cwa,Morbidity,2024,1.136967079,10111000000
+Mental Health,cwa,Morbidity,2025,1.162332094,10111000000
+Mental Health,cwa,Morbidity,2026,1.186300207,10111000000
+Mental Health,cwa,Morbidity,2027,1.207840135,10111000000
+Mental Health,cwa,Morbidity,2028,1.226967424,10111000000
+Mental Health,cwa,Morbidity,2029,1.245051949,10111000000
+Mental Health,cwa,Morbidity,2030,1.263354738,10111000000
+Mental Health,cwa,Morbidity,2031,1.281896957,10111000000
+Mental Health,cwa,Morbidity,2032,1.298534781,10111000000
+Mental Health,cwa,Morbidity,2033,1.314965587,10111000000
+Mental Health,cwa,Morbidity,2034,1.332906013,10111000000
+Mental Health,cwa,Morbidity,2035,1.350308251,10111000000
+Mental Health,cwa,Morbidity,2036,1.36851204,10111000000
+Mental Health,cwa,Morbidity,2037,1.385502286,10111000000
+Mental Health,cwa,Morbidity,2038,1.402844766,10111000000
+Mental Health,cwa,Morbidity,2039,1.418804994,10111000000
+Mental Health,cwa,Morbidity,2040,1.4348244,10111000000
+IAPT,activity,Demography,2018,1,489256654
+IAPT,activity,Demography,2019,1.004851263,489256654
+IAPT,activity,Demography,2020,1.005953503,489256654
+IAPT,activity,Demography,2021,1.010345863,489256654
+IAPT,activity,Demography,2022,1.018320749,489256654
+IAPT,activity,Demography,2023,1.0334531,489256654
+IAPT,activity,Demography,2024,1.044487573,489256654
+IAPT,activity,Demography,2025,1.054026461,489256654
+IAPT,activity,Demography,2026,1.062346655,489256654
+IAPT,activity,Demography,2027,1.069525526,489256654
+IAPT,activity,Demography,2028,1.074723699,489256654
+IAPT,activity,Demography,2029,1.079746928,489256654
+IAPT,activity,Demography,2030,1.084686475,489256654
+IAPT,activity,Demography,2031,1.089439791,489256654
+IAPT,activity,Demography,2032,1.093773231,489256654
+IAPT,activity,Demography,2033,1.097682603,489256654
+IAPT,activity,Demography,2034,1.101591832,489256654
+IAPT,activity,Demography,2035,1.105642668,489256654
+IAPT,activity,Demography,2036,1.109569738,489256654
+IAPT,activity,Demography,2037,1.112772787,489256654
+IAPT,activity,Demography,2038,1.116317354,489256654
+IAPT,activity,Demography,2039,1.12015412,489256654
+IAPT,activity,Demography,2040,1.123931784,489256654
+IAPT,cwa,Demography,2018,1,489256654
+IAPT,cwa,Demography,2019,1.004851263,489256654
+IAPT,cwa,Demography,2020,1.005953503,489256654
+IAPT,cwa,Demography,2021,1.010345863,489256654
+IAPT,cwa,Demography,2022,1.018320749,489256654
+IAPT,cwa,Demography,2023,1.0334531,489256654
+IAPT,cwa,Demography,2024,1.044487573,489256654
+IAPT,cwa,Demography,2025,1.054026461,489256654
+IAPT,cwa,Demography,2026,1.062346655,489256654
+IAPT,cwa,Demography,2027,1.069525526,489256654
+IAPT,cwa,Demography,2028,1.074723699,489256654
+IAPT,cwa,Demography,2029,1.079746928,489256654
+IAPT,cwa,Demography,2030,1.084686475,489256654
+IAPT,cwa,Demography,2031,1.089439791,489256654
+IAPT,cwa,Demography,2032,1.093773231,489256654
+IAPT,cwa,Demography,2033,1.097682603,489256654
+IAPT,cwa,Demography,2034,1.101591832,489256654
+IAPT,cwa,Demography,2035,1.105642668,489256654
+IAPT,cwa,Demography,2036,1.109569738,489256654
+IAPT,cwa,Demography,2037,1.112772787,489256654
+IAPT,cwa,Demography,2038,1.116317354,489256654
+IAPT,cwa,Demography,2039,1.12015412,489256654
+IAPT,cwa,Demography,2040,1.123931784,489256654
+IAPT,activity,Morbidity,2018,1,489256654
+IAPT,activity,Morbidity,2019,1.015324825,489256654
+IAPT,activity,Morbidity,2020,1.027702493,489256654
+IAPT,activity,Morbidity,2021,1.044018677,489256654
+IAPT,activity,Morbidity,2022,1.062801051,489256654
+IAPT,activity,Morbidity,2023,1.087688079,489256654
+IAPT,activity,Morbidity,2024,1.108495659,489256654
+IAPT,activity,Morbidity,2025,1.129180962,489256654
+IAPT,activity,Morbidity,2026,1.148319574,489256654
+IAPT,activity,Morbidity,2027,1.163873939,489256654
+IAPT,activity,Morbidity,2028,1.177928969,489256654
+IAPT,activity,Morbidity,2029,1.191452204,489256654
+IAPT,activity,Morbidity,2030,1.205653007,489256654
+IAPT,activity,Morbidity,2031,1.219942989,489256654
+IAPT,activity,Morbidity,2032,1.232408666,489256654
+IAPT,activity,Morbidity,2033,1.24405222,489256654
+IAPT,activity,Morbidity,2034,1.256581231,489256654
+IAPT,activity,Morbidity,2035,1.268322392,489256654
+IAPT,activity,Morbidity,2036,1.28016198,489256654
+IAPT,activity,Morbidity,2037,1.290380415,489256654
+IAPT,activity,Morbidity,2038,1.301448096,489256654
+IAPT,activity,Morbidity,2039,1.312155842,489256654
+IAPT,activity,Morbidity,2040,1.322463376,489256654
+IAPT,cwa,Morbidity,2018,1,489256654
+IAPT,cwa,Morbidity,2019,1.015324825,489256654
+IAPT,cwa,Morbidity,2020,1.027702493,489256654
+IAPT,cwa,Morbidity,2021,1.044018677,489256654
+IAPT,cwa,Morbidity,2022,1.062801051,489256654
+IAPT,cwa,Morbidity,2023,1.087688079,489256654
+IAPT,cwa,Morbidity,2024,1.108495659,489256654
+IAPT,cwa,Morbidity,2025,1.129180962,489256654
+IAPT,cwa,Morbidity,2026,1.148319574,489256654
+IAPT,cwa,Morbidity,2027,1.163873939,489256654
+IAPT,cwa,Morbidity,2028,1.177928969,489256654
+IAPT,cwa,Morbidity,2029,1.191452204,489256654
+IAPT,cwa,Morbidity,2030,1.205653007,489256654
+IAPT,cwa,Morbidity,2031,1.219942989,489256654
+IAPT,cwa,Morbidity,2032,1.232408666,489256654
+IAPT,cwa,Morbidity,2033,1.24405222,489256654
+IAPT,cwa,Morbidity,2034,1.256581231,489256654
+IAPT,cwa,Morbidity,2035,1.268322392,489256654
+IAPT,cwa,Morbidity,2036,1.28016198,489256654
+IAPT,cwa,Morbidity,2037,1.290380415,489256654
+IAPT,cwa,Morbidity,2038,1.301448096,489256654
+IAPT,cwa,Morbidity,2039,1.312155842,489256654
+IAPT,cwa,Morbidity,2040,1.322463376,489256654
+Maternity,activity,Demography,2018,1,2745400000
+Maternity,activity,Demography,2019,0.974845098,2745400000
+Maternity,activity,Demography,2020,0.932970342,2745400000
+Maternity,activity,Demography,2021,0.947613836,2745400000
+Maternity,activity,Demography,2022,0.915374315,2745400000
+Maternity,activity,Demography,2023,0.987347584,2745400000
+Maternity,activity,Demography,2024,0.999538425,2745400000
+Maternity,activity,Demography,2025,1.005010523,2745400000
+Maternity,activity,Demography,2026,1.008138354,2745400000
+Maternity,activity,Demography,2027,1.008953523,2745400000
+Maternity,activity,Demography,2028,1.008652726,2745400000
+Maternity,activity,Demography,2029,1.008443109,2745400000
+Maternity,activity,Demography,2030,1.008445989,2745400000
+Maternity,activity,Demography,2031,1.008915182,2745400000
+Maternity,activity,Demography,2032,1.009369499,2745400000
+Maternity,activity,Demography,2033,1.00982065,2745400000
+Maternity,activity,Demography,2034,1.01071651,2745400000
+Maternity,activity,Demography,2035,1.013651615,2745400000
+Maternity,activity,Demography,2036,1.018825756,2745400000
+Maternity,activity,Demography,2037,1.024311898,2745400000
+Maternity,activity,Demography,2038,1.029669218,2745400000
+Maternity,activity,Demography,2039,1.034848933,2745400000
+Maternity,activity,Demography,2040,1.038872323,2745400000
+Maternity,activity,Log growth,2018,1,2745400000
+Maternity,activity,Log growth,2019,0.973556452,2745400000
+Maternity,activity,Log growth,2020,0.930638142,2745400000
+Maternity,activity,Log growth,2021,0.944392156,2745400000
+Maternity,activity,Log growth,2022,0.912470004,2745400000
+Maternity,activity,Log growth,2023,0.98322037,2745400000
+Maternity,activity,Log growth,2024,0.994409248,2745400000
+Maternity,activity,Log growth,2025,0.998957782,2745400000
+Maternity,activity,Log growth,2026,1.001213749,2745400000
+Maternity,activity,Log growth,2027,1.001227999,2745400000
+Maternity,activity,Log growth,2028,1.000197952,2745400000
+Maternity,activity,Log growth,2029,0.999295394,2745400000
+Maternity,activity,Log growth,2030,0.9986219,2745400000
+Maternity,activity,Log growth,2031,0.998430172,2745400000
+Maternity,activity,Log growth,2032,0.998242414,2745400000
+Maternity,activity,Log growth,2033,0.998036983,2745400000
+Maternity,activity,Log growth,2034,0.998278041,2745400000
+Maternity,activity,Log growth,2035,1.000578198,2745400000
+Maternity,activity,Log growth,2036,1.005103,2745400000
+Maternity,activity,Log growth,2037,1.009942612,2745400000
+Maternity,activity,Log growth,2038,1.014718188,2745400000
+Maternity,activity,Log growth,2039,1.019376639,2745400000
+Maternity,activity,Log growth,2040,1.022916817,2745400000
+Maternity,activity,Linear growth,2018,1,2745400000
+Maternity,activity,Linear growth,2019,0.971015902,2745400000
+Maternity,activity,Linear growth,2020,0.925659136,2745400000
+Maternity,activity,Linear growth,2021,0.936652291,2745400000
+Maternity,activity,Linear growth,2022,0.90231163,2745400000
+Maternity,activity,Linear growth,2023,0.969318668,2745400000
+Maternity,activity,Linear growth,2024,0.977300029,2745400000
+Maternity,activity,Linear growth,2025,0.978656264,2745400000
+Maternity,activity,Linear growth,2026,0.977702295,2745400000
+Maternity,activity,Linear growth,2027,0.974515608,2745400000
+Maternity,activity,Linear growth,2028,0.970284677,2745400000
+Maternity,activity,Linear growth,2029,0.966157282,2745400000
+Maternity,activity,Linear growth,2030,0.962234084,2745400000
+Maternity,activity,Linear growth,2031,0.958758865,2745400000
+Maternity,activity,Linear growth,2032,0.955272647,2745400000
+Maternity,activity,Linear growth,2033,0.951757396,2745400000
+Maternity,activity,Linear growth,2034,0.948656614,2745400000
+Maternity,activity,Linear growth,2035,0.947494721,2745400000
+Maternity,activity,Linear growth,2036,0.948408998,2745400000
+Maternity,activity,Linear growth,2037,0.949582967,2745400000
+Maternity,activity,Linear growth,2038,0.950659838,2745400000
+Maternity,activity,Linear growth,2039,0.951591887,2745400000
+Maternity,activity,Linear growth,2040,0.951450134,2745400000
+Maternity,cwa,Demography,2018,1,2745400000
+Maternity,cwa,Demography,2019,0.97663733,2745400000
+Maternity,cwa,Demography,2020,0.937007953,2745400000
+Maternity,cwa,Demography,2021,0.95610987,2745400000
+Maternity,cwa,Demography,2022,0.913300346,2745400000
+Maternity,cwa,Demography,2023,0.986874697,2745400000
+Maternity,cwa,Demography,2024,1.00061666,2745400000
+Maternity,cwa,Demography,2025,1.007428592,2745400000
+Maternity,cwa,Demography,2026,1.011740032,2745400000
+Maternity,cwa,Demography,2027,1.013745936,2745400000
+Maternity,cwa,Demography,2028,1.014609938,2745400000
+Maternity,cwa,Demography,2029,1.015474657,2745400000
+Maternity,cwa,Demography,2030,1.016446168,2745400000
+Maternity,cwa,Demography,2031,1.017728592,2745400000
+Maternity,cwa,Demography,2032,1.018922537,2745400000
+Maternity,cwa,Demography,2033,1.020138997,2745400000
+Maternity,cwa,Demography,2034,1.021870805,2745400000
+Maternity,cwa,Demography,2035,1.025448184,2745400000
+Maternity,cwa,Demography,2036,1.031103032,2745400000
+Maternity,cwa,Demography,2037,1.037245795,2745400000
+Maternity,cwa,Demography,2038,1.043511603,2745400000
+Maternity,cwa,Demography,2039,1.049704941,2745400000
+Maternity,cwa,Demography,2040,1.054603453,2745400000
+Maternity,cwa,Log growth,2018,1,2745400000
+Maternity,cwa,Log growth,2019,0.980199437,2745400000
+Maternity,cwa,Log growth,2020,0.943408437,2745400000
+Maternity,cwa,Log growth,2021,0.965094908,2745400000
+Maternity,cwa,Log growth,2022,0.928268265,2745400000
+Maternity,cwa,Log growth,2023,1.005487823,2745400000
+Maternity,cwa,Log growth,2024,1.021814852,2745400000
+Maternity,cwa,Log growth,2025,1.030983039,2745400000
+Maternity,cwa,Log growth,2026,1.037498735,2745400000
+Maternity,cwa,Log growth,2027,1.041525831,2745400000
+Maternity,cwa,Log growth,2028,1.044263236,2745400000
+Maternity,cwa,Log growth,2029,1.046918011,2745400000
+Maternity,cwa,Log growth,2030,1.049617042,2745400000
+Maternity,cwa,Log growth,2031,1.052588688,2745400000
+Maternity,cwa,Log growth,2032,1.055412592,2745400000
+Maternity,cwa,Log growth,2033,1.058196012,2745400000
+Maternity,cwa,Log growth,2034,1.061442813,2745400000
+Maternity,cwa,Log growth,2035,1.066598951,2745400000
+Maternity,cwa,Log growth,2036,1.073918739,2745400000
+Maternity,cwa,Log growth,2037,1.081671045,2745400000
+Maternity,cwa,Log growth,2038,1.08945351,2745400000
+Maternity,cwa,Log growth,2039,1.097097924,2745400000
+Maternity,cwa,Log growth,2040,1.10338309,2745400000
+Maternity,cwa,Linear growth,2018,1,2745400000
+Maternity,cwa,Linear growth,2019,0.987060464,2745400000
+Maternity,cwa,Linear growth,2020,0.957026771,2745400000
+Maternity,cwa,Linear growth,2021,0.986563977,2745400000
+Maternity,cwa,Linear growth,2022,0.956488752,2745400000
+Maternity,cwa,Linear growth,2023,1.044548106,2745400000
+Maternity,cwa,Linear growth,2024,1.070418481,2745400000
+Maternity,cwa,Linear growth,2025,1.089271886,2745400000
+Maternity,cwa,Linear growth,2026,1.105707921,2745400000
+Maternity,cwa,Linear growth,2027,1.11982,2745400000
+Maternity,cwa,Linear growth,2028,1.132829753,2745400000
+Maternity,cwa,Linear growth,2029,1.14601336,2745400000
+Maternity,cwa,Linear growth,2030,1.15950227,2745400000
+Maternity,cwa,Linear growth,2031,1.173547695,2745400000
+Maternity,cwa,Linear growth,2032,1.187681012,2745400000
+Maternity,cwa,Linear growth,2033,1.202016301,2745400000
+Maternity,cwa,Linear growth,2034,1.217127833,2745400000
+Maternity,cwa,Linear growth,2035,1.234703405,2745400000
+Maternity,cwa,Linear growth,2036,1.255102866,2745400000
+Maternity,cwa,Linear growth,2037,1.276356913,2745400000
+Maternity,cwa,Linear growth,2038,1.298003004,2745400000
+Maternity,cwa,Linear growth,2039,1.319842388,2745400000
+Maternity,cwa,Linear growth,2040,1.340389732,2745400000
+A&E,cwa,Policy: Recovery,2018,1,3511161918
+A&E,cwa,Policy: Recovery,2019,1.025430773,3511161918
+A&E,cwa,Policy: Recovery,2020,1.045716162,3511161918
+A&E,cwa,Policy: Recovery,2021,1.068343145,3511161918
+A&E,cwa,Policy: Recovery,2022,1.096272954,3511161918
+A&E,cwa,Policy: Recovery,2023,1.104955235,3511161918
+A&E,cwa,Policy: Recovery,2024,1.133034379,3511161918
+A&E,cwa,Policy: Recovery,2025,1.159929671,3511161918
+A&E,cwa,Policy: Recovery,2026,1.185666714,3511161918
+A&E,cwa,Policy: Recovery,2027,1.211128701,3511161918
+A&E,cwa,Policy: Recovery,2028,1.235312733,3511161918
+A&E,cwa,Policy: Recovery,2029,1.258009954,3511161918
+A&E,cwa,Policy: Recovery,2030,1.280079572,3511161918
+A&E,cwa,Policy: Recovery,2031,1.301890499,3511161918
+A&E,cwa,Policy: Recovery,2032,1.323258235,3511161918
+A&E,cwa,Policy: Recovery,2033,1.344426561,3511161918
+A&E,cwa,Policy: Recovery,2034,1.365433382,3511161918
+A&E,cwa,Policy: Recovery,2035,1.386127304,3511161918
+A&E,cwa,Policy: Recovery,2036,1.406292652,3511161918
+A&E,cwa,Policy: Recovery,2037,1.427435208,3511161918
+A&E,cwa,Policy: Recovery,2038,1.448194734,3511161918
+A&E,cwa,Policy: Recovery,2039,1.468221174,3511161918
+A&E,cwa,Policy: Recovery,2040,1.488597031,3511161918
