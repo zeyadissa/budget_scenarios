@@ -600,7 +600,7 @@ server <- function(input, output, session) {
   observeEvent(input$scen_b,{
     updateSelectInput(
       inputId = 'ae_growth',
-      selected = 'Log growth'
+      selected = 'Policy: Recovery'
     )
     updateSelectInput(
       inputId = 'elective_growth',
